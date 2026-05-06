@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>Canvas</title>
 	<link rel="icon" type="image/svg+xml"
-		href="https://www.clipartmax.com/png/middle/191-1913494_adding-faculty-evaluators-tutors-si-leaders-and-canvas-instructure-logo.png" />
+		href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2750%27 fill=%27%23E31717%27/%3E%3Cpath d=%27M50 20 A30 30 0 0 1 70 50 A30 30 0 0 1 50 80 A30 30 0 0 1 30 50 A30 30 0 0 1 50 20%27 fill=%27white%27/%3E%3C/svg%3E" />
 	<style>
 		:root {
 			--text: #fff;
@@ -17,8 +17,6 @@
 			--card-hover: rgba(30, 36, 44, 0.75);
 			--bg-brightness: 1.0;
 			--bg-color: 255, 255, 255;
-			--premium-brightness: 1.0;
-			--premium-speed: 1.0;
 			--border-color: rgba(255, 255, 255, .13);
 		}
 
@@ -122,269 +120,6 @@
 			display: none;
 		}
 
-		#bg-layer.synthwave {
-			background: linear-gradient(180deg, #16213e 0%, #e94560 50%, #ff6b9d 100%);
-			animation: synthwave-pulse 4s ease-in-out infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.quantum {
-			background: linear-gradient(-45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
-			background-size: 400% 400%;
-			animation: quantum-shift calc(15s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.plasma {
-			background: radial-gradient(circle at 20% 50%, rgba(255, 0, 100, 0.4), transparent 50%),
-				radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.4), transparent 50%),
-				radial-gradient(circle at 40% 20%, rgba(100, 0, 255, 0.4), transparent 50%);
-			background-color: #0a0e27;
-			animation: plasma-flow calc(10s / var(--premium-speed)) ease-in-out infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.cyberpunk {
-			background: linear-gradient(45deg, #1a0033 0%, #330033 25%, #003333 50%, #1a0033 75%, #330033 100%);
-			background-size: 400% 400%;
-			animation: cyberpunk-shift calc(6s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.sunset {
-			background: linear-gradient(180deg, #ff6b35 0%, #f7931e 25%, #fbb040 50%, #f7931e 75%, #c1272d 100%);
-			background-size: 400% 400%;
-			animation: sunset-shift calc(8s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.forest {
-			background: linear-gradient(135deg, #0b5345 0%, #1a7659 50%, #2d9d78 100%);
-			animation: forest-pulse calc(6s / var(--premium-speed)) ease-in-out infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.ocean {
-			background: linear-gradient(180deg, #001f3f 0%, #0074d9 50%, #7fdbca 100%);
-			animation: ocean-wave calc(10s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.lava {
-			background: linear-gradient(135deg, #1a0000 0%, #6b0000 25%, #ff4500 50%, #ff8c00 75%, #1a0000 100%);
-			background-size: 400% 400%;
-			animation: lava-shift calc(5s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.midnight {
-			background: linear-gradient(180deg, #0a0e27 0%, #16213e 50%, #1a1a3a 100%);
-			animation: midnight-glow calc(4s / var(--premium-speed)) ease-in-out infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.cosmic {
-			background: radial-gradient(circle at 30% 40%, rgba(200, 100, 255, 0.3), transparent 40%),
-				radial-gradient(circle at 70% 70%, rgba(100, 200, 255, 0.3), transparent 50%),
-				radial-gradient(circle at 50% 10%, rgba(255, 100, 200, 0.2), transparent 60%);
-			background-color: #0a0e27;
-			animation: cosmic-float calc(12s / var(--premium-speed)) ease-in-out infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.neon-dream {
-			background: linear-gradient(45deg, #0a0e27 0%, #1a0033 25%, #330033 50%, #1a3d66 75%, #0a0e27 100%);
-			background-size: 400% 400%;
-			animation: neon-dream-shift calc(8s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.fire-sky {
-			background: linear-gradient(180deg, #1a0000 0%, #330000 20%, #ff4500 40%, #ff6b35 60%, #ffa500 80%, #1a0000 100%);
-			background-size: 100% 200%;
-			animation: fire-sky-shift calc(6s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		#bg-layer.ice-cave {
-			background: linear-gradient(135deg, #001a33 0%, #003366 25%, #0066cc 50%, #00ccff 75%, #001a33 100%);
-			background-size: 400% 400%;
-			animation: ice-cave-shift calc(7s / var(--premium-speed)) ease infinite;
-			opacity: var(--premium-brightness);
-		}
-
-		@keyframes synthwave-pulse {
-
-			0%,
-			100% {
-				opacity: var(--premium-brightness);
-			}
-
-			50% {
-				opacity: calc(var(--premium-brightness) * 0.8);
-			}
-		}
-
-		@keyframes quantum-shift {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
-		@keyframes plasma-flow {
-
-			0%,
-			100% {
-				transform: scale(1);
-			}
-
-			50% {
-				transform: scale(1.05);
-			}
-		}
-
-		@keyframes cyberpunk-shift {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
-		@keyframes sunset-shift {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
-		@keyframes forest-pulse {
-
-			0%,
-			100% {
-				filter: brightness(1);
-			}
-
-			50% {
-				filter: brightness(1.2);
-			}
-		}
-
-		@keyframes ocean-wave {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
-		@keyframes lava-shift {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
-		@keyframes midnight-glow {
-
-			0%,
-			100% {
-				filter: brightness(1);
-			}
-
-			50% {
-				filter: brightness(1.15);
-			}
-		}
-
-		@keyframes cosmic-float {
-
-			0%,
-			100% {
-				transform: scale(1);
-			}
-
-			50% {
-				transform: scale(1.02);
-			}
-		}
-
-		@keyframes neon-dream-shift {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
-		@keyframes fire-sky-shift {
-			0% {
-				background-position: 0% 0%;
-			}
-
-			50% {
-				background-position: 0% 100%;
-			}
-
-			100% {
-				background-position: 0% 0%;
-			}
-		}
-
-		@keyframes ice-cave-shift {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
-		}
-
 		@keyframes twinkle {
 
 			0%,
@@ -461,8 +196,37 @@
 			color: rgba(255, 255, 255, .35);
 		}
 
-		#top-right {
+		/* ── TAB BUTTONS ── */
+		#tab-buttons {
+			display: flex;
+			gap: 8px;
 			margin-left: auto;
+			margin-right: 10px;
+		}
+
+		.tab-btn {
+			background: rgba(255, 255, 255, .08);
+			border: none;
+			color: rgba(255, 255, 255, .6);
+			padding: 6px 12px;
+			border-radius: 6px;
+			font-size: 12px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .2s, color .2s;
+		}
+
+		.tab-btn:hover {
+			background: rgba(255, 255, 255, .15);
+			color: rgba(255, 255, 255, .8);
+		}
+
+		.tab-btn.active {
+			background: rgba(255, 255, 255, .2);
+			color: #fff;
+		}
+
+		#top-right {
 			display: flex;
 			align-items: center;
 			gap: 10px;
@@ -505,6 +269,11 @@
 
 		#content {
 			padding: 20px 20px 40px;
+			display: block;
+		}
+
+		#content.hidden {
+			display: none;
 		}
 
 		.section-header {
@@ -535,6 +304,25 @@
 			display: grid;
 			grid-template-columns: repeat(6, 1fr);
 			gap: 20px;
+		}
+
+		/* ── BROWSER ── */
+		#browser-container {
+			display: none;
+			width: 100%;
+			height: 100%;
+		}
+
+		#browser-container.active {
+			display: flex;
+			flex-direction: column;
+		}
+
+		#browser-frame {
+			width: 100%;
+			flex: 1;
+			border: none;
+			background: #fff;
 		}
 
 		/* ── CARDS ── */
@@ -633,22 +421,6 @@
 
 		.card-fav:hover {
 			color: #ffd700;
-		}
-
-		.card.req {
-			border: 2px dashed rgba(255, 165, 0, .5);
-		}
-
-		.card.req .card-name {
-			color: #ffa500;
-		}
-
-		body.glow-on .card:hover {
-			box-shadow: 0 0 20px rgba(255, 255, 255, .22);
-		}
-
-		body.hover-off .card:hover {
-			transform: none !important;
 		}
 
 		/* ── OVERLAY ── */
@@ -1051,6 +823,7 @@
 			text-align: center;
 			transition: background .2s;
 			border: none;
+			width: 100%;
 		}
 
 		.settings-btn:hover {
@@ -1187,175 +960,6 @@
 			background: rgba(255, 255, 255, .05);
 		}
 
-		.border-color-swatches {
-			display: flex;
-			gap: 8px;
-			flex-wrap: wrap;
-			margin-bottom: 10px;
-		}
-
-		.border-color-swatch {
-			width: 32px;
-			height: 32px;
-			border-radius: 4px;
-			cursor: pointer;
-			border: 2px solid transparent;
-			transition: border-color .2s, transform .15s;
-			flex-shrink: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.border-color-swatch:hover {
-			transform: scale(1.1);
-		}
-
-		.border-color-swatch.active {
-			border-color: #fff;
-			box-shadow: 0 0 8px currentColor;
-		}
-
-		.border-color-swatch.active::after {
-			content: '✓';
-			color: #fff;
-			font-weight: bold;
-			font-size: 14px;
-		}
-
-		/* ── INFO / WHATS NEW MODAL ── */
-		#info-modal {
-			display: none;
-			position: fixed;
-			z-index: 105;
-			inset: 0;
-			background: rgba(0, 0, 0, .8);
-			backdrop-filter: blur(8px);
-		}
-
-		#info-modal.on {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.info-box {
-			background: rgba(13, 17, 23, 0.97);
-			backdrop-filter: blur(12px);
-			padding: 32px;
-			border-radius: 16px;
-			max-width: 520px;
-			width: 90%;
-			color: #fff;
-			border: 1px solid rgba(255, 255, 255, .15);
-		}
-
-		.info-box h2 {
-			margin-bottom: 6px;
-			font-size: 1.4rem;
-		}
-
-		.info-subtitle {
-			font-size: 13px;
-			color: rgba(255, 255, 255, .4);
-			margin-bottom: 20px;
-		}
-
-		#whats-new-content {
-			font-size: 14px;
-			line-height: 1.8;
-			color: rgba(255, 255, 255, .8);
-			margin-bottom: 20px;
-		}
-
-		#whats-new-content h3 {
-			color: #fff;
-			font-size: 15px;
-			margin: 16px 0 8px;
-		}
-
-		#whats-new-content ul {
-			padding-left: 18px;
-		}
-
-		#whats-new-content li {
-			margin-bottom: 4px;
-		}
-
-		#whats-new-content .tag {
-			display: inline-block;
-			padding: 1px 8px;
-			border-radius: 4px;
-			font-size: 11px;
-			font-weight: 700;
-			margin-left: 6px;
-			vertical-align: middle;
-		}
-
-		#whats-new-content .tag.new {
-			background: rgba(80, 220, 120, .25);
-			color: #50dc78;
-		}
-
-		#whats-new-content .tag.fix {
-			background: rgba(255, 180, 50, .2);
-			color: #ffb432;
-		}
-
-		.info-divider {
-			height: 1px;
-			background: rgba(255, 255, 255, .1);
-			margin: 16px 0;
-		}
-
-		.info-footer {
-			display: flex;
-			gap: 10px;
-			justify-content: center;
-			margin-top: 4px;
-		}
-
-		.info-btn {
-			padding: 10px 24px;
-			border: none;
-			border-radius: 8px;
-			cursor: pointer;
-			font-weight: 700;
-			font-size: 14px;
-			transition: all .2s;
-		}
-
-		.info-btn-primary {
-			background: #fff;
-			color: #000;
-		}
-
-		.info-btn-primary:hover {
-			background: #ddd;
-		}
-
-		.info-btn-secondary {
-			background: rgba(255, 255, 255, .08);
-			color: rgba(255, 255, 255, .8);
-			border: 1px solid rgba(255, 255, 255, .15);
-		}
-
-		.info-btn-secondary:hover {
-			background: rgba(255, 255, 255, .14);
-		}
-
-		/* ── TOPBAR COLOR PICKER ── */
-		#topbar-color-picker {
-			width: 100%;
-			height: 36px;
-			border: 1px solid rgba(255, 255, 255, .2);
-			border-radius: 8px;
-			cursor: pointer;
-			padding: 2px;
-			background: rgba(255, 255, 255, .05);
-			margin-top: 8px;
-		}
-
 		#premium-password {
 			width: 100%;
 			padding: 10px;
@@ -1388,17 +992,65 @@
 		#unlock-premium-btn:hover {
 			background: rgba(100, 200, 255, .3) !important;
 		}
+
+		/* ── LINKS SECTION ── */
+		#links-container {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		.link-card {
+			background: rgba(255, 255, 255, .05);
+			border: 1px solid rgba(255, 255, 255, .15);
+			border-radius: 8px;
+			padding: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			transition: all .2s;
+			cursor: pointer;
+		}
+
+		.link-card:hover {
+			background: rgba(255, 255, 255, .1);
+			border-color: rgba(255, 255, 255, .25);
+		}
+
+		.link-card-clickable {
+			flex: 1;
+			cursor: pointer;
+		}
+
+		.link-info {
+			flex: 1;
+		}
+
+		.link-title {
+			font-weight: 600;
+			color: #fff;
+			margin-bottom: 4px;
+		}
+
+		.link-url {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .5);
+			word-break: break-all;
+		}
 	</style>
 </head>
 
 <body>
 	<canvas id="bg-canvas"></canvas>
-	<canvas id="nebula-canvas"></canvas>
 	<div id="bg-layer" class="stars"></div>
 
 	<div id="topbar">
 		<div id="logo">MathLine</div>
 		<input id="search" type="text" placeholder="Search games..." />
+		<div id="tab-buttons">
+			<button class="tab-btn active" data-tab="games">Games</button>
+			<button class="tab-btn" data-tab="browser">Browser</button>
+		</div>
 		<div id="top-right">
 			<button id="info-btn" title="What's New">🔔</button>
 			<button id="settings-btn" title="Settings">⚙</button>
@@ -1412,6 +1064,9 @@
 				<span class="section-count" id="game-count">0 games</span>
 			</div>
 			<div id="game-list"></div>
+		</div>
+		<div id="browser-container">
+			<iframe id="browser-frame" src="https://unpkg.com/browselucide@1.0.2/logo.svg#/"></iframe>
 		</div>
 	</div>
 
@@ -1441,39 +1096,6 @@
 			<div class="mbtns">
 				<button class="mbplay" id="play-game-btn">▶ Play Now</button>
 				<button class="mbclose" id="close-game-modal">Close</button>
-			</div>
-		</div>
-	</div>
-
-	<div id="info-modal">
-		<div class="info-box">
-			<h2>🔔 What's New</h2>
-			<div class="info-subtitle">MathLine · Last updated April 2025</div>
-			<div id="whats-new-content">
-				<h3>Latest Updates</h3>
-				<ul>
-					<li>Rain speed control (replaces drop count) <span class="tag new">New</span></li>
-					<li>Multi-colored nebula — each cloud drifts with its own color <span class="tag new">New</span>
-					</li>
-					<li>Category filters removed for a cleaner look <span class="tag new">New</span></li>
-					<li>Play count now tracked and shown on cards <span class="tag new">New</span></li>
-					<li>Big bottom loading bar replaces the small centered one <span class="tag new">New</span></li>
-					<li>Default grid set to Extra Large (8 cards per row) <span class="tag new">New</span></li>
-					<li>Popup no longer overrides the user's toggle setting <span class="tag fix">Fix</span></li>
-					<li>Back button now properly stops game audio <span class="tag fix">Fix</span></li>
-					<li>Loading screen uses iframe load event instead of fixed timer <span class="tag fix">Fix</span>
-					</li>
-					<li>localStorage keys namespaced to avoid collisions <span class="tag fix">Fix</span></li>
-				</ul>
-				<h3>Coming Soon</h3>
-				<ul>
-					<li>More games being added regularly</li>
-					<li>If you find a broken game, use the Request form to let us know</li>
-				</ul>
-			</div>
-			<div class="info-divider"></div>
-			<div class="info-footer">
-				<button class="info-btn info-btn-primary" id="close-info">Got it!</button>
 			</div>
 		</div>
 	</div>
@@ -1600,8 +1222,6 @@
 							<label for="custom-color">Custom:</label>
 							<input type="color" id="custom-color" value="#ffffff">
 					</div>
-							<div class="settings-description" style="margin-top:6px;">Note: Nebula ignores this — it
-								uses its own rainbow colors</div>
 						</div>
 					</div>
 
@@ -1660,17 +1280,6 @@
 								<div class="settings-description">Show how many times each game has been played</div>
 							</div>
 						</div>
-						<div class="settings-group">
-							<span class="settings-group-title">What's New Popup</span>
-							<div class="settings-option">
-								<label><span>Show on Every Load</span><button class="settings-toggle" id="shownews-toggle"></button></label>
-								<div class="settings-description">Show the What's New popup every time the page loads
-								</div>
-							</div>
-							<div class="settings-buttons" style="margin-top:10px;">
-								<button class="settings-btn" id="open-news-btn">Preview What's New</button>
-							</div>
-						</div>
 					</div>
 
 					<!-- ADVANCED -->
@@ -1684,7 +1293,7 @@
 						</div>
 						<div class="settings-group">
 							<span class="settings-group-title">Topbar Color</span>
-							<input type="color" id="topbar-color-picker" value="#0a0e14" title="Topbar color">
+							<input type="color" id="topbar-color-picker" value="#0a0e14" title="Topbar color" style="width:100%;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;padding:2px;background:rgba(255,255,255,.05);margin-top:8px;">
 							<div class="settings-description" style="margin-top:6px;">Change the color of the top
 								navigation bar</div>
 						</div>
@@ -1695,63 +1304,10 @@
 							</div>
 							<div class="settings-description">Reset all settings to defaults and reload</div>
 						</div>
-						<div class="settings-group">
-							<input type="password" id="premium-password" placeholder="" />
-							<button id="unlock-premium-btn" class="settings-btn">Unlock</button>
-						</div>
-						<div id="premium-content" style="display:none;">
-							<div class="settings-group">
-								<span class="settings-group-title">Backgrounds</span>
-								<div class="bg-grid-options">
-									<button class="bg-option" data-bg="synthwave">Synthwave</button>
-									<button class="bg-option" data-bg="quantum">Quantum</button>
-									<button class="bg-option" data-bg="plasma">Plasma</button>
-									<button class="bg-option" data-bg="cyberpunk">Cyberpunk</button>
-									<button class="bg-option" data-bg="sunset">Sunset</button>
-									<button class="bg-option" data-bg="forest">Forest</button>
-									<button class="bg-option" data-bg="ocean">Ocean</button>
-									<button class="bg-option" data-bg="lava">Lava</button>
-									<button class="bg-option" data-bg="midnight">Midnight</button>
-									<button class="bg-option" data-bg="cosmic">Cosmic</button>
-									<button class="bg-option" data-bg="neon-dream">Neon Dream</button>
-									<button class="bg-option" data-bg="fire-sky">Fire Sky</button>
-								</div>
-							</div>
-							<div class="settings-group">
-								<span class="settings-group-title">Animation Speed</span>
-								<div class="slider-row">
-									<span>Speed multiplier</span>
-									<span class="slider-val" id="premium-speed-value">1x</span>
-								</div>
-								<input type="range" id="premium-speed-slider" class="range-slider" min="0.2" max="3" step="0.1" value="1">
-								<div class="settings-description">Adjust animation speed for premium backgrounds</div>
-							</div>
-							<div class="settings-group">
-								<span class="settings-group-title">Background Brightness</span>
-								<div class="slider-row">
-									<span>Brightness level</span>
-									<span class="slider-val" id="premium-brightness-value">100%</span>
-								</div>
-								<input type="range" id="premium-brightness-slider" class="range-slider" min="10" max="100" value="100">
-								<div class="settings-description">Adjust brightness for premium backgrounds</div>
-							</div>
-							<div class="settings-group">
-								<span class="settings-group-title">Card Border Color</span>
-								<div class="border-color-swatches">
-									<div class="border-color-swatch active" data-border="rgba(255,255,255,.13)"
-										style="background:rgba(255,255,255,.3);" title="Default"></div>
-									<div class="border-color-swatch" data-border="rgba(255,215,0,.3)"
-										style="background:rgba(255,215,0,.6);" title="Gold"></div>
-									<div class="border-color-swatch" data-border="rgba(0,255,200,.3)"
-										style="background:rgba(0,255,200,.6);" title="Neon Cyan"></div>
-									<div class="border-color-swatch" data-border="rgba(255,0,200,.3)"
-										style="background:rgba(255,0,200,.6);" title="Neon Pink"></div>
-									<div class="border-color-swatch" data-border="rgba(100,200,255,.3)"
-										style="background:rgba(100,200,255,.6);" title="Neon Blue"></div>
-									<div class="border-color-swatch" data-border="rgba(255,100,50,.3)"
-										style="background:rgba(255,100,50,.6);" title="Neon Orange"></div>
-								</div>
-							</div>
+						<input type="password" id="premium-password" placeholder="" />
+						<button id="unlock-premium-btn" class="settings-btn">Unlock</button>
+						<div id="premium-content" style="display:none; margin-top: 16px;">
+							<div id="links-container"></div>
 						</div>
 					</div>
 
@@ -1759,11 +1315,15 @@
 			</div>
 
 			<script>
-				const SHOW_INFO_ON_LOAD = false;
-	const WHATS_NEW_VERSION = '1';
+				const SK = 'mathline.';
+	const PREMIUM_PASSWORD = '4557';
 
-	const SK = 'mathline.';
-	const PREMIUM_PASSWORD = '4557299';
+	// ── EDIT YOUR LINKS HERE ──
+	const DEFAULT_LINKS = [
+		{ title: 'lucide', url: 'https://unpkg.com/browselucide@1.0.2/logo.svg#/' },
+		{ title: 'Zodiac', url: 'https://cdn.jsdelivr.net/gh/darkdragonzxs/zd-pages@latest/svg.svg' },
+		{ title: 'Sean Beans', url: 'https://cdn.jsdelivr.net/gh/Mr-Calvin-Math-Class/exponential-differential-2561@main/INVADDEX.SVG' },
+	];
 
 	const GAMES = [
 	  {n:'Ragdoll Archers',u:'Ragdoll-Archers.html'},
@@ -1880,7 +1440,6 @@
 	let favorites = new Set(JSON.parse(localStorage.getItem(SK+'favorites') || '[]'));
 	let playCounts = JSON.parse(localStorage.getItem(SK+'playCounts') || '{}');
 	let premiumUnlocked = localStorage.getItem(SK+'premiumUnlocked') === 'true';
-	let currentSearchQuery = '';
 
 	const ls = k => localStorage.getItem(SK + k);
 	const lss = (k,v) => localStorage.setItem(SK + k, v);
@@ -1900,475 +1459,10 @@
 		fontSize: parseInt(ls('fontSize') || '13'),
 		cardRadius: parseInt(ls('cardRadius') || '10'),
 		cardGap: parseInt(ls('cardGap') || '20'),
-		showNewsOnLoad: ls('showNewsOnLoad') === 'true',
 		topbarColor: ls('topbarColor') || '#0a0e14',
 		nebulaSpeed: parseInt(ls('nebulaSpeed') || '3'),
 		rainSpeed: parseInt(ls('rainSpeed') || '3'),
-		premiumSpeed: parseFloat(ls('premiumSpeed') || '1'),
-		premiumBrightness: parseInt(ls('premiumBrightness') || '100'),
-		borderColor: ls('borderColor') || 'rgba(255,255,255,.13)',
 	};
-
-	const canvas = document.getElementById('bg-canvas');
-	const ctx = canvas.getContext('2d');
-	let drops = [], rainRAF = null, rainRGB = [255,255,255];
-
-	function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-
-	function initDrops() {
-		drops = [];
-		const count = Math.floor(canvas.width / 12 * 0.8);
-		for (let i = 0; i < count; i++) drops.push({
-			x: Math.random() * canvas.width,
-			y: Math.random() * canvas.height,
-			len: Math.random() * 14 + 8,
-			spd: 0,
-			op: Math.random() * 0.5 + 0.2,
-			w: Math.random() < 0.4 ? 1.5 : 1
-		});
-	}
-
-	function dropSpeed() {
-		const map = {1: 0.6, 2: 1.2, 3: 2.2, 4: 4.0, 5: 6.5};
-		return map[settings.rainSpeed] || 2.2;
-	}
-
-	function animRain() {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		const br = settings.bgBrightness / 100;
-		const [r,g,b] = rainRGB;
-		const spd = dropSpeed();
-		for (const d of drops) {
-			ctx.beginPath();
-			ctx.moveTo(d.x, d.y);
-			ctx.lineTo(d.x - (spd * 0.1), d.y + d.len);
-			ctx.strokeStyle = `rgba(${r},${g},${b},${d.op * br})`;
-			ctx.lineWidth = d.w;
-			ctx.stroke();
-			d.y += spd;
-			if (d.y - d.len > canvas.height) {
-				d.y = -d.len; d.x = Math.random() * canvas.width; d.op = Math.random() * 0.5 + 0.2;
-			}
-		}
-		rainRAF = requestAnimationFrame(animRain);
-	}
-
-	function startRain() {
-		resizeCanvas(); initDrops(); canvas.style.display = 'block';
-		if (rainRAF) cancelAnimationFrame(rainRAF);
-		animRain();
-	}
-	function stopRain() {
-		if (rainRAF) { cancelAnimationFrame(rainRAF); rainRAF = null; }
-		canvas.style.display = 'none';
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-	}
-
-	window.addEventListener('resize', () => {
-		if (settings.bgEffect === 'rain') {
-			if (rainRAF) cancelAnimationFrame(rainRAF);
-			resizeCanvas(); initDrops(); animRain();
-		}
-		if (settings.bgEffect === 'nebula') resizeNebula();
-	});
-
-	const nCanvas = document.getElementById('nebula-canvas');
-	const nCtx = nCanvas.getContext('2d');
-	let nebulaRAF = null, nebulaT = 0;
-
-	const NEBULA_BLOBS = [
-		{ x0: 0.15, y0: 0.40, rx: 0.38, ry: 0.30, a: 0.22, hue: 200, hueSpd: 0.15, dx: 1.0, dy: 0.7 },
-		{ x0: 0.82, y0: 0.58, rx: 0.32, ry: 0.28, a: 0.18, hue: 290, hueSpd: 0.11, dx: 0.8, dy: 1.1 },
-		{ x0: 0.50, y0: 0.12, rx: 0.28, ry: 0.22, a: 0.14, hue: 140, hueSpd: 0.09, dx: 0.5, dy: 0.9 },
-		{ x0: 0.30, y0: 0.85, rx: 0.30, ry: 0.24, a: 0.16, hue: 30, hueSpd: 0.13, dx: 1.2, dy: 0.6 },
-	];
-
-	function resizeNebula() { nCanvas.width = window.innerWidth; nCanvas.height = window.innerHeight; }
-
-	function animNebula() {
-		const speedMap = {1:0.0002, 2:0.0004, 3:0.0007, 4:0.0012, 5:0.002};
-		const spd = speedMap[settings.nebulaSpeed] || 0.0007;
-		nebulaT += spd;
-
-		const w = nCanvas.width, h = nCanvas.height;
-		const br = settings.bgBrightness / 100;
-
-		nCtx.clearRect(0, 0, w, h);
-
-		for (const bl of NEBULA_BLOBS) {
-			bl.hue = (bl.hue + bl.hueSpd) % 360;
-
-			const bx = bl.x0 + Math.sin(nebulaT * bl.dx) * 0.08;
-			const by = bl.y0 + Math.cos(nebulaT * bl.dy) * 0.10;
-			const pulse = 0.85 + Math.sin(nebulaT * 2.3 + bl.x0 * 10) * 0.15;
-
-			const hsl0 = `hsla(${bl.hue}, 70%, 65%, ${bl.a * br})`;
-			const hsl1 = `hsla(${bl.hue}, 70%, 65%, ${bl.a * 0.4 * br})`;
-
-			const grd = nCtx.createRadialGradient(
-				bx * w, by * h, 0,
-				bx * w, by * h, Math.max(bl.rx * w, bl.ry * h) * pulse
-			);
-			grd.addColorStop(0, hsl0);
-			grd.addColorStop(0.5, hsl1);
-			grd.addColorStop(1, 'transparent');
-
-			nCtx.save();
-			nCtx.translate(bx * w, by * h);
-			nCtx.scale(1, bl.ry / bl.rx);
-			nCtx.translate(-bx * w, -by * h);
-			nCtx.fillStyle = grd;
-			nCtx.beginPath();
-			nCtx.arc(bx * w, by * h, bl.rx * w * pulse, 0, Math.PI * 2);
-			nCtx.fill();
-			nCtx.restore();
-		}
-
-		nebulaRAF = requestAnimationFrame(animNebula);
-	}
-
-	function startNebula() {
-		resizeNebula(); nCanvas.style.display = 'block';
-		if (nebulaRAF) cancelAnimationFrame(nebulaRAF);
-		animNebula();
-	}
-	function stopNebula() {
-		if (nebulaRAF) { cancelAnimationFrame(nebulaRAF); nebulaRAF = null; }
-		nCanvas.style.display = 'none';
-		nCtx.clearRect(0, 0, nCanvas.width, nCanvas.height);
-	}
-
-	function hexToRgb(hex) { return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)].join(','); }
-	function rgbToHex(rgb) { return '#' + rgb.split(',').map(v => parseInt(v).toString(16).padStart(2,'0')).join(''); }
-
-	function applyColor(rgb) {
-		settings.bgColor = rgb; lss('bgColor', rgb);
-		document.documentElement.style.setProperty('--bg-color', rgb);
-		rainRGB = rgb.split(',').map(Number);
-		try { document.getElementById('custom-color').value = rgbToHex(rgb); } catch(e){}
-		document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('active', s.dataset.rgb === rgb));
-	}
-
-	function applyEffect(effect) {
-		settings.bgEffect = effect; lss('bgEffect', effect);
-		const layer = document.getElementById('bg-layer');
-		stopRain(); stopNebula();
-		if (effect === 'rain') { layer.className = 'none'; startRain(); }
-		else if (effect === 'nebula') { layer.className = 'nebula'; startNebula(); }
-		else { layer.className = effect; }
-		document.querySelectorAll('.bg-option').forEach(o => o.classList.toggle('active', o.dataset.bg === effect));
-		document.getElementById('nebula-speed-group').style.display = effect === 'nebula' ? '' : 'none';
-		document.getElementById('rain-speed-group').style.display = effect === 'rain' ? '' : 'none';
-	}
-
-	function applyBrightness(val) {
-		settings.bgBrightness = parseInt(val); lss('bgBrightness', val);
-		document.documentElement.style.setProperty('--bg-brightness', val / 100);
-		document.getElementById('brightness-value').textContent = val + '%';
-	}
-
-	function applyPremiumBrightness(val) {
-		settings.premiumBrightness = parseInt(val); lss('premiumBrightness', val);
-		document.getElementById('premium-brightness-value').textContent = val + '%';
-		document.documentElement.style.setProperty('--premium-brightness', val / 100);
-	}
-
-	function applyPremiumSpeed(val) {
-		settings.premiumSpeed = parseFloat(val); lss('premiumSpeed', val);
-		document.getElementById('premium-speed-value').textContent = val + 'x';
-		document.documentElement.style.setProperty('--premium-speed', val);
-	}
-
-	function applyBorderColor(borderColor) {
-		settings.borderColor = borderColor; lss('borderColor', borderColor);
-		document.documentElement.style.setProperty('--border-color', borderColor);
-		document.querySelectorAll('.border-color-swatch').forEach(s => s.classList.toggle('active', s.dataset.border === borderColor));
-	}
-
-	function applyCardOpacity(val) {
-		settings.cardOpacity = parseInt(val); lss('cardOpacity', val);
-		document.getElementById('opacity-value').textContent = val + '%';
-		const o = val / 100;
-		document.documentElement.style.setProperty('--card-bg', `rgba(22,27,34,${o})`);
-		document.documentElement.style.setProperty('--card-hover', `rgba(30,36,44,${Math.min(o + 0.2, 1)})`);
-	}
-
-	function applyFontSize(val) {
-		settings.fontSize = parseInt(val); lss('fontSize', val);
-		document.getElementById('fontsize-value').textContent = val + 'px';
-		document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = val + 'px');
-	}
-
-	function applyCardRadius(val) {
-		settings.cardRadius = parseInt(val); lss('cardRadius', val);
-		document.getElementById('radius-value').textContent = val + 'px';
-		document.querySelectorAll('.card').forEach(el => el.style.borderRadius = val + 'px');
-	}
-
-	function applyCardGap(val) {
-		settings.cardGap = parseInt(val); lss('cardGap', val);
-		document.getElementById('gap-value').textContent = val + 'px';
-		document.getElementById('game-list').style.gap = val + 'px';
-	}
-
-	function applyTopbarColor(color) {
-		settings.topbarColor = color; lss('topbarColor', color);
-		document.getElementById('topbar').style.background = color;
-	}
-
-	function updateGridSize() {
-		const gl = document.getElementById('game-list');
-		const map = { small: 'repeat(auto-fill, minmax(120px, 1fr))', normal: 'repeat(auto-fill, minmax(160px, 1fr))', large: 'repeat(auto-fill, minmax(200px, 1fr))', xlarge: 'repeat(6, 1fr)' };
-		gl.style.gridTemplateColumns = map[settings.gridSize] || map.xlarge;
-	}
-
-	function applyBlur(on) {
-		document.querySelectorAll('.card').forEach(c => {
-			c.style.backdropFilter = on ? 'blur(10px)' : 'none';
-			c.style.webkitBackdropFilter = on ? 'blur(10px)' : 'none';
-		});
-	}
-
-	function updateNebulaSpeedLabel() {
-		const labels = ['', 'Very Slow', 'Slow', 'Medium', 'Fast', 'Very Fast'];
-		document.getElementById('nebula-speed-value').textContent = labels[settings.nebulaSpeed] || 'Medium';
-	}
-
-	function updateRainSpeedLabel() {
-		const labels = ['', 'Very Slow', 'Slow', 'Medium', 'Fast', 'Very Fast'];
-		document.getElementById('rain-speed-value').textContent = labels[settings.rainSpeed] || 'Medium';
-	}
-
-	function syncToggle(id, state) {
-		const btn = document.getElementById(id);
-		if (state) btn.classList.add('active');
-		else btn.classList.remove('active');
-	}
-
-	function loadSettings() {
-		if (!settings.animations) document.body.classList.add('hover-off');
-		if (settings.glow) document.body.classList.add('glow-on');
-		if (settings.smoothScroll) document.documentElement.style.scrollBehavior = 'smooth';
-
-		document.getElementById('grid-size').value = settings.gridSize;
-		updateGridSize();
-
-		document.getElementById('brightness-slider').value = settings.bgBrightness;
-		applyBrightness(settings.bgBrightness);
-		applyColor(settings.bgColor);
-		applyEffect(settings.bgEffect);
-		applyCardOpacity(settings.cardOpacity);
-		applyTopbarColor(settings.topbarColor);
-		applyPremiumBrightness(settings.premiumBrightness);
-		applyPremiumSpeed(settings.premiumSpeed);
-		applyBorderColor(settings.borderColor);
-
-		document.getElementById('opacity-slider').value = settings.cardOpacity;
-		document.getElementById('fontsize-slider').value = settings.fontSize;
-		document.getElementById('fontsize-value').textContent = settings.fontSize + 'px';
-		document.getElementById('radius-slider').value = settings.cardRadius;
-		document.getElementById('radius-value').textContent = settings.cardRadius + 'px';
-		document.getElementById('gap-slider').value = settings.cardGap;
-		document.getElementById('gap-value').textContent = settings.cardGap + 'px';
-		document.getElementById('topbar-color-picker').value = settings.topbarColor;
-		document.getElementById('nebula-speed-slider').value = settings.nebulaSpeed;
-		document.getElementById('rain-speed-slider').value = settings.rainSpeed;
-		document.getElementById('premium-speed-slider').value = settings.premiumSpeed;
-		document.getElementById('premium-brightness-slider').value = settings.premiumBrightness;
-		updateNebulaSpeedLabel();
-		updateRainSpeedLabel();
-
-		document.getElementById('game-list').style.gap = settings.cardGap + 'px';
-
-		syncToggle('animation-toggle', settings.animations);
-		syncToggle('glow-toggle', settings.glow);
-		syncToggle('blur-toggle', settings.blur);
-		syncToggle('autoload-toggle', settings.autoload);
-		syncToggle('playcount-toggle', settings.playcount);
-		syncToggle('smooth-scroll', settings.smoothScroll);
-		syncToggle('shownews-toggle', settings.showNewsOnLoad);
-
-		if (premiumUnlocked) {
-			document.getElementById('premium-content').style.display = 'block';
-		}
-	}
-
-	document.addEventListener('DOMContentLoaded', () => {
-		loadSettings();
-
-		document.querySelectorAll('.settings-tab').forEach(tab => {
-			tab.addEventListener('click', () => {
-				document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
-				document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
-				tab.classList.add('active');
-				document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
-			});
-		});
-
-		document.getElementById('settings-btn').addEventListener('click', () => {
-			document.getElementById('settings-drawer').classList.toggle('open');
-		});
-		document.getElementById('settings-close-btn').addEventListener('click', () => {
-			document.getElementById('settings-drawer').classList.remove('open');
-		});
-
-		document.getElementById('animation-toggle').addEventListener('click', function() {
-			settings.animations = this.classList.toggle('active');
-			lss('animations', settings.animations);
-			document.body.classList.toggle('hover-off', !settings.animations);
-		});
-
-		document.getElementById('glow-toggle').addEventListener('click', function() {
-			settings.glow = this.classList.toggle('active');
-			lss('glow', settings.glow);
-			document.body.classList.toggle('glow-on', settings.glow);
-		});
-
-		document.getElementById('blur-toggle').addEventListener('click', function() {
-			settings.blur = this.classList.toggle('active');
-			lss('blur', settings.blur);
-			applyBlur(settings.blur);
-		});
-
-		document.getElementById('autoload-toggle').addEventListener('click', function() {
-			settings.autoload = this.classList.toggle('active');
-			lss('autoload', settings.autoload);
-		});
-
-		document.getElementById('playcount-toggle').addEventListener('click', function() {
-			settings.playcount = this.classList.toggle('active');
-			lss('playcount', settings.playcount);
-			renderGameList();
-		});
-
-		document.getElementById('smooth-scroll').addEventListener('click', function() {
-			settings.smoothScroll = this.classList.toggle('active');
-			lss('smoothScroll', settings.smoothScroll);
-			document.documentElement.style.scrollBehavior = settings.smoothScroll ? 'smooth' : 'auto';
-		});
-
-		document.getElementById('shownews-toggle').addEventListener('click', function() {
-			settings.showNewsOnLoad = this.classList.toggle('active');
-			lss('showNewsOnLoad', settings.showNewsOnLoad);
-		});
-
-		document.getElementById('fontsize-slider').addEventListener('input', (e) => applyFontSize(e.target.value));
-		document.getElementById('radius-slider').addEventListener('input', (e) => applyCardRadius(e.target.value));
-		document.getElementById('gap-slider').addEventListener('input', (e) => applyCardGap(e.target.value));
-		document.getElementById('brightness-slider').addEventListener('input', (e) => applyBrightness(e.target.value));
-		document.getElementById('opacity-slider').addEventListener('input', (e) => applyCardOpacity(e.target.value));
-
-		document.getElementById('nebula-speed-slider').addEventListener('input', (e) => {
-			settings.nebulaSpeed = parseInt(e.target.value);
-			lss('nebulaSpeed', e.target.value);
-			updateNebulaSpeedLabel();
-		});
-
-		document.getElementById('rain-speed-slider').addEventListener('input', (e) => {
-			settings.rainSpeed = parseInt(e.target.value);
-			lss('rainSpeed', e.target.value);
-			updateRainSpeedLabel();
-		});
-
-		document.getElementById('premium-speed-slider').addEventListener('input', (e) => {
-			applyPremiumSpeed(e.target.value);
-		});
-
-		document.getElementById('premium-brightness-slider').addEventListener('input', (e) => {
-			applyPremiumBrightness(e.target.value);
-		});
-
-		document.querySelectorAll('.bg-option').forEach(btn => {
-			btn.addEventListener('click', () => applyEffect(btn.dataset.bg));
-		});
-
-		document.querySelectorAll('.color-swatch').forEach(swatch => {
-			swatch.addEventListener('click', () => applyColor(swatch.dataset.rgb));
-		});
-
-		document.getElementById('custom-color').addEventListener('input', (e) => {
-			applyColor(hexToRgb(e.target.value));
-		});
-
-		document.querySelectorAll('.border-color-swatch').forEach(swatch => {
-			swatch.addEventListener('click', () => applyBorderColor(swatch.dataset.border));
-		});
-
-		document.getElementById('grid-size').addEventListener('change', (e) => {
-			settings.gridSize = e.target.value;
-			lss('gridSize', e.target.value);
-			updateGridSize();
-		});
-
-		document.getElementById('topbar-color-picker').addEventListener('input', (e) => applyTopbarColor(e.target.value));
-
-		document.getElementById('clear-favorites').addEventListener('click', () => {
-			if (confirm('Clear all favorites?')) {
-				favorites.clear();
-				lss('favorites', '[]');
-				renderGameList();
-			}
-		});
-
-		document.getElementById('clear-playcounts').addEventListener('click', () => {
-			if (confirm('Clear all play counts?')) {
-				playCounts = {};
-				lss('playCounts', '{}');
-				renderGameList();
-			}
-		});
-
-		document.getElementById('reset-settings').addEventListener('click', () => {
-			if (confirm('Reset all settings to defaults?')) {
-				localStorage.clear();
-				location.reload();
-			}
-		});
-
-		document.getElementById('info-btn').addEventListener('click', () => {
-			document.getElementById('info-modal').classList.add('on');
-		});
-
-		document.getElementById('close-info').addEventListener('click', () => {
-			document.getElementById('info-modal').classList.remove('on');
-			lss('newsVersion', WHATS_NEW_VERSION);
-		});
-
-		document.getElementById('open-news-btn').addEventListener('click', () => {
-			document.getElementById('info-modal').classList.add('on');
-		});
-
-		if (SHOW_INFO_ON_LOAD && ls('newsVersion') !== WHATS_NEW_VERSION) {
-			document.getElementById('info-modal').classList.add('on');
-		}
-
-		document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
-		document.getElementById('premium-password').addEventListener('keypress', (e) => {
-			if (e.key === 'Enter') unlockPremium();
-		});
-
-		renderGameList();
-	});
-
-	function unlockPremium() {
-		const passInput = document.getElementById('premium-password');
-		if (passInput.value === PREMIUM_PASSWORD) {
-			premiumUnlocked = true;
-			lss('premiumUnlocked', 'true');
-			document.getElementById('premium-content').style.display = 'block';
-			passInput.value = '';
-			passInput.style.borderColor = 'rgba(0,255,100,.8)';
-			setTimeout(() => {
-				passInput.style.borderColor = 'rgba(255,255,255,.2)';
-			}, 2000);
-		} else {
-			passInput.style.borderColor = 'rgba(255,0,0,.8)';
-			passInput.value = '';
-			setTimeout(() => {
-				passInput.style.borderColor = 'rgba(255,255,255,.2)';
-			}, 1500);
-		}
-	}
 
 	function renderGameList() {
 		const container = document.getElementById('game-list');
@@ -2387,7 +1481,7 @@
 				</div>
 				<div class="card-info">
 					<div class="card-name">${game.n}</div>
-					${settings.playcount ? `<div class="card-plays">${plays} plays</div>` : ''}
+					<div class="card-plays">${plays} plays</div>
 				</div>
 				<button class="card-fav ${isFav ? 'card-faon' : ''}">★</button>
 			`;
@@ -2403,8 +1497,6 @@
 		}
 		document.getElementById('game-count').textContent = filtered.length + ' games';
 	}
-
-	document.getElementById('search').addEventListener('input', renderGameList);
 
 	function openGameModal(game) {
 		document.getElementById('modal-game-name').textContent = game.n;
@@ -2453,17 +1545,287 @@
 		}, 8000);
 	}
 
-	document.getElementById('bk-btn').addEventListener('click', () => {
-		document.getElementById('overlay').classList.remove('on');
-		document.getElementById('gload').classList.remove('hide');
-		document.getElementById('gframe').src = '';
-		try { document.getElementById('gframe').contentWindow.location.href = 'about:blank'; } catch(e) {}
+	function applyFontSize(val) {
+		settings.fontSize = parseInt(val);
+		lss('fontSize', val);
+		document.getElementById('fontsize-value').textContent = val + 'px';
+		document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = val + 'px');
+	}
+
+	function applyCardRadius(val) {
+		settings.cardRadius = parseInt(val);
+		lss('cardRadius', val);
+		document.getElementById('radius-value').textContent = val + 'px';
+		document.querySelectorAll('.card').forEach(el => el.style.borderRadius = val + 'px');
+	}
+
+	function applyCardGap(val) {
+		settings.cardGap = parseInt(val);
+		lss('cardGap', val);
+		document.getElementById('gap-value').textContent = val + 'px';
+		document.getElementById('game-list').style.gap = val + 'px';
+	}
+
+	function applyBrightness(val) {
+		settings.bgBrightness = parseInt(val);
+		lss('bgBrightness', val);
+		document.documentElement.style.setProperty('--bg-brightness', val / 100);
+		document.getElementById('brightness-value').textContent = val + '%';
+	}
+
+	function applyOpacity(val) {
+		settings.cardOpacity = parseInt(val);
+		lss('cardOpacity', val);
+		document.getElementById('opacity-value').textContent = val + '%';
+		const o = val / 100;
+		document.documentElement.style.setProperty('--card-bg', `rgba(22,27,34,${o})`);
+		document.documentElement.style.setProperty('--card-hover', `rgba(30,36,44,${Math.min(o + 0.2, 1)})`);
+	}
+
+	function updateGridSize() {
+		const gl = document.getElementById('game-list');
+		const map = { small: 'repeat(auto-fill, minmax(120px, 1fr))', normal: 'repeat(auto-fill, minmax(160px, 1fr))', large: 'repeat(auto-fill, minmax(200px, 1fr))', xlarge: 'repeat(6, 1fr)' };
+		gl.style.gridTemplateColumns = map[settings.gridSize] || map.xlarge;
+	}
+
+	function applyTopbarColor(color) {
+		settings.topbarColor = color;
+		lss('topbarColor', color);
+		document.getElementById('topbar').style.background = color;
+	}
+
+	function syncToggle(id, state) {
+		const btn = document.getElementById(id);
+		if (state) btn.classList.add('active');
+		else btn.classList.remove('active');
+	}
+
+	function renderLinks() {
+		const container = document.getElementById('links-container');
+		container.innerHTML = '';
+		
+		DEFAULT_LINKS.forEach((link) => {
+			const linkCard = document.createElement('div');
+			linkCard.className = 'link-card';
+			linkCard.innerHTML = `
+				<div class="link-card-clickable" data-url="${link.url}">
+					<div class="link-info">
+						<div class="link-title">${link.title}</div>
+						<div class="link-url">${link.url}</div>
+					</div>
+				</div>
+			`;
+			
+			linkCard.querySelector('.link-card-clickable').addEventListener('click', (e) => {
+				e.stopPropagation();
+				window.open(link.url, '_blank');
+			});
+			container.appendChild(linkCard);
+		});
+	}
+
+	function loadSettings() {
+		if (!settings.animations) document.body.classList.add('hover-off');
+		if (settings.glow) document.body.classList.add('glow-on');
+		if (settings.smoothScroll) document.documentElement.style.scrollBehavior = 'smooth';
+
+		document.getElementById('grid-size').value = settings.gridSize;
+		updateGridSize();
+
+		document.getElementById('brightness-slider').value = settings.bgBrightness;
+		applyBrightness(settings.bgBrightness);
+		applyTopbarColor(settings.topbarColor);
+
+		document.getElementById('opacity-slider').value = settings.cardOpacity;
+		applyOpacity(settings.cardOpacity);
+		
+		document.getElementById('fontsize-slider').value = settings.fontSize;
+		document.getElementById('fontsize-value').textContent = settings.fontSize + 'px';
+		
+		document.getElementById('radius-slider').value = settings.cardRadius;
+		document.getElementById('radius-value').textContent = settings.cardRadius + 'px';
+		
+		document.getElementById('gap-slider').value = settings.cardGap;
+		document.getElementById('gap-value').textContent = settings.cardGap + 'px';
+		
+		document.getElementById('topbar-color-picker').value = settings.topbarColor;
+
+		document.getElementById('game-list').style.gap = settings.cardGap + 'px';
+
+		syncToggle('animation-toggle', settings.animations);
+		syncToggle('glow-toggle', settings.glow);
+		syncToggle('blur-toggle', settings.blur);
+		syncToggle('autoload-toggle', settings.autoload);
+		syncToggle('playcount-toggle', settings.playcount);
+		syncToggle('smooth-scroll', settings.smoothScroll);
+
+		if (premiumUnlocked) {
+			document.getElementById('premium-content').style.display = 'block';
+			renderLinks();
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		// Tab switching
+		document.querySelectorAll('.tab-btn').forEach(btn => {
+			btn.addEventListener('click', () => {
+				const tab = btn.dataset.tab;
+				document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				
+				if (tab === 'games') {
+					document.getElementById('content').classList.remove('hidden');
+					document.getElementById('browser-container').classList.remove('active');
+				} else {
+					document.getElementById('content').classList.add('hidden');
+					document.getElementById('browser-container').classList.add('active');
+				}
+			});
+		});
+
+		// Settings
+		document.querySelectorAll('.settings-tab').forEach(tab => {
+			tab.addEventListener('click', () => {
+				document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+				document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+				tab.classList.add('active');
+				document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+			});
+		});
+
+		document.getElementById('settings-btn').addEventListener('click', () => {
+			document.getElementById('settings-drawer').classList.toggle('open');
+		});
+		document.getElementById('settings-close-btn').addEventListener('click', () => {
+			document.getElementById('settings-drawer').classList.remove('open');
+		});
+
+		// Visual settings
+		document.getElementById('animation-toggle').addEventListener('click', function() {
+			settings.animations = this.classList.toggle('active');
+			lss('animations', settings.animations);
+			document.body.classList.toggle('hover-off', !settings.animations);
+		});
+
+		document.getElementById('glow-toggle').addEventListener('click', function() {
+			settings.glow = this.classList.toggle('active');
+			lss('glow', settings.glow);
+			document.body.classList.toggle('glow-on', settings.glow);
+		});
+
+		document.getElementById('blur-toggle').addEventListener('click', function() {
+			settings.blur = this.classList.toggle('active');
+			lss('blur', settings.blur);
+		});
+
+		document.getElementById('fontsize-slider').addEventListener('input', (e) => applyFontSize(e.target.value));
+		document.getElementById('radius-slider').addEventListener('input', (e) => applyCardRadius(e.target.value));
+		document.getElementById('gap-slider').addEventListener('input', (e) => applyCardGap(e.target.value));
+
+		// Background settings
+		document.getElementById('brightness-slider').addEventListener('input', (e) => applyBrightness(e.target.value));
+
+		// Cards settings
+		document.getElementById('grid-size').addEventListener('change', (e) => {
+			settings.gridSize = e.target.value;
+			lss('gridSize', e.target.value);
+			updateGridSize();
+		});
+
+		document.getElementById('opacity-slider').addEventListener('input', (e) => applyOpacity(e.target.value));
+
+		document.getElementById('clear-favorites').addEventListener('click', () => {
+			if (confirm('Clear all favorites?')) {
+				favorites.clear();
+				lss('favorites', '[]');
+				renderGameList();
+			}
+		});
+
+		document.getElementById('clear-playcounts').addEventListener('click', () => {
+			if (confirm('Clear all play counts?')) {
+				playCounts = {};
+				lss('playCounts', '{}');
+				renderGameList();
+			}
+		});
+
+		// Gameplay settings
+		document.getElementById('autoload-toggle').addEventListener('click', function() {
+			settings.autoload = this.classList.toggle('active');
+			lss('autoload', settings.autoload);
+		});
+
+		document.getElementById('playcount-toggle').addEventListener('click', function() {
+			settings.playcount = this.classList.toggle('active');
+			lss('playcount', settings.playcount);
+			renderGameList();
+		});
+
+		// Advanced settings
+		document.getElementById('smooth-scroll').addEventListener('click', function() {
+			settings.smoothScroll = this.classList.toggle('active');
+			lss('smoothScroll', settings.smoothScroll);
+			document.documentElement.style.scrollBehavior = settings.smoothScroll ? 'smooth' : 'auto';
+		});
+
+		document.getElementById('topbar-color-picker').addEventListener('input', (e) => applyTopbarColor(e.target.value));
+
+		document.getElementById('reset-settings').addEventListener('click', () => {
+			if (confirm('Reset all settings to defaults?')) {
+				localStorage.clear();
+				location.reload();
+			}
+		});
+
+		// Premium unlock
+		document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
+		document.getElementById('premium-password').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') unlockPremium();
+		});
+
+		// Back button
+		document.getElementById('bk-btn').addEventListener('click', () => {
+			document.getElementById('overlay').classList.remove('on');
+			document.getElementById('gload').classList.remove('hide');
+			document.getElementById('gframe').src = '';
+		});
+
+		document.getElementById('fs-btn').addEventListener('click', () => {
+			document.getElementById('gframe').requestFullscreen().catch(err => alert('Fullscreen unavailable'));
+		});
+
+		document.getElementById('search').addEventListener('input', renderGameList);
+
+		document.getElementById('close-game-modal').addEventListener('click', () => {
+			document.getElementById('game-modal').classList.remove('on');
+		});
+
+		// Initial render
+		loadSettings();
+		renderGameList();
 	});
 
-	document.getElementById('fs-btn').addEventListener('click', () => {
-		document.getElementById('gframe').requestFullscreen().catch(err => alert('Fullscreen unavailable'));
-	});
-
+	function unlockPremium() {
+		const passInput = document.getElementById('premium-password');
+		if (passInput.value === PREMIUM_PASSWORD) {
+			premiumUnlocked = true;
+			lss('premiumUnlocked', 'true');
+			document.getElementById('premium-content').style.display = 'block';
+			passInput.value = '';
+			passInput.style.borderColor = 'rgba(0,255,100,.8)';
+			renderLinks();
+			setTimeout(() => {
+				passInput.style.borderColor = 'rgba(255,255,255,.2)';
+			}, 2000);
+		} else {
+			passInput.style.borderColor = 'rgba(255,0,0,.8)';
+			passInput.value = '';
+			setTimeout(() => {
+				passInput.style.borderColor = 'rgba(255,255,255,.2)';
+			}, 1500);
+		}
+	}
 			</script>
 </body>
 

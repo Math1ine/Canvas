@@ -20,7 +20,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; color: var(--text); background: var(--bg); overflow: hidden; }
 
-    /* BACKGROUND */
     #bg-layer { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: var(--bg-brightness); }
     #bg-layer.stars {
       background-image:
@@ -55,7 +54,6 @@
     @keyframes wavemove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* TOPBAR */
     #topbar { position: fixed; top: 0; left: 0; right: 0; height: var(--top-h); background: var(--top); z-index: 30; display: flex; align-items: center; gap: 14px; padding: 0 16px; border-bottom: 1px solid rgba(255,255,255,.1); box-shadow: 0 2px 4px rgba(0,0,0,.3); }
     #logo { font-size: 1.3rem; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,.3); white-space: nowrap; letter-spacing: -.5px; }
     #search { flex: 1; max-width: 480px; background: rgba(255,255,255,.07); color: var(--text); padding: 8px 14px; font-size: 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.12); outline: none; transition: border-color .2s, background .2s; }
@@ -69,7 +67,6 @@
     #settings-btn, #info-btn, #disclaimer-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,.08); color: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
     #settings-btn:hover, #info-btn:hover, #disclaimer-btn:hover { background: rgba(255,255,255,.15); }
 
-    /* MAIN */
     #main { position: fixed; top: var(--top-h); left: 0; right: 0; bottom: 0; overflow-y: auto; background: transparent; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent; z-index: 2; }
     #content { padding: 20px 20px 40px; display: block; }
     #content.hidden { display: none; }
@@ -79,12 +76,10 @@
     .section-count { font-size: 12px; color: rgba(255,255,255,.4); font-weight: 400; }
     #game-list { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
 
-    /* BROWSER */
     #browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
     #browser-container.active { display: flex; flex-direction: column; }
     #browser-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
 
-    /* CARDS */
     .card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 10px; cursor: pointer; overflow: hidden; border: 1px solid var(--border); transition: transform .2s, border-color .2s, background .2s, box-shadow .2s; position: relative; }
     .card:hover { transform: translateY(-3px) scale(1.02); border-color: rgba(255,255,255,.28); background: var(--card-hover); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
     body.glow-on .card:hover { box-shadow: 0 0 20px rgba(255,255,255,.22); }
@@ -104,11 +99,10 @@
     .request-plus { font-size: 2.4rem; font-weight: 300; color: rgba(255,255,255,.35); line-height: 1; transition: color .2s, transform .2s; }
     .request-card:hover .request-plus { color: rgba(255,255,255,.8); transform: scale(1.15); }
 
-    /* OVERLAY */
-    #overlay { display: none; position: fixed; inset: 0; z-index: 50; background: #000; flex-direction: column; }
+    #overlay { display: none; position: fixed; inset: 0; z-index: 50; background: #111; flex-direction: column; }
     #overlay.on { display: flex; }
     #gframe { flex: 1; width: 100%; border: none; background: #000; }
-    #gload { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #000; z-index: 2; }
+    #gload { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #111; z-index: 2; }
     #gload.hide { display: none; }
     .spin { border: 4px solid rgba(255,255,255,.2); border-top: 4px solid #fff; border-radius: 50%; width: 52px; height: 52px; animation: spin 1s linear infinite; margin-bottom: 22px; }
     #bar-lbl { font-size: 15px; color: rgba(255,255,255,.6); margin-bottom: 24px; letter-spacing: .03em; }
@@ -117,7 +111,9 @@
     #fs-btn { position: fixed; right: 18px; top: 18px; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; z-index: 60; font-weight: 700; background: #fff; color: #000; }
     #bk-btn { position: fixed; left: 18px; top: 18px; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; z-index: 60; font-weight: 700; background: rgba(0,0,0,.55); color: #fff; }
 
-    /* GAME MODAL */
+    /* loading hint text */
+    #load-hint { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 10px; text-align: center; max-width: 280px; }
+
     .modal { display: none; position: fixed; z-index: 55; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(6px); }
     .modal.on { display: flex; align-items: center; justify-content: center; }
     .modal-box { background: rgba(13,17,23,0.95); backdrop-filter: blur(12px); padding: 28px; border-radius: 14px; max-width: 460px; width: 90%; color: var(--text); border: 1px solid rgba(255,255,255,.15); }
@@ -137,7 +133,6 @@
     .mbclose { background: rgba(255,255,255,.1); color: var(--text); border: 1px solid rgba(255,255,255,.2); }
     .mbclose:hover { background: rgba(255,255,255,.18); }
 
-    /* SETTINGS DRAWER */
     #settings-drawer { position: fixed; right: -420px; top: 0; bottom: 0; width: 400px; background: rgba(10,14,20,0.97); backdrop-filter: blur(10px); z-index: 100; transition: right .3s; overflow: hidden; display: flex; flex-direction: column; }
     #settings-drawer.open { right: 0; }
     .settings-header { padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.1); flex-shrink: 0; }
@@ -173,14 +168,13 @@
     .bg-option:hover { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.09); }
     .bg-option.active { border-color: #fff; background: rgba(255,255,255,.14); }
     .color-swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-    .color-swatch { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color .2s, transform .15s; flex-shrink: 0; }
+    .color-swatch { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color .2s, transform .15px; flex-shrink: 0; }
     .color-swatch:hover { transform: scale(1.15); }
     .color-swatch.active { border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,.4); }
     .color-picker-row { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
     .color-picker-row label { font-size: 13px; color: rgba(255,255,255,.6); }
     #custom-color { width: 36px; height: 30px; border: 1px solid rgba(255,255,255,.2); border-radius: 6px; cursor: pointer; padding: 2px; background: rgba(255,255,255,.05); }
 
-    /* DISCLAIMER */
     #disclaimer-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
     #disclaimer-modal.on { display: flex; }
     #disclaimer-box { background: rgba(13,17,23,0.97); border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 32px 28px 24px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.6); animation: disclaimer-pop .25s cubic-bezier(.34,1.56,.64,1); }
@@ -191,7 +185,6 @@
     #disclaimer-ok { padding: 10px 28px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
     #disclaimer-ok:hover { filter: brightness(.88); }
 
-    /* PREMIUM */
     #premium-password { width: 100%; padding: 10px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 6px; color: #fff; font-size: 14px; margin-bottom: 8px; transition: border-color .2s; }
     #premium-password::placeholder { color: rgba(255,255,255,.4); }
     #premium-password:focus { outline: none; border-color: rgba(100,200,255,.6); background: rgba(255,255,255,.12); }
@@ -251,8 +244,9 @@
       <div class="spin"></div>
       <div id="bar-lbl">Loading game…</div>
       <div id="bar-wrap"><div id="bar"></div></div>
+      <div id="load-hint">Some games (especially 3D/Unity) may take 20–40 seconds to load. Please wait…</div>
     </div>
-    <iframe id="gframe" allow="fullscreen; pointer-lock"></iframe>
+    <iframe id="gframe" allow="fullscreen; pointer-lock" style="width:100%;height:100%;border:none;background:#000;display:block;"></iframe>
     <button id="fs-btn">⛶ Fullscreen</button>
     <button id="bk-btn">← Back</button>
   </div>
@@ -324,7 +318,7 @@
         </div>
       </div>
 
-      <!-- BACKGROUND — fixed closing tags -->
+      <!-- BACKGROUND -->
       <div class="settings-panel" data-panel="background">
         <div class="settings-group">
           <span class="settings-group-title">Effect Style</span>
@@ -453,8 +447,8 @@
         </div>
       </div>
 
-    </div><!-- end settings-content -->
-  </div><!-- end settings-drawer -->
+    </div>
+  </div>
 
   <script>
     const SK = 'mathline.';
@@ -576,7 +570,6 @@
       {n:'Coal LLC',u:'CCl.html'},
     ];
 
-    /* STATE */
     const ls  = k     => localStorage.getItem(SK + k);
     const lss = (k,v) => localStorage.setItem(SK + k, v);
     let favorites       = new Set(JSON.parse(ls('favorites')  || '[]'));
@@ -645,7 +638,6 @@
       canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    /* BG EFFECT */
     function applyBgEffect(effect) {
       S.bgEffect = effect; lss('bgEffect', effect);
       document.querySelectorAll('.bg-option').forEach(b => b.classList.toggle('active', b.dataset.bg === effect));
@@ -662,7 +654,6 @@
       if (rg) rg.style.display = effect === 'rain' ? 'block' : 'none';
     }
 
-    /* SETTINGS HELPERS */
     function applyBrightness(v) { S.bgBrightness=+v; lss('bgBrightness',v); document.documentElement.style.setProperty('--bg-brightness',v/100); document.getElementById('brightness-value').textContent=v+'%'; }
     function applyOpacity(v) { S.cardOpacity=+v; lss('cardOpacity',v); const o=v/100; document.documentElement.style.setProperty('--card-bg',`rgba(22,27,34,${o})`); document.documentElement.style.setProperty('--card-hover',`rgba(30,36,44,${Math.min(o+.2,1)})`); document.getElementById('opacity-value').textContent=v+'%'; }
     function applyFontSize(v) { S.fontSize=+v; lss('fontSize',v); document.getElementById('fontsize-value').textContent=v+'px'; document.querySelectorAll('.card-name').forEach(el=>el.style.fontSize=v+'px'); }
@@ -676,7 +667,6 @@
     }
     function syncToggle(id,on){ document.getElementById(id).classList.toggle('active',on); }
 
-    /* RENDER CARDS */
     function renderGameList() {
       const container = document.getElementById('game-list');
       const query = document.getElementById('search').value.toLowerCase().trim();
@@ -713,7 +703,6 @@
       document.getElementById('game-count').textContent = filtered.length + ' games';
     }
 
-    /* MODAL */
     let currentGame = null;
     function openGameModal(game) {
       currentGame = game;
@@ -727,7 +716,6 @@
       document.getElementById('game-modal').classList.add('on');
     }
 
-    /* LOAD GAME — fixed: onload set before src, no blank detour, loaded flag */
     function loadGame(url) {
       document.getElementById('game-modal').classList.remove('on');
       const overlay = document.getElementById('overlay');
@@ -737,22 +725,34 @@
       overlay.classList.add('on');
       gload.classList.remove('hide');
       bar.style.width = '0%';
+
+      /* Smoother fake progress that slows near 85% to give Unity time */
       let pct = 0;
-      const barTimer = setInterval(() => { pct = Math.min(pct + Math.random()*8, 90); bar.style.width = pct+'%'; }, 200);
+      const barTimer = setInterval(() => {
+        const remaining = 85 - pct;
+        if (remaining > 0) {
+          pct += Math.random() * Math.max(remaining * 0.06, 0.5);
+          pct = Math.min(pct, 85);
+          bar.style.width = pct + '%';
+        }
+      }, 300);
+
       let loaded = false;
       function finishLoad() {
         if (loaded) return;
         loaded = true;
         clearInterval(barTimer);
         bar.style.width = '100%';
-        setTimeout(() => gload.classList.add('hide'), 300);
+        setTimeout(() => gload.classList.add('hide'), 400);
       }
+
       frame.onload = finishLoad;   // set BEFORE src
-      frame.src = url;             // set directly — no blank detour
-      setTimeout(finishLoad, 8000); // fallback
+      frame.src = url;             // set directly
+
+      /* 60s fallback — enough time for large Unity/WebGL games */
+      setTimeout(finishLoad, 60000);
     }
 
-    /* LINKS */
     function renderLinks() {
       const c = document.getElementById('links-container');
       c.innerHTML = '';
@@ -765,7 +765,6 @@
       });
     }
 
-    /* PREMIUM */
     function unlockPremium() {
       const inp = document.getElementById('premium-password');
       if (inp.value === PREMIUM_PASSWORD) {
@@ -780,7 +779,6 @@
       }
     }
 
-    /* BOOT */
     document.addEventListener('DOMContentLoaded', () => {
       if (!S.animations) document.body.classList.add('hover-off');
       if (S.glow)        document.body.classList.add('glow-on');
@@ -815,7 +813,6 @@
       if (premiumUnlocked) { document.getElementById('premium-content').style.display='block'; renderLinks(); }
       renderGameList();
 
-      /* TAB SWITCHING */
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -827,11 +824,9 @@
         });
       });
 
-      /* DISCLAIMER */
       document.getElementById('disclaimer-ok').addEventListener('click',  () => document.getElementById('disclaimer-modal').classList.remove('on'));
       document.getElementById('disclaimer-btn').addEventListener('click', () => document.getElementById('disclaimer-modal').classList.add('on'));
 
-      /* SETTINGS TABS */
       document.querySelectorAll('.settings-tab').forEach(tab => {
         tab.addEventListener('click', () => {
           document.querySelectorAll('.settings-tab').forEach(t=>t.classList.remove('active'));
@@ -843,7 +838,6 @@
       document.getElementById('settings-btn').addEventListener('click',       () => document.getElementById('settings-drawer').classList.toggle('open'));
       document.getElementById('settings-close-btn').addEventListener('click', () => document.getElementById('settings-drawer').classList.remove('open'));
 
-      /* VISUAL TOGGLES */
       document.getElementById('animation-toggle').addEventListener('click', function(){ S.animations=this.classList.toggle('active'); lss('animations',S.animations); document.body.classList.toggle('hover-off',!S.animations); });
       document.getElementById('glow-toggle').addEventListener('click',      function(){ S.glow=this.classList.toggle('active');       lss('glow',S.glow);             document.body.classList.toggle('glow-on',S.glow); });
       document.getElementById('blur-toggle').addEventListener('click',      function(){ S.blur=this.classList.toggle('active');       lss('blur',S.blur); });
@@ -851,7 +845,6 @@
       document.getElementById('radius-slider').addEventListener('input',   e => applyCardRadius(e.target.value));
       document.getElementById('gap-slider').addEventListener('input',      e => applyCardGap(e.target.value));
 
-      /* BACKGROUND */
       document.querySelectorAll('.bg-option').forEach(btn => btn.addEventListener('click', () => applyBgEffect(btn.dataset.bg)));
       document.getElementById('brightness-slider').addEventListener('input', e => applyBrightness(e.target.value));
       document.getElementById('rain-speed-slider').addEventListener('input', e => {
@@ -871,26 +864,21 @@
         applyBgColor(`${r},${g},${b}`);
       });
 
-      /* CARDS */
       document.getElementById('grid-size').addEventListener('change',   e => { S.gridSize=e.target.value; lss('gridSize',S.gridSize); updateGridSize(); });
       document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
       document.getElementById('clear-favorites').addEventListener('click',  () => { if(confirm('Clear all favorites?')){ favorites.clear(); lss('favorites','[]'); renderGameList(); } });
       document.getElementById('clear-playcounts').addEventListener('click', () => { if(confirm('Clear play counts?')){ playCounts={}; lss('playCounts','{}'); renderGameList(); } });
 
-      /* GAMEPLAY */
       document.getElementById('autoload-toggle').addEventListener('click',  function(){ S.autoload=this.classList.toggle('active');  lss('autoload',S.autoload); });
       document.getElementById('playcount-toggle').addEventListener('click', function(){ S.playcount=this.classList.toggle('active'); lss('playcount',S.playcount); renderGameList(); });
 
-      /* ADVANCED */
       document.getElementById('smooth-scroll').addEventListener('click', function(){ S.smoothScroll=this.classList.toggle('active'); lss('smoothScroll',S.smoothScroll); document.documentElement.style.scrollBehavior=S.smoothScroll?'smooth':'auto'; });
       document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
       document.getElementById('reset-settings').addEventListener('click', () => { if(confirm('Reset all settings to defaults?')){ localStorage.clear(); location.reload(); } });
 
-      /* PREMIUM */
       document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
       document.getElementById('premium-password').addEventListener('keypress', e => { if(e.key==='Enter') unlockPremium(); });
 
-      /* MODAL ACTIONS */
       document.getElementById('modal-fav').addEventListener('click', () => {
         if (!currentGame) return;
         favorites.has(currentGame.u) ? favorites.delete(currentGame.u) : favorites.add(currentGame.u);
@@ -906,7 +894,6 @@
       document.getElementById('close-game-modal').addEventListener('click', () => document.getElementById('game-modal').classList.remove('on'));
       document.getElementById('game-modal').addEventListener('click', e => { if(e.target===document.getElementById('game-modal')) document.getElementById('game-modal').classList.remove('on'); });
 
-      /* OVERLAY */
       document.getElementById('bk-btn').addEventListener('click', () => {
         const frame = document.getElementById('gframe');
         frame.onload = null;
@@ -917,7 +904,6 @@
       });
       document.getElementById('fs-btn').addEventListener('click', () => document.getElementById('gframe').requestFullscreen().catch(()=>alert('Fullscreen unavailable')));
 
-      /* SEARCH */
       document.getElementById('search').addEventListener('input', renderGameList);
     });
   </script>

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>MathLine</title>
+	<link rel="icon" type="image/svg+xml"
+		href="https://www.clipartmax.com/png/middle/191-1913494_adding-faculty-evaluators-tutors-si-leaders-and-canvas-instructure-logo.png" />
 	<style>
 		:root {
 			--text: #fff;
@@ -61,13 +64,60 @@
 			animation: twinkle 4s ease-in-out infinite;
 		}
 
+		#bg-layer.grid {
+			background-image:
+				linear-gradient(rgba(var(--bg-color), .35) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(var(--bg-color), .35) 1px, transparent 1px);
+			background-size: 40px 40px;
+		}
+
+		#bg-layer.dots {
+			background-image: radial-gradient(circle, rgba(var(--bg-color), 0.85) 1.5px, transparent 1.5px);
+			background-size: 22px 22px;
+		}
+
+		#bg-layer.lines {
+			background-image: repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(var(--bg-color), 0.4) 38px, rgba(var(--bg-color), 0.4) 39px);
+		}
+
+		#bg-layer.waves {
+			background-image:
+				repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(var(--bg-color), .22) 18px, rgba(var(--bg-color), .22) 19px),
+				repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(var(--bg-color), .14) 18px, rgba(var(--bg-color), .14) 19px);
+			animation: wavemove 3s linear infinite;
+		}
+
+		#bg-layer.none {
+			display: none;
+		}
+
+		#rain-canvas {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 1;
+			display: none;
+		}
+
 		@keyframes twinkle {
+
 			0%,
 			100% {
 				opacity: calc(var(--bg-brightness)*0.65);
 			}
+
 			50% {
 				opacity: var(--bg-brightness);
+			}
+		}
+
+		@keyframes wavemove {
+			0% {
+				background-position: 0 0;
+			}
+
+			100% {
+				background-position: 40px 40px;
 			}
 		}
 
@@ -125,16 +175,44 @@
 			color: rgba(255, 255, 255, .35);
 		}
 
+		#tab-buttons {
+			display: flex;
+			gap: 8px;
+			margin-left: auto;
+			margin-right: 10px;
+		}
+
+		.tab-btn {
+			background: rgba(255, 255, 255, .08);
+			border: none;
+			color: rgba(255, 255, 255, .6);
+			padding: 6px 12px;
+			border-radius: 6px;
+			font-size: 12px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .2s, color .2s;
+		}
+
+		.tab-btn:hover {
+			background: rgba(255, 255, 255, .15);
+			color: rgba(255, 255, 255, .8);
+		}
+
+		.tab-btn.active {
+			background: rgba(255, 255, 255, .2);
+			color: #fff;
+		}
+
 		#top-right {
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			margin-left: auto;
 		}
 
 		#settings-btn,
 		#info-btn,
-		#notifications-btn {
+		#disclaimer-btn {
 			width: 36px;
 			height: 36px;
 			border-radius: 50%;
@@ -147,29 +225,12 @@
 			align-items: center;
 			justify-content: center;
 			transition: background .2s;
-			position: relative;
 		}
 
 		#settings-btn:hover,
 		#info-btn:hover,
-		#notifications-btn:hover {
+		#disclaimer-btn:hover {
 			background: rgba(255, 255, 255, .15);
-		}
-
-		.notification-badge {
-			position: absolute;
-			top: -4px;
-			right: -4px;
-			background: #ff4444;
-			color: #fff;
-			border-radius: 50%;
-			width: 20px;
-			height: 20px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 11px;
-			font-weight: 700;
 		}
 
 		/* ── MAIN ── */
@@ -189,6 +250,10 @@
 		#content {
 			padding: 20px 20px 40px;
 			display: block;
+		}
+
+		#content.hidden {
+			display: none;
 		}
 
 		.section-header {
@@ -221,6 +286,25 @@
 			gap: 20px;
 		}
 
+		/* ── BROWSER TAB ── */
+		#browser-container {
+			display: none;
+			width: 100%;
+			height: 100%;
+		}
+
+		#browser-container.active {
+			display: flex;
+			flex-direction: column;
+		}
+
+		#browser-frame {
+			width: 100%;
+			flex: 1;
+			border: none;
+			background: #fff;
+		}
+
 		/* ── CARDS ── */
 		.card {
 			background: var(--card-bg);
@@ -239,6 +323,14 @@
 			border-color: rgba(255, 255, 255, .28);
 			background: var(--card-hover);
 			box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
+		}
+
+		body.glow-on .card:hover {
+			box-shadow: 0 0 20px rgba(255, 255, 255, .22);
+		}
+
+		body.hover-off .card:hover {
+			transform: none !important;
 		}
 
 		.card-thumb {
@@ -279,6 +371,12 @@
 			text-overflow: ellipsis;
 		}
 
+		.card-plays {
+			font-size: 10px;
+			color: rgba(255, 255, 255, .35);
+			margin-top: 2px;
+		}
+
 		.card-fav {
 			position: absolute;
 			top: 6px;
@@ -311,6 +409,33 @@
 
 		.card-fav:hover {
 			color: #ffd700;
+		}
+
+		/* Request card */
+		.request-card {
+			border-style: dashed;
+			border-color: rgba(255, 255, 255, .25);
+		}
+
+		.request-card:hover {
+			border-color: rgba(255, 255, 255, .55);
+		}
+
+		.request-thumb {
+			background: rgba(255, 255, 255, .04);
+		}
+
+		.request-plus {
+			font-size: 2.4rem;
+			font-weight: 300;
+			color: rgba(255, 255, 255, .35);
+			line-height: 1;
+			transition: color .2s, transform .2s;
+		}
+
+		.request-card:hover .request-plus {
+			color: rgba(255, 255, 255, .8);
+			transform: scale(1.15);
 		}
 
 		/* ── OVERLAY (GAME VIEWER) ── */
@@ -383,27 +508,30 @@
 			transition: width .12s linear;
 		}
 
-		#fs-btn,
-		#bk-btn {
+		#fs-btn {
 			position: fixed;
+			right: 18px;
+			top: 18px;
 			padding: 8px 14px;
 			border-radius: 8px;
 			border: none;
 			cursor: pointer;
 			z-index: 60;
 			font-weight: 700;
-		}
-
-		#fs-btn {
-			right: 18px;
-			top: 18px;
 			background: #fff;
 			color: #000;
 		}
 
 		#bk-btn {
+			position: fixed;
 			left: 18px;
 			top: 18px;
+			padding: 8px 14px;
+			border-radius: 8px;
+			border: none;
+			cursor: pointer;
+			z-index: 60;
+			font-weight: 700;
 			background: rgba(0, 0, 0, .55);
 			color: #fff;
 		}
@@ -687,6 +815,12 @@
 			left: 20px;
 		}
 
+		.settings-buttons {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
 		.settings-btn {
 			padding: 10px;
 			border-radius: 8px;
@@ -712,96 +846,289 @@
 			line-height: 1.4;
 		}
 
-		/* ── NOTIFICATIONS MODAL ── */
-		#notifications-modal {
-			display: none;
-			position: fixed;
-			z-index: 105;
-			inset: 0;
-			background: rgba(0, 0, 0, .75);
-			backdrop-filter: blur(6px);
+		.slider-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 12px;
+			color: rgba(255, 255, 255, .6);
+			margin-bottom: 4px;
 		}
 
-		#notifications-modal.on {
+		.slider-val {
+			color: rgba(255, 255, 255, .85);
+			font-weight: 600;
+		}
+
+		.range-slider {
+			width: 100%;
+			height: 5px;
+			border-radius: 3px;
+			background: rgba(255, 255, 255, .14);
+			outline: none;
+			-webkit-appearance: none;
+			appearance: none;
+			margin: 10px 0 4px;
+			cursor: pointer;
+		}
+
+		.range-slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: #fff;
+			cursor: pointer;
+			box-shadow: 0 0 6px rgba(255, 255, 255, .4);
+		}
+
+		.range-slider::-moz-range-thumb {
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: #fff;
+			cursor: pointer;
+			border: none;
+		}
+
+		.bg-grid-options {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 8px;
+			margin-bottom: 6px;
+		}
+
+		.bg-option {
+			padding: 10px;
+			border: 2px solid rgba(255, 255, 255, .12);
+			border-radius: 8px;
+			background: rgba(255, 255, 255, .04);
+			color: #fff;
+			cursor: pointer;
+			font-size: 12px;
+			font-weight: 600;
+			text-align: center;
+			transition: border-color .2s, background .2s;
+		}
+
+		.bg-option:hover {
+			border-color: rgba(255, 255, 255, .28);
+			background: rgba(255, 255, 255, .09);
+		}
+
+		.bg-option.active {
+			border-color: #fff;
+			background: rgba(255, 255, 255, .14);
+		}
+
+		.color-swatches {
 			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			margin-bottom: 10px;
+		}
+
+		.color-swatch {
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			cursor: pointer;
+			border: 2px solid transparent;
+			transition: border-color .2s, transform .15s;
+			flex-shrink: 0;
+		}
+
+		.color-swatch:hover {
+			transform: scale(1.15);
+		}
+
+		.color-swatch.active {
+			border-color: #fff;
+			box-shadow: 0 0 0 2px rgba(255, 255, 255, .4);
+		}
+
+		.color-picker-row {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-top: 4px;
+		}
+
+		.color-picker-row label {
+			font-size: 13px;
+			color: rgba(255, 255, 255, .6);
+		}
+
+		#custom-color {
+			width: 36px;
+			height: 30px;
+			border: 1px solid rgba(255, 255, 255, .2);
+			border-radius: 6px;
+			cursor: pointer;
+			padding: 2px;
+			background: rgba(255, 255, 255, .05);
+		}
+
+		/* ── DISCLAIMER MODAL ── */
+		#disclaimer-modal {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 200;
+			background: rgba(0, 0, 0, .7);
+			backdrop-filter: blur(8px);
 			align-items: center;
 			justify-content: center;
 		}
 
-		.notifications-box {
-			background: rgba(13, 17, 23, 0.95);
-			backdrop-filter: blur(12px);
-			padding: 28px;
-			border-radius: 14px;
+		#disclaimer-modal.on {
+			display: flex;
+		}
+
+		#disclaimer-box {
+			background: rgba(13, 17, 23, 0.97);
+			border: 1px solid rgba(255, 255, 255, .18);
+			border-radius: 16px;
+			padding: 32px 28px 24px;
 			max-width: 400px;
 			width: 90%;
+			text-align: center;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+			animation: disclaimer-pop .25s cubic-bezier(.34, 1.56, .64, 1);
+		}
+
+		@keyframes disclaimer-pop {
+			from {
+				transform: scale(.88);
+				opacity: 0;
+			}
+
+			to {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+
+		#disclaimer-box .disc-icon {
+			font-size: 2rem;
+			margin-bottom: 14px;
+			display: block;
+		}
+
+		#disclaimer-box h3 {
+			font-size: 1.05rem;
+			font-weight: 700;
 			color: #fff;
-			border: 1px solid rgba(255, 255, 255, .15);
+			margin-bottom: 12px;
 		}
 
-		.notifications-box h2 {
-			margin-bottom: 16px;
-			font-size: 1.3rem;
-		}
-
-		.notification-item {
-			padding: 12px;
-			background: rgba(255, 255, 255, .05);
-			border-radius: 8px;
-			margin-bottom: 8px;
+		#disclaimer-box p {
 			font-size: 13px;
-			border-left: 3px solid #ff4444;
+			color: rgba(255, 255, 255, .6);
+			line-height: 1.6;
+			margin-bottom: 22px;
 		}
 
-		.notifications-footer {
-			display: flex;
-			gap: 10px;
-			justify-content: center;
-			margin-top: 20px;
-		}
-
-		.notifications-footer button {
-			padding: 10px 20px;
+		#disclaimer-ok {
+			padding: 10px 28px;
 			border: none;
 			border-radius: 8px;
+			background: #fff;
+			color: #000;
+			font-weight: 700;
+			font-size: 14px;
 			cursor: pointer;
-			font-weight: 600;
-			font-size: 13px;
-			transition: all .2s;
 		}
 
-		.notif-btn-primary {
-			background: rgba(255, 255, 255, .2);
-			color: #fff;
-			border: 1px solid rgba(255, 255, 255, .3);
+		#disclaimer-ok:hover {
+			filter: brightness(.88);
 		}
 
-		.notif-btn-primary:hover {
-			background: rgba(255, 255, 255, .3);
-		}
-
-		.notif-btn-secondary {
-			background: rgba(255, 255, 255, .05);
-			color: rgba(255, 255, 255, .8);
-			border: 1px solid rgba(255, 255, 255, .1);
-		}
-
-		.notif-btn-secondary:hover {
+		/* Premium */
+		#premium-password {
+			width: 100%;
+			padding: 10px;
 			background: rgba(255, 255, 255, .1);
+			border: 1px solid rgba(255, 255, 255, .2);
+			border-radius: 6px;
+			color: #fff;
+			font-size: 14px;
+			margin-bottom: 8px;
+			transition: border-color .2s;
+		}
+
+		#premium-password::placeholder {
+			color: rgba(255, 255, 255, .4);
+		}
+
+		#premium-password:focus {
+			outline: none;
+			border-color: rgba(100, 200, 255, .6);
+			background: rgba(255, 255, 255, .12);
+		}
+
+		#unlock-premium-btn {
+			background: rgba(100, 200, 255, .2) !important;
+			border: 1px solid rgba(100, 200, 255, .4) !important;
+			color: rgba(100, 200, 255, .9);
+		}
+
+		#unlock-premium-btn:hover {
+			background: rgba(100, 200, 255, .3) !important;
+		}
+
+		#links-container {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		.link-card {
+			background: rgba(255, 255, 255, .05);
+			border: 1px solid rgba(255, 255, 255, .15);
+			border-radius: 8px;
+			padding: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			transition: all .2s;
+			cursor: pointer;
+		}
+
+		.link-card:hover {
+			background: rgba(255, 255, 255, .1);
+			border-color: rgba(255, 255, 255, .25);
+		}
+
+		.link-title {
+			font-weight: 600;
+			color: #fff;
+			margin-bottom: 4px;
+		}
+
+		.link-url {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .5);
+			word-break: break-all;
 		}
 	</style>
 </head>
 
 <body>
 	<div id="bg-layer" class="stars"></div>
+	<canvas id="rain-canvas"></canvas>
 
 	<div id="topbar">
 		<div id="logo">MathLine</div>
-		<input id="search" type="text" placeholder="Search games..." />
+		<input id="search" type="text" placeholder="Search games…" />
+		<div id="tab-buttons">
+			<button class="tab-btn active" data-tab="games">Games</button>
+			<button class="tab-btn" data-tab="browser">Browser</button>
+		</div>
 		<div id="top-right">
-			<button id="notifications-btn">🔔<span class="notification-badge" id="notif-badge">3</span></button>
-			<button id="info-btn">ℹ</button>
-			<button id="settings-btn">⚙</button>
+			<button id="disclaimer-btn" title="Disclaimer">⚠️</button>
+			<button id="info-btn" title="What's New">🔔</button>
+			<button id="settings-btn" title="Settings">⚙</button>
 		</div>
 	</div>
 
@@ -813,19 +1140,36 @@
 			</div>
 			<div id="game-list"></div>
 		</div>
+		<div id="browser-container">
+			<iframe id="browser-frame" src="https://unpkg.com/browselucide@1.0.2/logo.svg#/"></iframe>
+		</div>
 	</div>
 
+	<!-- Disclaimer modal -->
+	<div id="disclaimer-modal">
+		<div id="disclaimer-box">
+			<span class="disc-icon">⚠️</span>
+			<h3>Disclaimer</h3>
+			<p>I do not claim this is mine — credit goes to the respective owner.</p>
+			<button id="disclaimer-ok">Got it</button>
+		</div>
+	</div>
+
+	<!-- Game overlay -->
 	<div id="overlay">
 		<div id="gload">
 			<div class="spin"></div>
-			<div id="bar-lbl">Loading...</div>
-			<div id="bar-wrap"><div id="bar"></div></div>
+			<div id="bar-lbl">Loading game…</div>
+			<div id="bar-wrap">
+				<div id="bar"></div>
+			</div>
 		</div>
-		<iframe id="gframe"></iframe>
-		<button id="fs-btn">Fullscreen</button>
+		<iframe id="gframe" allow="fullscreen; pointer-lock"></iframe>
+		<button id="fs-btn">⛶ Fullscreen</button>
 		<button id="bk-btn">← Back</button>
 	</div>
 
+	<!-- Game info modal -->
 	<div class="modal" id="game-modal">
 		<div class="modal-box">
 			<div class="modal-thumb">
@@ -837,252 +1181,798 @@
 			</div>
 			<div id="game-stats"></div>
 			<div class="mbtns">
-				<button class="mbplay" id="play-game-btn">Play Now</button>
+				<button class="mbplay" id="play-game-btn">▶ Play Now</button>
 				<button class="mbclose" id="close-game-modal">Close</button>
 			</div>
 		</div>
 	</div>
 
+	<!-- Settings drawer -->
 	<div id="settings-drawer">
 		<div class="settings-header">
-			<h2>Settings</h2>
+			<h2>⚙ Settings</h2>
 			<button class="settings-close-btn" id="settings-close-btn">✕</button>
 		</div>
 		<div class="settings-tabs">
-			<button class="settings-tab active" data-tab="appearance">Appearance</button>
+			<button class="settings-tab active" data-tab="appearance">Visual</button>
+			<button class="settings-tab" data-tab="background">Background</button>
+			<button class="settings-tab" data-tab="cards">Cards</button>
 			<button class="settings-tab" data-tab="gameplay">Gameplay</button>
 			<button class="settings-tab" data-tab="advanced">Advanced</button>
 		</div>
 		<div class="settings-content">
+
+			<!-- VISUAL -->
 			<div class="settings-panel active" data-panel="appearance">
 				<div class="settings-group">
-					<span class="settings-group-title">Visual Effects</span>
+					<span class="settings-group-title">Effects</span>
 					<div class="settings-option">
 						<label><span>Card Animations</span><button class="settings-toggle active" id="animation-toggle"></button></label>
-						<div class="settings-description">Enable smooth card hover transitions</div>
+						<div class="settings-description">Smooth card hover transitions</div>
 					</div>
 					<div class="settings-option">
-						<label><span>Glow Effects</span><button class="settings-toggle" id="glow-toggle"></button></label>
-						<div class="settings-description">Add glow effect to cards on hover</div>
+						<label><span>Glow on Hover</span><button class="settings-toggle" id="glow-toggle"></button></label>
+						<div class="settings-description">White glow around cards on hover</div>
 					</div>
-				</div>
-			</div>
-
-			<div class="settings-panel" data-panel="gameplay">
-				<div class="settings-group">
-					<span class="settings-group-title">Game Settings</span>
 					<div class="settings-option">
-						<label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
-						<div class="settings-description">Automatically load games when selected</div>
+						<label><span>Card Blur (Glass)</span><button class="settings-toggle active" id="blur-toggle"></button></label>
+						<div class="settings-description">Frosted glass effect on cards</div>
 					</div>
 				</div>
 				<div class="settings-group">
-					<span class="settings-group-title">Favorites</span>
-					<button class="settings-btn" id="clear-favorites">Clear All Favorites</button>
-					<div class="settings-description">Remove all saved favorite games</div>
+					<span class="settings-group-title">Font Size</span>
+					<div class="slider-row">
+						<span>Card name size</span><span class="slider-val" id="fontsize-value">13px</span></div>
+					<input type="range" id="fontsize-slider" class="range-slider" min="10" max="18" value="13">
+					<div class="settings-description">Adjust the size of game name text on cards</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Card Style</span>
+					<div class="slider-row">
+						<span>Border radius</span><span class="slider-val" id="radius-value">10px</span></div>
+					<input type="range" id="radius-slider" class="range-slider" min="0" max="24" value="10">
+					<div class="settings-description">Roundness of card corners</div>
+					<div class="slider-row" style="margin-top:14px;">
+						<span>Card gap</span><span class="slider-val" id="gap-value">20px</span></div>
+					<input type="range" id="gap-slider" class="range-slider" min="4" max="28" value="20">
+					<div class="settings-description">Space between cards in the grid</div>
 				</div>
 			</div>
 
-			<div class="settings-panel" data-panel="advanced">
+			<!-- BACKGROUND -->
+			<div class="settings-panel" data-panel="background">
 				<div class="settings-group">
-					<span class="settings-group-title">Performance</span>
-					<div class="settings-option">
-						<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
-						<div class="settings-description">Enable smooth scroll behavior</div>
+					<span class="settings-group-title">Effect Style</span>
+					<div class="bg-grid-options">
+						<button class="bg-option active" data-bg="stars">Stars</button>
+						<button class="bg-option" data-bg="rain">Rain</button>
+						<button class="bg-option" data-bg="grid">Grid</button>
+						<button class="bg-option" data-bg="dots">Dots</button>
+						<button class="bg-option" data-bg="lines">Lines</button>
+						<button class="bg-option" data-bg="waves">Waves</button>
+						<button class="bg-option" data-bg="none">None</button>
 					</div>
 				</div>
 				<div class="settings-group">
-					<span class="settings-group-title">Data</span>
-					<button class="settings-btn" id="reset-settings">Reset All Settings</button>
-					<div class="settings-description">Reset all settings to defaults and reload</div>
+					<span class="settings-group-title">Brightness</span>
+					<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">100%</span>
+					</div>
+					<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="100">
+        </div>
+					<div class="settings-group" id="rain-speed-group" style="display:none;">
+						<span class="settings-group-title">Rain Speed</span>
+						<div class="slider-row">
+							<span>Drop speed</span><span class="slider-val" id="rain-speed-value">Medium</span></div>
+						<input type="range" id="rain-speed-slider" class="range-slider" min="1" max="5" value="3">
+						<div class="settings-description">How fast the rain drops fall</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Pattern Color</span>
+						<div class="color-swatches">
+							<div class="color-swatch active" data-rgb="255,255,255" style="background:#fff"
+								title="White"></div>
+							<div class="color-swatch" data-rgb="100,180,255" style="background:#64b4ff" title="Blue">
+							</div>
+							<div class="color-swatch" data-rgb="180,100,255" style="background:#b464ff" title="Purple">
+							</div>
+							<div class="color-swatch" data-rgb="80,220,160" style="background:#50dca0" title="Teal">
+							</div>
+							<div class="color-swatch" data-rgb="255,160,80" style="background:#ffa050" title="Orange">
+							</div>
+							<div class="color-swatch" data-rgb="255,80,120" style="background:#ff5078" title="Red">
+							</div>
+							<div class="color-swatch" data-rgb="80,255,120" style="background:#50ff78" title="Green">
+							</div>
+							<div class="color-swatch" data-rgb="255,230,80" style="background:#ffe650" title="Yellow">
+							</div>
+						</div>
+						<div class="color-picker-row">
+							<label for="custom-color">Custom:</label>
+							<input type="color" id="custom-color" value="#ffffff">
+          </div>
+						</div>
+					</div>
+
+					<!-- CARDS -->
+					<div class="settings-panel" data-panel="cards">
+						<div class="settings-group">
+							<span class="settings-group-title">Card Size</span>
+							<div class="settings-option">
+								<label>
+              <span>Grid Size</span>
+              <select id="grid-size" style="margin-left:auto;padding:5px 8px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:4px;">
+                <option value="small">Small</option>
+                <option value="normal">Normal</option>
+                <option value="large">Large</option>
+                <option value="xlarge" selected>Extra Large</option>
+              </select>
+            </label>
+								<div class="settings-description">Adjust game card size in the grid</div>
+							</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Card Opacity</span>
+							<div class="slider-row">
+								<span>Transparency</span><span class="slider-val" id="opacity-value">55%</span></div>
+							<input type="range" id="opacity-slider" class="range-slider" min="15" max="95" value="55">
+							<div class="settings-description">How solid or transparent the card background appears</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Favorites</span>
+							<div class="settings-buttons">
+								<button class="settings-btn" id="clear-favorites">Clear All Favorites</button>
+							</div>
+							<div class="settings-description">Remove all saved favorite games</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Play History</span>
+							<div class="settings-buttons">
+								<button class="settings-btn" id="clear-playcounts">Clear Play Counts</button>
+							</div>
+							<div class="settings-description">Reset all play count data</div>
+						</div>
+					</div>
+
+					<!-- GAMEPLAY -->
+					<div class="settings-panel" data-panel="gameplay">
+						<div class="settings-group">
+							<span class="settings-group-title">Game Behavior</span>
+							<div class="settings-option">
+								<label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
+								<div class="settings-description">Automatically load games when selected</div>
+							</div>
+							<div class="settings-option">
+								<label><span>Show Play Count</span><button class="settings-toggle active" id="playcount-toggle"></button></label>
+								<div class="settings-description">Show how many times each game has been played</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- ADVANCED -->
+					<div class="settings-panel" data-panel="advanced">
+						<div class="settings-group">
+							<span class="settings-group-title">Performance</span>
+							<div class="settings-option">
+								<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
+								<div class="settings-description">Enable smooth scroll behavior</div>
+							</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Topbar Color</span>
+							<input type="color" id="topbar-color-picker" value="#0a0e14" style="width:100%;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;padding:2px;background:rgba(255,255,255,.05);margin-top:8px;">
+							<div class="settings-description" style="margin-top:6px;">Change the color of the top
+								navigation bar</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Reset</span>
+							<div class="settings-buttons">
+								<button class="settings-btn" id="reset-settings">Reset All Settings</button>
+							</div>
+							<div class="settings-description">Reset all settings to defaults and reload</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Premium</span>
+							<input type="password" id="premium-password" placeholder="Enter password…" />
+							<button id="unlock-premium-btn" class="settings-btn">Unlock</button>
+							<div id="premium-content" style="display:none;margin-top:16px;">
+								<div id="links-container"></div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
-		</div>
-	</div>
 
-	<div id="notifications-modal">
-		<div class="notifications-box">
-			<h2>Notifications</h2>
-			<div id="notifications-list">
-				<div class="notification-item">✓ Notifications system is now active</div>
-				<div class="notification-item">✓ All settings buttons are functional</div>
-				<div class="notification-item">✓ Games are ready to play</div>
-			</div>
-			<div class="notifications-footer">
-				<button class="notif-btn-primary" id="clear-notifs">Clear All</button>
-				<button class="notif-btn-secondary" id="close-notifs">Close</button>
-			</div>
-		</div>
-	</div>
+			<script>
+				/* ─── CONFIG ─── */
+    const SK = 'mathline.';
+    const PREMIUM_PASSWORD = '4557';
 
-	<script>
-	const GAMES = [
-	  {n:'Ragdoll Archers',u:'Ragdoll-Archers.html',c:'Action'},
-	  {n:'Retro Bowl',u:'Retro-bowl.html',c:'Arcade'},
-	  {n:'Snow Rider',u:'Snow-Rider.html',c:'Racing'},
-	  {n:'Geometry Dash',u:'Geometry-Dash.html',c:'Racing'},
-	  {n:'10 Minutes Till Dawn',u:'10min.html',c:'Arcade'},
-	  {n:'1v1 Lol',u:'1v1-lol.html',c:'2 Player'},
-	];
+    const DEFAULT_LINKS = [
+      { title: 'Lucide',      url: 'https://unpkg.com/browselucide@1.0.2/logo.svg#/' },
+      { title: 'Zodiac',      url: 'https://cdn.jsdelivr.net/gh/darkdragonzxs/zd-pages@latest/svg.svg' },
+      { title: 'Sean Beans',  url: 'https://cdn.jsdelivr.net/gh/Mr-Calvin-Math-Class/exponential-differential-2561@main/INVADDEX.SVG' },
+    ];
 
-	let favorites = new Set(JSON.parse(localStorage.getItem('favorites') || '[]'));
-	let currentSearchQuery = '';
-	let settings = {
-		animations: localStorage.getItem('animations') !== 'false',
-		glow: localStorage.getItem('glow') === 'true',
-		autoload: localStorage.getItem('autoload') !== 'false',
-	};
+    const GAMES = [
+      {n:'Ragdoll Archers',u:'Ragdoll-Archers.html'},
+      {n:'Ragdoll Hit',u:'Ragdoll-hit.html'},
+      {n:'Time Shooter',u:'Time-shooter.html'},
+      {n:'Retro Bowl',u:'Retro-bowl.html'},
+      {n:'Snow Rider',u:'Snow-rider.html'},
+      {n:'Swords And Sandals',u:'Swords-and-sandlas.html'},
+      {n:'Crazy Cattle',u:'Crazy-cattle.html'},
+      {n:'Gladi Hoppers',u:'Gladi-hoppers.html'},
+      {n:'Bit Planes',u:'Bit-planes.html'},
+      {n:'Final Earth 2',u:'Final-earth2.html'},
+      {n:'Cluster Rush',u:'Cluster-rush.html'},
+      {n:'Push Your Luck',u:'Push-your-luck.html'},
+      {n:'Poly Track',u:'Poly-track.html'},
+      {n:'Ragdoll Soccer',u:'Ragdoll-soccer.html'},
+      {n:'Jetpack Joy Ride',u:'Jetpack-joy-ride.html'},
+      {n:'Learn To Fly 3',u:'Learn-to-fly-3.html'},
+      {n:'Malidin Stun Cars',u:'Malidin-stun-cars.html'},
+      {n:'Gun Spin',u:'Gun-spin.html'},
+      {n:'Age Of War',u:'Age-of-war.html'},
+      {n:'Moto X3M 2',u:'Moto-x3m-2.html'},
+      {n:'Moto X3M Winter',u:'Moto-x3m-winter.html'},
+      {n:'Basketball Stars',u:'Basketball-stars.html'},
+      {n:'Idle Breakout',u:'Idle-breakout.html'},
+      {n:'Vex 8',u:'Vex-8.html'},
+      {n:'Tiny Fishing',u:'Tiny-fishing.html'},
+      {n:'Drive Mad',u:'Drive-mad.html'},
+      {n:'Stick Man Hook',u:'Stick-man-hook.html'},
+      {n:'Line Rider',u:'Line-rider.html'},
+      {n:'Unicycle Hero',u:'Unicycle-hero.html'},
+      {n:'Basket Random',u:'Basket-random.html'},
+      {n:'1v1 Lol',u:'1v1-lol.html'},
+      {n:'Happy Wheels',u:'Happy-wheels.html'},
+      {n:'Idle Miner Tycoon',u:'Idle-miner-tycoon.html'},
+      {n:'Jack Smith',u:'Jack-smith.html'},
+      {n:'Tunnel Rush',u:'Tunnel-rush.html'},
+      {n:'Duck Life 5',u:'Duck-life-5.html'},
+      {n:'Duck Life 4',u:'Duck-life-4.html'},
+      {n:'Mob Control',u:'Mob-control.html'},
+      {n:'A Small World Cup',u:'A-small-world-cup.html'},
+      {n:'Escape Road',u:'Escape-road.html'},
+      {n:'QWOP',u:'QWOP.html'},
+      {n:'Indian Truck Simulator',u:'Indian-truck-simulator.html'},
+      {n:'Doge Miner',u:'Doge-miner.html'},
+      {n:'Draw Climber',u:'Draw-climber.html'},
+      {n:'Slope 3',u:'Slope-3.html'},
+      {n:'Infinite Craft',u:'Infinite-craft.html'},
+      {n:'Block Blast',u:'Block-blast.html'},
+      {n:'Melon Playground',u:'Melon-playground.html'},
+      {n:'House of Hazards',u:'house-of-hazards.html'},
+      {n:'Binding of Isaac',u:'Binding-of-isaac.html'},
+      {n:'Troll Face Quest 10',u:'Troll-face-10.html'},
+      {n:'Troll Face Quest 11',u:'Troll-face-11.html'},
+      {n:'Troll Face Quest 12',u:'Troll-face-12.html'},
+      {n:'Ultimate Car Simulator 3',u:'ultimate-car-simulator.html'},
+      {n:'Wordle',u:'Wordle.html'},
+      {n:'Capybara Clicker',u:'Capybara-clicker.html'},
+      {n:'Bob The Robber 5',u:'bob-robber.html'},
+      {n:'Car Crash 3D',u:'Car-crash-3d.html'},
+      {n:'BitLife',u:'Bit-life.html'},
+      {n:'Plants vs Zombies',u:'Plants-vs-zombies.html'},
+      {n:'Tall Man Run',u:'tall-man-run.html'},
+      {n:'Tag',u:'tag.html'},
+      {n:'Subway Surfers Winter',u:'Subway-Winter.html'},
+      {n:'Subway Surfers Miami',u:'Subway-miami.html'},
+      {n:'Hole.io',u:'Hole-io.html'},
+      {n:'Drift Boss',u:'Drift-boss.html'},
+      {n:'Subway Surfers Mexico',u:'Subway-mexico.html'},
+      {n:'Subway Surfers London',u:'Subway-london.html'},
+      {n:'Subway Surfers Iceland',u:'Subway-iceland.html'},
+      {n:'Granny 2',u:'Granny2.html'},
+      {n:'Granny 3',u:'Granny3.html'},
+      {n:'Factory Balls 2',u:'Factory-balls2.html'},
+      {n:'Factory Balls 3',u:'Factory-balls3.html'},
+      {n:'Geometry Dash Lite',u:'Geometry-Dash.html'},
+      {n:'Hardware Tycoon',u:'Hardware-tycoon.html'},
+      {n:'CSGO Clicker',u:'CsGo-clicker.html'},
+      {n:'Crossy Road',u:'Crossy-road.html'},
+      {n:'Burrito Bison',u:'BB.html'},
+      {n:'Burrito Bison Launcha Libre',u:'BL.html'},
+      {n:'Burrito Bison Revenge',u:'BR.html'},
+      {n:'Space Waves',u:'Space-waves.html'},
+      {n:'Zelda Ocarina',u:'Zelda0.html'},
+      {n:'Pokemon Emerald Randomized',u:'PER.html'},
+      {n:'Rooftop Snipers',u:'RF.html'},
+      {n:'Ultimate Car Simulator',u:'Ucarsim.html'},
+      {n:'Traffic Jam 3D',u:'Tj.html'},
+      {n:"Papa's Freezeria",u:'Pf.html'},
+      {n:"Papa's Pastaria",u:'Pp.html'},
+      {n:"Papa's Sushiria",u:'Ps.html'},
+      {n:'Ballz',u:'Ballz.html'},
+      {n:'10 Minutes Till Dawn',u:'10min.html'},
+      {n:'Minecraft',u:'EaglerCraft 1.12 [wasm].html'},
+      {n:'Rocket League',u:'goal.html'},
+      {n:'Pixel Battleground',u:'pg.html'},
+      {n:'BTD5',u:'BTD5.html'},
+      {n:'Brotato',u:'BroT.html'},
+      {n:'Dungeons & Degenerate Gamblers',u:'DaDG.html'},
+      {n:'Eggy Car',u:'eggy.html'},
+      {n:'Mr. Mine',u:'miner.html'},
+      {n:'Jet Rush',u:'jet.html'},
+      {n:'Moto X3M Spooky Land',u:'motosp.html'},
+      {n:'Moto X3M Pool Party',u:'motobp.html'},
+      {n:'Shred Sauce',u:'ShredS.html'},
+      {n:'Choppy Orc',u:'ChoppyO.html'},
+      {n:'Bad Ice Cream 3',u:'BI3.html'},
+      {n:'Territorialio',u:'Ter.html'},
+      {n:'12 Mini Battles',u:'12m.html'},
+      {n:'Blocky Snake',u:'blockys.html'},
+      {n:'Coal LLC',u:'CCl.html'},
+    ];
 
-	function renderGames() {
-		const q = currentSearchQuery.toLowerCase();
-		const filtered = GAMES.filter(g => g.n.toLowerCase().includes(q));
-		const sorted = [...filtered].sort((a,b) => {
-			const af = favorites.has(a.n), bf = favorites.has(b.n);
-			return af === bf ? 0 : af ? -1 : 1;
-		});
-		const container = document.getElementById('game-list');
-		container.innerHTML = '';
+    /* ─── STATE ─── */
+    const ls  = k     => localStorage.getItem(SK + k);
+    const lss = (k,v) => localStorage.setItem(SK + k, v);
 
-		sorted.forEach(game => {
-			const isFav = favorites.has(game.n);
-			const card = document.createElement('div');
-			card.className = 'card';
-			card.innerHTML = `
-				<div class="card-thumb">
-					<div class="card-initials">${game.n.charAt(0)}</div>
-					<button class="card-fav ${isFav ? 'on' : ''}">★</button>
-				</div>
-				<div class="card-info"><div class="card-name">${game.n}</div></div>`;
-			card.onclick = () => showGameModal(game);
-			card.querySelector('.card-fav').onclick = e => { e.stopPropagation(); toggleFav(game.n); };
-			container.appendChild(card);
-		});
-		document.getElementById('game-count').textContent = `${sorted.length} games`;
-	}
+    let favorites       = new Set(JSON.parse(ls('favorites')  || '[]'));
+    let playCounts      = JSON.parse(ls('playCounts') || '{}');
+    let premiumUnlocked = ls('premiumUnlocked') === 'true';
 
-	function showGameModal(game) {
-		document.getElementById('modal-thumb-title').textContent = game.n.charAt(0);
-		document.getElementById('modal-game-name').textContent = game.n;
-		document.getElementById('game-stats').innerHTML =
-			`<div class="mstat"><b>Category:</b> <span>${game.c}</span></div>`;
-		const fb = document.getElementById('modal-fav');
-		fb.innerHTML = favorites.has(game.n) ? '★' : '☆';
-		fb.classList.toggle('on', favorites.has(game.n));
-		fb.onclick = () => { toggleFav(game.n); showGameModal(game); };
-		document.getElementById('play-game-btn').onclick = () => launchGame(game.u);
-		document.getElementById('close-game-modal').onclick = closeModal;
-		document.getElementById('game-modal').classList.add('on');
-	}
+    let S = {
+      animations:   ls('animations')   !== 'false',
+      glow:         ls('glow')         === 'true',
+      blur:         ls('blur')         !== 'false',
+      autoload:     ls('autoload')     !== 'false',
+      playcount:    ls('playcount')    !== 'false',
+      bgEffect:     ls('bgEffect')     || 'stars',
+      smoothScroll: ls('smoothScroll') !== 'false',
+      gridSize:     ls('gridSize')     || 'xlarge',
+      bgBrightness: parseInt(ls('bgBrightness') || '100'),
+      bgColor:      ls('bgColor')      || '255,255,255',
+      cardOpacity:  parseInt(ls('cardOpacity')  || '55'),
+      fontSize:     parseInt(ls('fontSize')     || '13'),
+      cardRadius:   parseInt(ls('cardRadius')   || '10'),
+      cardGap:      parseInt(ls('cardGap')      || '20'),
+      topbarColor:  ls('topbarColor')  || '#0a0e14',
+      rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
+    };
 
-	function closeModal() { 
-		document.getElementById('game-modal').classList.remove('on'); 
-	}
+    /* ─── RAIN ─── */
+    let rainAnim = null;
+    function startRain() {
+      const canvas = document.getElementById('rain-canvas');
+      canvas.style.display = 'block';
+      const ctx = canvas.getContext('2d');
+      let drops = [];
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drops = Array.from({length: 120}, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          len: 10 + Math.random() * 20,
+          speed: (1 + Math.random() * 3) * (S.rainSpeed / 3),
+          opacity: 0.2 + Math.random() * 0.5,
+        }));
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const [r,g,b] = S.bgColor.split(',');
+        drops.forEach(d => {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${r},${g},${b},${d.opacity * S.bgBrightness / 100})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(d.x, d.y);
+          ctx.lineTo(d.x - 2, d.y + d.len);
+          ctx.stroke();
+          d.y += d.speed;
+          if (d.y > canvas.height) { d.y = -d.len; d.x = Math.random() * canvas.width; }
+        });
+        rainAnim = requestAnimationFrame(draw);
+      }
+      draw();
+    }
+    function stopRain() {
+      if (rainAnim) { cancelAnimationFrame(rainAnim); rainAnim = null; }
+      const canvas = document.getElementById('rain-canvas');
+      canvas.style.display = 'none';
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
 
-	function launchGame(url) {
-		closeModal();
-		if (settings.autoload) {
-			document.getElementById('overlay').classList.add('on');
-			document.getElementById('gload').classList.remove('hide');
-			document.getElementById('gframe').src = url;
-			setTimeout(() => document.getElementById('gload').classList.add('hide'), 2500);
-		}
-	}
+    /* ─── BG EFFECT ─── */
+    function applyBgEffect(effect) {
+      S.bgEffect = effect;
+      lss('bgEffect', effect);
+      document.querySelectorAll('.bg-option').forEach(b => b.classList.toggle('active', b.dataset.bg === effect));
+      const layer = document.getElementById('bg-layer');
+      if (effect === 'rain') {
+        layer.style.display = 'none';
+        startRain();
+      } else {
+        stopRain();
+        layer.style.display = '';
+        layer.className = effect === 'none' ? 'none' : effect;
+      }
+      const rainGroup = document.getElementById('rain-speed-group');
+      if (rainGroup) rainGroup.style.display = effect === 'rain' ? 'block' : 'none';
+    }
 
-	function toggleFav(name) {
-		favorites.has(name) ? favorites.delete(name) : favorites.add(name);
-		localStorage.setItem('favorites', JSON.stringify([...favorites]));
-		renderGames();
-	}
+    /* ─── APPLY SETTINGS ─── */
+    function applyBrightness(v) {
+      S.bgBrightness = +v; lss('bgBrightness', v);
+      document.documentElement.style.setProperty('--bg-brightness', v/100);
+      document.getElementById('brightness-value').textContent = v + '%';
+    }
+    function applyOpacity(v) {
+      S.cardOpacity = +v; lss('cardOpacity', v);
+      const o = v/100;
+      document.documentElement.style.setProperty('--card-bg',    `rgba(22,27,34,${o})`);
+      document.documentElement.style.setProperty('--card-hover', `rgba(30,36,44,${Math.min(o+.2,1)})`);
+      document.getElementById('opacity-value').textContent = v + '%';
+    }
+    function applyFontSize(v) {
+      S.fontSize = +v; lss('fontSize', v);
+      document.getElementById('fontsize-value').textContent = v + 'px';
+      document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = v + 'px');
+    }
+    function applyCardRadius(v) {
+      S.cardRadius = +v; lss('cardRadius', v);
+      document.getElementById('radius-value').textContent = v + 'px';
+      document.querySelectorAll('.card').forEach(el => el.style.borderRadius = v + 'px');
+    }
+    function applyCardGap(v) {
+      S.cardGap = +v; lss('cardGap', v);
+      document.getElementById('gap-value').textContent = v + 'px';
+      document.getElementById('game-list').style.gap = v + 'px';
+    }
+    function applyTopbarColor(c) {
+      S.topbarColor = c; lss('topbarColor', c);
+      document.getElementById('topbar').style.background = c;
+    }
+    function applyBgColor(rgb) {
+      S.bgColor = rgb; lss('bgColor', rgb);
+      document.documentElement.style.setProperty('--bg-color', rgb);
+    }
+    function updateGridSize() {
+      const map = {
+        small:  'repeat(auto-fill, minmax(120px,1fr))',
+        normal: 'repeat(auto-fill, minmax(160px,1fr))',
+        large:  'repeat(auto-fill, minmax(200px,1fr))',
+        xlarge: 'repeat(6,1fr)',
+      };
+      document.getElementById('game-list').style.gridTemplateColumns = map[S.gridSize] || map.xlarge;
+    }
+    function syncToggle(id, on) {
+      document.getElementById(id).classList.toggle('active', on);
+    }
 
-	// Events
-	document.getElementById('bk-btn').onclick = () => {
-		document.getElementById('overlay').classList.remove('on');
-		document.getElementById('gframe').src = '';
-		document.getElementById('gload').classList.remove('hide');
-	};
+    /* ─── RENDER CARDS ─── */
+    function renderGameList() {
+      const container = document.getElementById('game-list');
+      const query = document.getElementById('search').value.toLowerCase().trim();
+      const filtered = (query ? GAMES.filter(g => g.n.toLowerCase().includes(query)) : [...GAMES])
+        .sort((a, b) => a.n.localeCompare(b.n));
 
-	document.getElementById('fs-btn').onclick = () => {
-		const f = document.getElementById('gframe');
-		if (f.requestFullscreen) f.requestFullscreen();
-	};
+      container.innerHTML = '';
+      filtered.forEach(game => {
+        const isFav = favorites.has(game.u);
+        const plays = playCounts[game.u] || 0;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.borderRadius = S.cardRadius + 'px';
+        card.innerHTML = `
+          <div class="card-thumb">
+            <div class="card-initials">${game.n[0]}</div>
+          </div>
+          <div class="card-info">
+            <div class="card-name" style="font-size:${S.fontSize}px">${game.n}</div>
+            <div class="card-plays" style="display:${S.playcount?'block':'none'}">${plays} play${plays===1?'':'s'}</div>
+          </div>
+          <button class="card-fav${isFav?' on':''}">★</button>
+        `;
+        card.addEventListener('click', () => openGameModal(game));
+        card.querySelector('.card-fav').addEventListener('click', e => {
+          e.stopPropagation();
+          favorites.has(game.u) ? favorites.delete(game.u) : favorites.add(game.u);
+          lss('favorites', JSON.stringify([...favorites]));
+          renderGameList();
+        });
+        container.appendChild(card);
+      });
 
-	document.getElementById('search').addEventListener('input', e => {
-		currentSearchQuery = e.target.value; 
-		renderGames();
-	});
+      // Request a Game card
+      const reqCard = document.createElement('div');
+      reqCard.className = 'card request-card';
+      reqCard.style.borderRadius = S.cardRadius + 'px';
+      reqCard.innerHTML = `
+        <div class="card-thumb request-thumb">
+          <div class="request-plus">+</div>
+        </div>
+        <div class="card-info">
+          <div class="card-name" style="font-size:${S.fontSize}px">Request a Game</div>
+          <div class="card-plays">Click to submit a request</div>
+        </div>
+      `;
+      reqCard.addEventListener('click', () => window.open('https://forms.gle/gRRe9cCZnZ3jhg7X7', '_blank'));
+      container.appendChild(reqCard);
 
-	// Settings
-	document.getElementById('settings-btn').onclick = () =>
-		document.getElementById('settings-drawer').classList.add('open');
-	document.getElementById('settings-close-btn').onclick = () =>
-		document.getElementById('settings-drawer').classList.remove('open');
+      document.getElementById('game-count').textContent = filtered.length + ' games';
+    }
 
-	// Settings tabs
-	document.querySelectorAll('.settings-tab').forEach(tab => {
-		tab.onclick = () => {
-			document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
-			document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
-			tab.classList.add('active');
-			document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
-		};
-	});
+    /* ─── MODAL ─── */
+    let currentGame = null;
+    function openGameModal(game) {
+      currentGame = game;
+      document.getElementById('modal-game-name').textContent   = game.n;
+      document.getElementById('modal-thumb-title').textContent = game.n[0];
+      const isFav  = favorites.has(game.u);
+      const favBtn = document.getElementById('modal-fav');
+      favBtn.textContent = isFav ? '★' : '☆';
+      favBtn.classList.toggle('on', isFav);
+      document.getElementById('game-stats').innerHTML =
+        `<div class="mstat"><b>Plays</b><span>${playCounts[game.u] || 0}</span></div>`;
+      document.getElementById('game-modal').classList.add('on');
+    }
 
-	// Settings toggles
-	document.getElementById('animation-toggle').onclick = function() {
-		this.classList.toggle('active');
-		settings.animations = this.classList.contains('active');
-		localStorage.setItem('animations', settings.animations);
-	};
+    /* ─── LOAD GAME (FIXED) ─── */
+    function loadGame(url) {
+      document.getElementById('game-modal').classList.remove('on');
 
-	document.getElementById('glow-toggle').onclick = function() {
-		this.classList.toggle('active');
-		settings.glow = this.classList.contains('active');
-		localStorage.setItem('glow', settings.glow);
-		document.body.classList.toggle('glow-on', settings.glow);
-	};
+      const overlay = document.getElementById('overlay');
+      const gload   = document.getElementById('gload');
+      const frame   = document.getElementById('gframe');
+      const bar     = document.getElementById('bar');
 
-	document.getElementById('autoload-toggle').onclick = function() {
-		this.classList.toggle('active');
-		settings.autoload = this.classList.contains('active');
-		localStorage.setItem('autoload', settings.autoload);
-	};
+      overlay.classList.add('on');
+      gload.classList.remove('hide');
+      bar.style.width = '0%';
 
-	document.getElementById('smooth-scroll').onclick = function() {
-		this.classList.toggle('active');
-		document.documentElement.style.scrollBehavior = this.classList.contains('active') ? 'smooth' : 'auto';
-	};
+      // Animate progress bar
+      let pct = 0;
+      const barTimer = setInterval(() => {
+        pct = Math.min(pct + Math.random() * 8, 90);
+        bar.style.width = pct + '%';
+      }, 200);
 
-	document.getElementById('clear-favorites').onclick = () => {
-		if (confirm('Clear all favorites?')) {
-			favorites.clear(); 
-			localStorage.setItem('favorites','[]'); 
-			renderGames();
-		}
-	};
+      // Track whether we've already hidden the loader
+      let loaded = false;
+      function finishLoad() {
+        if (loaded) return;
+        loaded = true;
+        clearInterval(barTimer);
+        bar.style.width = '100%';
+        setTimeout(() => gload.classList.add('hide'), 300);
+      }
 
-	document.getElementById('reset-settings').onclick = () => {
-		if (confirm('Reset all settings to defaults?')) { 
-			localStorage.clear(); 
-			location.reload(); 
-		}
-	};
+      // Set onload BEFORE setting src to catch the load event
+      frame.onload = finishLoad;
 
-	// Notifications
-	document.getElementById('notifications-btn').onclick = () => {
-		document.getElementById('notifications-modal').classList.add('on');
-	};
+      // Set src directly — never blank first
+      frame.src = url;
 
-	document.getElementById('clear-notifs').onclick = () => {
-		document.getElementById('notifications-list').innerHTML = '<div class="notification-item">✓ All notifications cleared</div>';
-		document.getElementById('notif-badge').style.display = 'none';
-	};
+      // Fallback: hide loader after 8s regardless
+      setTimeout(finishLoad, 8000);
+    }
 
-	document.getElementById('close-notifs').onclick = () => {
-		document.getElementById('notifications-modal').classList.remove('on');
-	};
+    /* ─── RENDER LINKS ─── */
+    function renderLinks() {
+      const c = document.getElementById('links-container');
+      c.innerHTML = '';
+      DEFAULT_LINKS.forEach(link => {
+        const el = document.createElement('div');
+        el.className = 'link-card';
+        el.innerHTML = `<div><div class="link-title">${link.title}</div><div class="link-url">${link.url}</div></div>`;
+        el.addEventListener('click', () => window.open(link.url, '_blank'));
+        c.appendChild(el);
+      });
+    }
 
-	// Init
-	renderGames();
-	</script>
+    /* ─── PREMIUM ─── */
+    function unlockPremium() {
+      const inp = document.getElementById('premium-password');
+      if (inp.value === PREMIUM_PASSWORD) {
+        premiumUnlocked = true; lss('premiumUnlocked', 'true');
+        document.getElementById('premium-content').style.display = 'block';
+        inp.value = ''; inp.style.borderColor = 'rgba(0,255,100,.8)';
+        renderLinks();
+        setTimeout(() => inp.style.borderColor = 'rgba(255,255,255,.2)', 2000);
+      } else {
+        inp.style.borderColor = 'rgba(255,0,0,.8)'; inp.value = '';
+        setTimeout(() => inp.style.borderColor = 'rgba(255,255,255,.2)', 1500);
+      }
+    }
+
+    /* ─── BOOT ─── */
+    document.addEventListener('DOMContentLoaded', () => {
+
+      if (!S.animations) document.body.classList.add('hover-off');
+      if (S.glow)        document.body.classList.add('glow-on');
+      if (S.smoothScroll) document.documentElement.style.scrollBehavior = 'smooth';
+
+      document.getElementById('grid-size').value           = S.gridSize;
+      document.getElementById('brightness-slider').value   = S.bgBrightness;
+      document.getElementById('opacity-slider').value      = S.cardOpacity;
+      document.getElementById('fontsize-slider').value     = S.fontSize;
+      document.getElementById('radius-slider').value       = S.cardRadius;
+      document.getElementById('gap-slider').value          = S.cardGap;
+      document.getElementById('topbar-color-picker').value = S.topbarColor;
+
+      applyBrightness(S.bgBrightness);
+      applyOpacity(S.cardOpacity);
+      applyFontSize(S.fontSize);
+      applyCardRadius(S.cardRadius);
+      applyCardGap(S.cardGap);
+      applyTopbarColor(S.topbarColor);
+      applyBgColor(S.bgColor);
+      updateGridSize();
+
+      document.getElementById('fontsize-value').textContent = S.fontSize    + 'px';
+      document.getElementById('radius-value').textContent   = S.cardRadius  + 'px';
+      document.getElementById('gap-value').textContent      = S.cardGap     + 'px';
+
+      syncToggle('animation-toggle', S.animations);
+      syncToggle('glow-toggle',      S.glow);
+      syncToggle('blur-toggle',      S.blur);
+      syncToggle('autoload-toggle',  S.autoload);
+      syncToggle('playcount-toggle', S.playcount);
+      syncToggle('smooth-scroll',    S.smoothScroll);
+
+      applyBgEffect(S.bgEffect);
+
+      document.querySelectorAll('.color-swatch').forEach(sw =>
+        sw.classList.toggle('active', sw.dataset.rgb === S.bgColor));
+
+      if (premiumUnlocked) {
+        document.getElementById('premium-content').style.display = 'block';
+        renderLinks();
+      }
+
+      renderGameList();
+
+      /* ── TAB SWITCHING ── */
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const isGames = btn.dataset.tab === 'games';
+          document.getElementById('content').classList.toggle('hidden', !isGames);
+          document.getElementById('browser-container').classList.toggle('active', !isGames);
+          if (!isGames) document.getElementById('disclaimer-modal').classList.add('on');
+        });
+      });
+
+      /* ── DISCLAIMER ── */
+      document.getElementById('disclaimer-ok').addEventListener('click', () =>
+        document.getElementById('disclaimer-modal').classList.remove('on'));
+      document.getElementById('disclaimer-btn').addEventListener('click', () =>
+        document.getElementById('disclaimer-modal').classList.add('on'));
+
+      /* ── SETTINGS TABS ── */
+      document.querySelectorAll('.settings-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+        });
+      });
+
+      document.getElementById('settings-btn').addEventListener('click', () =>
+        document.getElementById('settings-drawer').classList.toggle('open'));
+      document.getElementById('settings-close-btn').addEventListener('click', () =>
+        document.getElementById('settings-drawer').classList.remove('open'));
+
+      /* ── VISUAL TOGGLES ── */
+      document.getElementById('animation-toggle').addEventListener('click', function() {
+        S.animations = this.classList.toggle('active'); lss('animations', S.animations);
+        document.body.classList.toggle('hover-off', !S.animations);
+      });
+      document.getElementById('glow-toggle').addEventListener('click', function() {
+        S.glow = this.classList.toggle('active'); lss('glow', S.glow);
+        document.body.classList.toggle('glow-on', S.glow);
+      });
+      document.getElementById('blur-toggle').addEventListener('click', function() {
+        S.blur = this.classList.toggle('active'); lss('blur', S.blur);
+      });
+      document.getElementById('fontsize-slider').addEventListener('input', e => applyFontSize(e.target.value));
+      document.getElementById('radius-slider').addEventListener('input',   e => applyCardRadius(e.target.value));
+      document.getElementById('gap-slider').addEventListener('input',      e => applyCardGap(e.target.value));
+
+      /* ── BACKGROUND ── */
+      document.querySelectorAll('.bg-option').forEach(btn =>
+        btn.addEventListener('click', () => applyBgEffect(btn.dataset.bg)));
+      document.getElementById('brightness-slider').addEventListener('input', e => applyBrightness(e.target.value));
+      document.getElementById('rain-speed-slider').addEventListener('input', e => {
+        S.rainSpeed = +e.target.value; lss('rainSpeed', S.rainSpeed);
+        const labels = ['','Slow','Medium-Slow','Medium','Medium-Fast','Fast'];
+        document.getElementById('rain-speed-value').textContent = labels[S.rainSpeed];
+      });
+      document.querySelectorAll('.color-swatch').forEach(sw => {
+        sw.addEventListener('click', () => {
+          document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+          sw.classList.add('active');
+          applyBgColor(sw.dataset.rgb);
+        });
+      });
+      document.getElementById('custom-color').addEventListener('input', e => {
+        const hex = e.target.value;
+        const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        applyBgColor(`${r},${g},${b}`);
+      });
+
+      /* ── CARDS SETTINGS ── */
+      document.getElementById('grid-size').addEventListener('change', e => {
+        S.gridSize = e.target.value; lss('gridSize', S.gridSize); updateGridSize();
+      });
+      document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
+      document.getElementById('clear-favorites').addEventListener('click', () => {
+        if (confirm('Clear all favorites?')) { favorites.clear(); lss('favorites', '[]'); renderGameList(); }
+      });
+      document.getElementById('clear-playcounts').addEventListener('click', () => {
+        if (confirm('Clear play counts?')) { playCounts = {}; lss('playCounts', '{}'); renderGameList(); }
+      });
+
+      /* ── GAMEPLAY ── */
+      document.getElementById('autoload-toggle').addEventListener('click', function() {
+        S.autoload = this.classList.toggle('active'); lss('autoload', S.autoload);
+      });
+      document.getElementById('playcount-toggle').addEventListener('click', function() {
+        S.playcount = this.classList.toggle('active'); lss('playcount', S.playcount); renderGameList();
+      });
+
+      /* ── ADVANCED ── */
+      document.getElementById('smooth-scroll').addEventListener('click', function() {
+        S.smoothScroll = this.classList.toggle('active'); lss('smoothScroll', S.smoothScroll);
+        document.documentElement.style.scrollBehavior = S.smoothScroll ? 'smooth' : 'auto';
+      });
+      document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
+      document.getElementById('reset-settings').addEventListener('click', () => {
+        if (confirm('Reset all settings to defaults?')) { localStorage.clear(); location.reload(); }
+      });
+
+      /* ── PREMIUM ── */
+      document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
+      document.getElementById('premium-password').addEventListener('keypress', e => {
+        if (e.key === 'Enter') unlockPremium();
+      });
+
+      /* ── MODAL ACTIONS ── */
+      document.getElementById('modal-fav').addEventListener('click', () => {
+        if (!currentGame) return;
+        favorites.has(currentGame.u) ? favorites.delete(currentGame.u) : favorites.add(currentGame.u);
+        lss('favorites', JSON.stringify([...favorites]));
+        openGameModal(currentGame);
+        renderGameList();
+      });
+      document.getElementById('play-game-btn').addEventListener('click', () => {
+        if (!currentGame) return;
+        playCounts[currentGame.u] = (playCounts[currentGame.u] || 0) + 1;
+        lss('playCounts', JSON.stringify(playCounts));
+        loadGame(currentGame.u);
+      });
+      document.getElementById('close-game-modal').addEventListener('click', () =>
+        document.getElementById('game-modal').classList.remove('on'));
+      document.getElementById('game-modal').addEventListener('click', e => {
+        if (e.target === document.getElementById('game-modal'))
+          document.getElementById('game-modal').classList.remove('on');
+      });
+
+      /* ── OVERLAY CONTROLS ── */
+      document.getElementById('bk-btn').addEventListener('click', () => {
+        const frame = document.getElementById('gframe');
+        frame.onload = null;       // prevent stale handler firing
+        frame.src = 'about:blank'; // cleanly unload the game
+        document.getElementById('overlay').classList.remove('on');
+        document.getElementById('gload').classList.remove('hide');
+        document.getElementById('bar').style.width = '0%';
+      });
+      document.getElementById('fs-btn').addEventListener('click', () => {
+        document.getElementById('gframe').requestFullscreen().catch(() => alert('Fullscreen unavailable'));
+      });
+
+      /* ── SEARCH ── */
+      document.getElementById('search').addEventListener('input', renderGameList);
+    });
+			</script>
 </body>
+
 </html>

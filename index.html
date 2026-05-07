@@ -1,631 +1,1304 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MathLine</title>
-  <link rel="icon" type="image/svg+xml" href="https://www.clipartmax.com/png/middle/191-1913494_adding-faculty-evaluators-tutors-si-leaders-and-canvas-instructure-logo.png" />
-  <style>
-    :root {
-      --text: #fff;
-      --top: #0a0e14;
-      --top-h: 56px;
-      --bg: #0d1117;
-      --card-bg: rgba(22,27,34,0.55);
-      --card-hover: rgba(30,36,44,0.75);
-      --border: rgba(255,255,255,.13);
-      --bg-brightness: 1.0;
-      --bg-color: 255,255,255;
-    }
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>MathLine</title>
+	<link rel="icon" type="image/svg+xml"
+		href="https://www.clipartmax.com/png/middle/191-1913494_adding-faculty-evaluators-tutors-si-leaders-and-canvas-instructure-logo.png" />
+	<style>
+		:root {
+			--text: #fff;
+			--top: #0a0e14;
+			--top-h: 56px;
+			--bg: #0d1117;
+			--card-bg: rgba(22, 27, 34, 0.55);
+			--card-hover: rgba(30, 36, 44, 0.75);
+			--border: rgba(255, 255, 255, .13);
+			--bg-brightness: 1.0;
+			--bg-color: 255, 255, 255;
+		}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-    html, body {
-      height: 100%;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      color: var(--text);
-      background: var(--bg);
-      overflow: hidden;
-    }
+		html,
+		body {
+			height: 100%;
+			font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+			color: var(--text);
+			background: var(--bg);
+			overflow: hidden;
+		}
 
-    /* ── BACKGROUND ── */
-    #bg-layer {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 1;
-      opacity: var(--bg-brightness);
-    }
-    #bg-layer.stars {
-      background-image:
-        radial-gradient(2px 2px at 15px 25px, rgba(var(--bg-color),1.0), transparent),
-        radial-gradient(1px 1px at 55px 65px, rgba(var(--bg-color),0.85), transparent),
-        radial-gradient(2px 2px at 90px 15px, rgba(var(--bg-color),0.9), transparent),
-        radial-gradient(1px 1px at 130px 80px, rgba(var(--bg-color),0.75), transparent),
-        radial-gradient(2px 2px at 170px 40px, rgba(var(--bg-color),1.0), transparent),
-        radial-gradient(1px 1px at 45px 110px, rgba(var(--bg-color),0.7), transparent),
-        radial-gradient(2px 2px at 195px 95px, rgba(var(--bg-color),0.85), transparent),
-        radial-gradient(1px 1px at 75px 140px, rgba(var(--bg-color),0.9), transparent),
-        radial-gradient(2px 2px at 155px 155px, rgba(var(--bg-color),0.8), transparent),
-        radial-gradient(1px 1px at 20px 170px, rgba(var(--bg-color),1.0), transparent),
-        radial-gradient(2px 2px at 100px 50px, rgba(var(--bg-color),0.9), transparent),
-        radial-gradient(1px 1px at 180px 130px, rgba(var(--bg-color),0.75), transparent);
-      background-size: 200px 200px;
-      animation: twinkle 4s ease-in-out infinite;
-    }
-    #bg-layer.grid {
-      background-image:
-        linear-gradient(rgba(var(--bg-color),.35) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(var(--bg-color),.35) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-    #bg-layer.dots {
-      background-image: radial-gradient(circle, rgba(var(--bg-color),0.85) 1.5px, transparent 1.5px);
-      background-size: 22px 22px;
-    }
-    #bg-layer.lines {
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(var(--bg-color),0.4) 38px, rgba(var(--bg-color),0.4) 39px);
-    }
-    #bg-layer.waves {
-      background-image:
-        repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(var(--bg-color),.22) 18px, rgba(var(--bg-color),.22) 19px),
-        repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(var(--bg-color),.14) 18px, rgba(var(--bg-color),.14) 19px);
-      animation: wavemove 3s linear infinite;
-    }
-    #bg-layer.none { display: none; }
+		/* ── BACKGROUND ── */
+		#bg-layer {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 1;
+			opacity: var(--bg-brightness);
+		}
 
-    /* Rain canvas */
-    #rain-canvas {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 1;
-      display: none;
-    }
+		#bg-layer.stars {
+			background-image:
+				radial-gradient(2px 2px at 15px 25px, rgba(var(--bg-color), 1.0), transparent),
+				radial-gradient(1px 1px at 55px 65px, rgba(var(--bg-color), 0.85), transparent),
+				radial-gradient(2px 2px at 90px 15px, rgba(var(--bg-color), 0.9), transparent),
+				radial-gradient(1px 1px at 130px 80px, rgba(var(--bg-color), 0.75), transparent),
+				radial-gradient(2px 2px at 170px 40px, rgba(var(--bg-color), 1.0), transparent),
+				radial-gradient(1px 1px at 45px 110px, rgba(var(--bg-color), 0.7), transparent),
+				radial-gradient(2px 2px at 195px 95px, rgba(var(--bg-color), 0.85), transparent),
+				radial-gradient(1px 1px at 75px 140px, rgba(var(--bg-color), 0.9), transparent),
+				radial-gradient(2px 2px at 155px 155px, rgba(var(--bg-color), 0.8), transparent),
+				radial-gradient(1px 1px at 20px 170px, rgba(var(--bg-color), 1.0), transparent),
+				radial-gradient(2px 2px at 100px 50px, rgba(var(--bg-color), 0.9), transparent),
+				radial-gradient(1px 1px at 180px 130px, rgba(var(--bg-color), 0.75), transparent);
+			background-size: 200px 200px;
+			animation: twinkle 4s ease-in-out infinite;
+		}
 
-    @keyframes twinkle { 0%,100% { opacity: calc(var(--bg-brightness)*0.65); } 50% { opacity: var(--bg-brightness); } }
-    @keyframes wavemove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
-    @keyframes spin { to { transform: rotate(360deg); } }
+		#bg-layer.grid {
+			background-image:
+				linear-gradient(rgba(var(--bg-color), .35) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(var(--bg-color), .35) 1px, transparent 1px);
+			background-size: 40px 40px;
+		}
 
-    /* ── TOPBAR ── */
-    #topbar {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--top-h);
-      background: var(--top);
-      z-index: 30;
-      display: flex; align-items: center; gap: 14px; padding: 0 16px;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 2px 4px rgba(0,0,0,.3);
-    }
-    #logo {
-      font-size: 1.3rem; font-weight: 800; color: #fff;
-      text-shadow: 0 0 10px rgba(255,255,255,.3);
-      white-space: nowrap; letter-spacing: -.5px;
-    }
-    #search {
-      flex: 1; max-width: 480px;
-      background: rgba(255,255,255,.07); color: var(--text);
-      padding: 8px 14px; font-size: 14px; border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.12); outline: none;
-      transition: border-color .2s, background .2s;
-    }
-    #search:focus { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
-    #search::placeholder { color: rgba(255,255,255,.35); }
+		#bg-layer.dots {
+			background-image: radial-gradient(circle, rgba(var(--bg-color), 0.85) 1.5px, transparent 1.5px);
+			background-size: 22px 22px;
+		}
 
-    /* ── TAB BUTTONS ── */
-    #tab-buttons { display: flex; gap: 8px; margin-left: auto; margin-right: 10px; }
-    .tab-btn {
-      background: rgba(255,255,255,.08); border: none;
-      color: rgba(255,255,255,.6); padding: 6px 12px;
-      border-radius: 6px; font-size: 12px; font-weight: 600;
-      cursor: pointer; transition: background .2s, color .2s;
-    }
-    .tab-btn:hover { background: rgba(255,255,255,.15); color: rgba(255,255,255,.8); }
-    .tab-btn.active { background: rgba(255,255,255,.2); color: #fff; }
+		#bg-layer.lines {
+			background-image: repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(var(--bg-color), 0.4) 38px, rgba(var(--bg-color), 0.4) 39px);
+		}
 
-    #top-right { display: flex; align-items: center; gap: 10px; }
-    #settings-btn, #info-btn, #disclaimer-btn {
-      width: 36px; height: 36px; border-radius: 50%; border: none;
-      background: rgba(255,255,255,.08); color: #fff; font-size: 18px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background .2s;
-    }
-    #settings-btn:hover, #info-btn:hover, #disclaimer-btn:hover { background: rgba(255,255,255,.15); }
+		#bg-layer.waves {
+			background-image:
+				repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(var(--bg-color), .22) 18px, rgba(var(--bg-color), .22) 19px),
+				repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(var(--bg-color), .14) 18px, rgba(var(--bg-color), .14) 19px);
+			animation: wavemove 3s linear infinite;
+		}
 
-    /* ── MAIN ── */
-    #main {
-      position: fixed; top: var(--top-h); left: 0; right: 0; bottom: 0;
-      overflow-y: auto; background: transparent;
-      scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent;
-      z-index: 2;
-    }
-    #content { padding: 20px 20px 40px; display: block; }
-    #content.hidden { display: none; }
+		#bg-layer.none {
+			display: none;
+		}
 
-    .section-header {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 10px; margin-top: 24px;
-    }
-    .section-header:first-child { margin-top: 0; }
-    .section-title { font-size: 1rem; font-weight: 700; color: #fff; }
-    .section-count { font-size: 12px; color: rgba(255,255,255,.4); font-weight: 400; }
+		#rain-canvas {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 1;
+			display: none;
+		}
 
-    #game-list {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 20px;
-    }
+		@keyframes twinkle {
 
-    /* ── BROWSER ── */
-    #browser-container { display: none; width: 100%; height: 100%; }
-    #browser-container.active { display: flex; flex-direction: column; }
-    #browser-frame { width: 100%; flex: 1; border: none; background: #fff; }
+			0%,
+			100% {
+				opacity: calc(var(--bg-brightness)*0.65);
+			}
 
-    /* ── CARDS ── */
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border-radius: 10px; cursor: pointer; overflow: hidden;
-      border: 1px solid var(--border);
-      transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
-      position: relative;
-    }
-    .card:hover {
-      transform: translateY(-3px) scale(1.02);
-      border-color: rgba(255,255,255,.28);
-      background: var(--card-hover);
-      box-shadow: 0 6px 20px rgba(0,0,0,.35);
-    }
-    .card-thumb {
-      width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;
-      background: rgba(255,255,255,.05);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card-initials {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem; font-weight: 800;
-      color: rgba(255,255,255,.22); text-shadow: 0 2px 8px rgba(0,0,0,.4);
-      user-select: none;
-    }
-    .card-info { padding: 8px 10px 10px; }
-    .card-name {
-      font-size: 13px; font-weight: 600; color: rgba(255,255,255,.95);
-      line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .card-plays { font-size: 10px; color: rgba(255,255,255,.35); margin-top: 2px; }
-    .card-fav {
-      position: absolute; top: 6px; right: 6px;
-      background: rgba(0,0,0,.5); border: none; cursor: pointer;
-      width: 28px; height: 28px; border-radius: 50%; font-size: 14px;
-      color: rgba(255,255,255,.5);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .15s, color .15s;
-      z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,.3);
-    }
-    .card:hover .card-fav { opacity: 1; }
-    .card-fav.on { opacity: 1 !important; color: #ffd700 !important; }
-    .card-fav:hover { color: #ffd700; }
+			50% {
+				opacity: var(--bg-brightness);
+			}
+		}
 
-    /* ── OVERLAY (GAME VIEWER) ── */
-    #overlay {
-      display: none; position: fixed; inset: 0; z-index: 50;
-      background: #000; flex-direction: column;
-    }
-    #overlay.on { display: flex; }
+		@keyframes wavemove {
+			0% {
+				background-position: 0 0;
+			}
 
-    /* FIX: removed restrictive sandbox — games need forms, popups, top nav */
-    #gframe {
-      flex: 1; width: 100%; border: none; background: #000;
-    }
+			100% {
+				background-position: 40px 40px;
+			}
+		}
 
-    /* ── LOADING ── */
-    #gload {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      background: #000; z-index: 2;
-      transition: opacity .3s;
-    }
-    #gload.hide { display: none; }
-    .spin {
-      border: 4px solid rgba(255,255,255,.2);
-      border-top: 4px solid #fff;
-      border-radius: 50%; width: 52px; height: 52px;
-      animation: spin 1s linear infinite; margin-bottom: 22px;
-    }
-    #bar-lbl {
-      font-size: 15px; color: rgba(255,255,255,.6);
-      margin-bottom: 24px; letter-spacing: .03em;
-    }
-    #bar-wrap {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: 10px; background: rgba(255,255,255,.1);
-    }
-    #bar {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, rgba(255,255,255,.6), #fff);
-      box-shadow: 0 0 16px rgba(255,255,255,.6);
-      transition: width .12s linear;
-    }
+		@keyframes spin {
+			to {
+				transform: rotate(360deg);
+			}
+		}
 
-    /* Overlay control buttons */
-    #fs-btn {
-      position: fixed; right: 18px; top: 18px;
-      padding: 8px 14px; border-radius: 8px; border: none;
-      cursor: pointer; z-index: 60; font-weight: 700;
-      background: #fff; color: #000;
-    }
-    #bk-btn {
-      position: fixed; left: 18px; top: 18px;
-      padding: 8px 14px; border-radius: 8px; border: none;
-      cursor: pointer; z-index: 60; font-weight: 700;
-      background: rgba(0,0,0,.55); color: #fff;
-    }
+		/* ── TOPBAR ── */
+		#topbar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: var(--top-h);
+			background: var(--top);
+			z-index: 30;
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			padding: 0 16px;
+			border-bottom: 1px solid rgba(255, 255, 255, .1);
+			box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+		}
 
-    /* ── GAME MODAL ── */
-    .modal {
-      display: none; position: fixed; z-index: 55; inset: 0;
-      background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
-    }
-    .modal.on { display: flex; align-items: center; justify-content: center; }
-    .modal-box {
-      background: rgba(13,17,23,0.95); backdrop-filter: blur(12px);
-      padding: 28px; border-radius: 14px; max-width: 460px; width: 90%;
-      color: var(--text); border: 1px solid rgba(255,255,255,.15);
-    }
-    .modal-thumb {
-      width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden;
-      margin-bottom: 18px; position: relative;
-      background: rgba(255,255,255,.05);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .modal-thumb-title {
-      font-size: 2.5rem; font-weight: 800; color: rgba(255,255,255,.22);
-    }
-    .mtrow { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-    .mtrow h2 { flex: 1; font-size: 1.2rem; color: #fff; }
-    .mfav {
-      font-size: 22px; background: none; border: none;
-      cursor: pointer; color: rgba(255,255,255,.3); transition: color .2s; padding: 4px;
-    }
-    .mfav:hover, .mfav.on { color: #ffd700; }
-    .mstat {
-      display: flex; justify-content: space-between;
-      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 14px;
-    }
-    .mstat:last-of-type { border: none; }
-    .mstat b { color: rgba(255,255,255,.5); font-weight: 600; }
-    .mbtns { display: flex; gap: 10px; margin-top: 18px; justify-content: center; }
-    .mbtns button { padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; }
-    .mbplay { background: #fff; color: #000; }
-    .mbplay:hover { filter: brightness(0.9); }
-    .mbclose { background: rgba(255,255,255,.1); color: var(--text); border: 1px solid rgba(255,255,255,.2); }
-    .mbclose:hover { background: rgba(255,255,255,.18); }
+		#logo {
+			font-size: 1.3rem;
+			font-weight: 800;
+			color: #fff;
+			text-shadow: 0 0 10px rgba(255, 255, 255, .3);
+			white-space: nowrap;
+			letter-spacing: -.5px;
+		}
 
-    /* ── SETTINGS DRAWER ── */
-    #settings-drawer {
-      position: fixed; right: -420px; top: 0; bottom: 0; width: 400px;
-      background: rgba(10,14,20,0.97); backdrop-filter: blur(10px);
-      z-index: 100; transition: right .3s; overflow: hidden;
-      display: flex; flex-direction: column;
-    }
-    #settings-drawer.open { right: 0; }
-    .settings-header {
-      padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,.1); flex-shrink: 0;
-    }
-    .settings-header h2 { color: #fff; font-size: 1.2rem; }
-    .settings-close-btn {
-      background: none; border: none; color: rgba(255,255,255,.4);
-      font-size: 22px; cursor: pointer; padding: 4px; transition: color .2s;
-    }
-    .settings-close-btn:hover { color: #fff; }
-    .settings-tabs {
-      display: flex; border-bottom: 1px solid rgba(255,255,255,.1);
-      flex-shrink: 0; overflow-x: auto;
-    }
-    .settings-tab {
-      flex-shrink: 0; padding: 12px 10px; border: none;
-      background: rgba(255,255,255,.04); color: rgba(255,255,255,.5);
-      cursor: pointer; font-size: 11px; font-weight: 600;
-      transition: background .2s, color .2s; border-bottom: 2px solid transparent;
-    }
-    .settings-tab:hover { background: rgba(255,255,255,.09); }
-    .settings-tab.active { background: rgba(255,255,255,.07); color: #fff; border-bottom-color: #fff; }
-    .settings-content { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.1) transparent; }
-    .settings-panel { display: none; padding: 16px 18px; }
-    .settings-panel.active { display: block; }
-    .settings-group { margin-bottom: 22px; }
-    .settings-group-title {
-      display: block; color: rgba(255,255,255,.4); font-weight: 700;
-      font-size: 10px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;
-    }
-    .settings-option { margin-bottom: 14px; }
-    .settings-option label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: rgba(255,255,255,.8); }
-    .settings-toggle {
-      width: 40px; height: 22px; background: rgba(255,255,255,.1); border: none;
-      border-radius: 12px; cursor: pointer; position: relative; transition: background .2s; margin-left: auto;
-    }
-    .settings-toggle::after {
-      content: ''; position: absolute; width: 18px; height: 18px;
-      background: #fff; border-radius: 50%; top: 2px; left: 2px; transition: left .2s;
-    }
-    .settings-toggle.active { background: rgba(255,255,255,.3); }
-    .settings-toggle.active::after { left: 20px; }
-    .settings-buttons { display: flex; flex-direction: column; gap: 8px; }
-    .settings-btn {
-      padding: 10px; border-radius: 8px; background: rgba(255,255,255,.08);
-      color: #fff; cursor: pointer; font-weight: 600; font-size: 13px;
-      text-align: center; transition: background .2s; border: none; width: 100%;
-    }
-    .settings-btn:hover { background: rgba(255,255,255,.15); }
-    .settings-description { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 6px; line-height: 1.4; }
-    .slider-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.6); margin-bottom: 4px; }
-    .slider-val { color: rgba(255,255,255,.85); font-weight: 600; }
-    .range-slider {
-      width: 100%; height: 5px; border-radius: 3px;
-      background: rgba(255,255,255,.14); outline: none;
-      -webkit-appearance: none; appearance: none; margin: 10px 0 4px; cursor: pointer;
-    }
-    .range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 0 6px rgba(255,255,255,.4); }
-    .range-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; border: none; }
-    .bg-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
-    .bg-option {
-      padding: 10px; border: 2px solid rgba(255,255,255,.12); border-radius: 8px;
-      background: rgba(255,255,255,.04); color: #fff; cursor: pointer; font-size: 12px;
-      font-weight: 600; text-align: center; transition: border-color .2s, background .2s;
-    }
-    .bg-option:hover { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.09); }
-    .bg-option.active { border-color: #fff; background: rgba(255,255,255,.14); }
-    .color-swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-    .color-swatch {
-      width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
-      border: 2px solid transparent; transition: border-color .2s, transform .15s; flex-shrink: 0;
-    }
-    .color-swatch:hover { transform: scale(1.15); }
-    .color-swatch.active { border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,.4); }
-    .color-picker-row { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
-    .color-picker-row label { font-size: 13px; color: rgba(255,255,255,.6); }
-    #custom-color { width: 36px; height: 30px; border: 1px solid rgba(255,255,255,.2); border-radius: 6px; cursor: pointer; padding: 2px; background: rgba(255,255,255,.05); }
+		#search {
+			flex: 1;
+			max-width: 480px;
+			background: rgba(255, 255, 255, .07);
+			color: var(--text);
+			padding: 8px 14px;
+			font-size: 14px;
+			border-radius: 20px;
+			border: 1px solid rgba(255, 255, 255, .12);
+			outline: none;
+			transition: border-color .2s, background .2s;
+		}
 
-    /* ── DISCLAIMER MODAL ── */
-    #disclaimer-modal {
-      display: none; position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,.7); backdrop-filter: blur(8px);
-      align-items: center; justify-content: center;
-    }
-    #disclaimer-modal.on { display: flex; }
-    #disclaimer-box {
-      background: rgba(13,17,23,0.97); border: 1px solid rgba(255,255,255,.18);
-      border-radius: 16px; padding: 32px 28px 24px;
-      max-width: 400px; width: 90%; text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,.6);
-      animation: disclaimer-pop .25s cubic-bezier(.34,1.56,.64,1);
-    }
-    @keyframes disclaimer-pop {
-      from { transform: scale(.88); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
-    #disclaimer-box .disc-icon {
-      font-size: 2rem; margin-bottom: 14px; display: block;
-    }
-    #disclaimer-box h3 {
-      font-size: 1.05rem; font-weight: 700; color: #fff;
-      margin-bottom: 12px; letter-spacing: .02em;
-    }
-    #disclaimer-box p {
-      font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6;
-      margin-bottom: 22px;
-    }
-    #disclaimer-ok {
-      padding: 10px 28px; border: none; border-radius: 8px;
-      background: #fff; color: #000; font-weight: 700;
-      font-size: 14px; cursor: pointer; transition: filter .15s;
-    }
-    #disclaimer-ok:hover { filter: brightness(.88); }
+		#search:focus {
+			border-color: rgba(255, 255, 255, .3);
+			background: rgba(255, 255, 255, .12);
+		}
 
-    /* Request a Game card */
-    .request-card { border-style: dashed; border-color: rgba(255,255,255,.25); }
-    .request-card:hover { border-color: rgba(255,255,255,.55); border-style: dashed; }
-    .request-thumb {
-      background: rgba(255,255,255,.04);
-    }
-    .request-plus {
-      font-size: 2.4rem; font-weight: 300; color: rgba(255,255,255,.35);
-      line-height: 1; transition: color .2s, transform .2s;
-    }
-    .request-card:hover .request-plus { color: rgba(255,255,255,.8); transform: scale(1.15); }
+		#search::placeholder {
+			color: rgba(255, 255, 255, .35);
+		}
 
-    /* Premium */
-    #premium-password {
-      width: 100%; padding: 10px; background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.2); border-radius: 6px; color: #fff;
-      font-size: 14px; margin-bottom: 8px; transition: border-color .2s;
-    }
-    #premium-password::placeholder { color: rgba(255,255,255,.4); }
-    #premium-password:focus { outline: none; border-color: rgba(100,200,255,.6); background: rgba(255,255,255,.12); }
-    #unlock-premium-btn { background: rgba(100,200,255,.2) !important; border: 1px solid rgba(100,200,255,.4) !important; color: rgba(100,200,255,.9); }
-    #unlock-premium-btn:hover { background: rgba(100,200,255,.3) !important; }
+		#tab-buttons {
+			display: flex;
+			gap: 8px;
+			margin-left: auto;
+			margin-right: 10px;
+		}
 
-    /* Links */
-    #links-container { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .link-card {
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.15);
-      border-radius: 8px; padding: 14px; display: flex; align-items: center;
-      justify-content: space-between; transition: all .2s; cursor: pointer;
-    }
-    .link-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
-    .link-title { font-weight: 600; color: #fff; margin-bottom: 4px; }
-    .link-url { font-size: 12px; color: rgba(255,255,255,.5); word-break: break-all; }
-  </style>
+		.tab-btn {
+			background: rgba(255, 255, 255, .08);
+			border: none;
+			color: rgba(255, 255, 255, .6);
+			padding: 6px 12px;
+			border-radius: 6px;
+			font-size: 12px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .2s, color .2s;
+		}
+
+		.tab-btn:hover {
+			background: rgba(255, 255, 255, .15);
+			color: rgba(255, 255, 255, .8);
+		}
+
+		.tab-btn.active {
+			background: rgba(255, 255, 255, .2);
+			color: #fff;
+		}
+
+		#top-right {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		#settings-btn,
+		#info-btn,
+		#disclaimer-btn {
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			border: none;
+			background: rgba(255, 255, 255, .08);
+			color: #fff;
+			font-size: 18px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background .2s;
+		}
+
+		#settings-btn:hover,
+		#info-btn:hover,
+		#disclaimer-btn:hover {
+			background: rgba(255, 255, 255, .15);
+		}
+
+		/* ── MAIN ── */
+		#main {
+			position: fixed;
+			top: var(--top-h);
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow-y: auto;
+			background: transparent;
+			scrollbar-width: thin;
+			scrollbar-color: rgba(255, 255, 255, .15) transparent;
+			z-index: 2;
+		}
+
+		#content {
+			padding: 20px 20px 40px;
+			display: block;
+		}
+
+		#content.hidden {
+			display: none;
+		}
+
+		.section-header {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 10px;
+			margin-top: 24px;
+		}
+
+		.section-header:first-child {
+			margin-top: 0;
+		}
+
+		.section-title {
+			font-size: 1rem;
+			font-weight: 700;
+			color: #fff;
+		}
+
+		.section-count {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .4);
+			font-weight: 400;
+		}
+
+		#game-list {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			gap: 20px;
+		}
+
+		/* ── BROWSER TAB ── */
+		#browser-container {
+			display: none;
+			width: 100%;
+			height: 100%;
+		}
+
+		#browser-container.active {
+			display: flex;
+			flex-direction: column;
+		}
+
+		#browser-frame {
+			width: 100%;
+			flex: 1;
+			border: none;
+			background: #fff;
+		}
+
+		/* ── CARDS ── */
+		.card {
+			background: var(--card-bg);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			border-radius: 10px;
+			cursor: pointer;
+			overflow: hidden;
+			border: 1px solid var(--border);
+			transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+			position: relative;
+		}
+
+		.card:hover {
+			transform: translateY(-3px) scale(1.02);
+			border-color: rgba(255, 255, 255, .28);
+			background: var(--card-hover);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
+		}
+
+		body.glow-on .card:hover {
+			box-shadow: 0 0 20px rgba(255, 255, 255, .22);
+		}
+
+		body.hover-off .card:hover {
+			transform: none !important;
+		}
+
+		.card-thumb {
+			width: 100%;
+			aspect-ratio: 16/9;
+			position: relative;
+			overflow: hidden;
+			background: rgba(255, 255, 255, .05);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.card-initials {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.8rem;
+			font-weight: 800;
+			color: rgba(255, 255, 255, .22);
+			text-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+			user-select: none;
+		}
+
+		.card-info {
+			padding: 8px 10px 10px;
+		}
+
+		.card-name {
+			font-size: 13px;
+			font-weight: 600;
+			color: rgba(255, 255, 255, .95);
+			line-height: 1.3;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.card-plays {
+			font-size: 10px;
+			color: rgba(255, 255, 255, .35);
+			margin-top: 2px;
+		}
+
+		.card-fav {
+			position: absolute;
+			top: 6px;
+			right: 6px;
+			background: rgba(0, 0, 0, .5);
+			border: none;
+			cursor: pointer;
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			font-size: 14px;
+			color: rgba(255, 255, 255, .5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			transition: opacity .15s, color .15s;
+			z-index: 2;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+		}
+
+		.card:hover .card-fav {
+			opacity: 1;
+		}
+
+		.card-fav.on {
+			opacity: 1 !important;
+			color: #ffd700 !important;
+		}
+
+		.card-fav:hover {
+			color: #ffd700;
+		}
+
+		/* Request card */
+		.request-card {
+			border-style: dashed;
+			border-color: rgba(255, 255, 255, .25);
+		}
+
+		.request-card:hover {
+			border-color: rgba(255, 255, 255, .55);
+		}
+
+		.request-thumb {
+			background: rgba(255, 255, 255, .04);
+		}
+
+		.request-plus {
+			font-size: 2.4rem;
+			font-weight: 300;
+			color: rgba(255, 255, 255, .35);
+			line-height: 1;
+			transition: color .2s, transform .2s;
+		}
+
+		.request-card:hover .request-plus {
+			color: rgba(255, 255, 255, .8);
+			transform: scale(1.15);
+		}
+
+		/* ── OVERLAY (GAME VIEWER) ── */
+		#overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 50;
+			background: #000;
+			flex-direction: column;
+		}
+
+		#overlay.on {
+			display: flex;
+		}
+
+		#gframe {
+			flex: 1;
+			width: 100%;
+			border: none;
+			background: #000;
+		}
+
+		#gload {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: #000;
+			z-index: 2;
+		}
+
+		#gload.hide {
+			display: none;
+		}
+
+		.spin {
+			border: 4px solid rgba(255, 255, 255, .2);
+			border-top: 4px solid #fff;
+			border-radius: 50%;
+			width: 52px;
+			height: 52px;
+			animation: spin 1s linear infinite;
+			margin-bottom: 22px;
+		}
+
+		#bar-lbl {
+			font-size: 15px;
+			color: rgba(255, 255, 255, .6);
+			margin-bottom: 24px;
+			letter-spacing: .03em;
+		}
+
+		#bar-wrap {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 10px;
+			background: rgba(255, 255, 255, .1);
+		}
+
+		#bar {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, rgba(255, 255, 255, .6), #fff);
+			box-shadow: 0 0 16px rgba(255, 255, 255, .6);
+			transition: width .12s linear;
+		}
+
+		#fs-btn {
+			position: fixed;
+			right: 18px;
+			top: 18px;
+			padding: 8px 14px;
+			border-radius: 8px;
+			border: none;
+			cursor: pointer;
+			z-index: 60;
+			font-weight: 700;
+			background: #fff;
+			color: #000;
+		}
+
+		#bk-btn {
+			position: fixed;
+			left: 18px;
+			top: 18px;
+			padding: 8px 14px;
+			border-radius: 8px;
+			border: none;
+			cursor: pointer;
+			z-index: 60;
+			font-weight: 700;
+			background: rgba(0, 0, 0, .55);
+			color: #fff;
+		}
+
+		/* ── GAME MODAL ── */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 55;
+			inset: 0;
+			background: rgba(0, 0, 0, .75);
+			backdrop-filter: blur(6px);
+		}
+
+		.modal.on {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.modal-box {
+			background: rgba(13, 17, 23, 0.95);
+			backdrop-filter: blur(12px);
+			padding: 28px;
+			border-radius: 14px;
+			max-width: 460px;
+			width: 90%;
+			color: var(--text);
+			border: 1px solid rgba(255, 255, 255, .15);
+		}
+
+		.modal-thumb {
+			width: 100%;
+			aspect-ratio: 16/9;
+			border-radius: 8px;
+			overflow: hidden;
+			margin-bottom: 18px;
+			position: relative;
+			background: rgba(255, 255, 255, .05);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.modal-thumb-title {
+			font-size: 2.5rem;
+			font-weight: 800;
+			color: rgba(255, 255, 255, .22);
+		}
+
+		.mtrow {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 14px;
+		}
+
+		.mtrow h2 {
+			flex: 1;
+			font-size: 1.2rem;
+			color: #fff;
+		}
+
+		.mfav {
+			font-size: 22px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: rgba(255, 255, 255, .3);
+			transition: color .2s;
+			padding: 4px;
+		}
+
+		.mfav:hover,
+		.mfav.on {
+			color: #ffd700;
+		}
+
+		.mstat {
+			display: flex;
+			justify-content: space-between;
+			padding: 8px 0;
+			border-bottom: 1px solid rgba(255, 255, 255, .1);
+			font-size: 14px;
+		}
+
+		.mstat:last-of-type {
+			border: none;
+		}
+
+		.mstat b {
+			color: rgba(255, 255, 255, .5);
+			font-weight: 600;
+		}
+
+		.mbtns {
+			display: flex;
+			gap: 10px;
+			margin-top: 18px;
+			justify-content: center;
+		}
+
+		.mbtns button {
+			padding: 10px 22px;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-weight: 700;
+			font-size: 14px;
+		}
+
+		.mbplay {
+			background: #fff;
+			color: #000;
+		}
+
+		.mbplay:hover {
+			filter: brightness(0.9);
+		}
+
+		.mbclose {
+			background: rgba(255, 255, 255, .1);
+			color: var(--text);
+			border: 1px solid rgba(255, 255, 255, .2);
+		}
+
+		.mbclose:hover {
+			background: rgba(255, 255, 255, .18);
+		}
+
+		/* ── SETTINGS DRAWER ── */
+		#settings-drawer {
+			position: fixed;
+			right: -420px;
+			top: 0;
+			bottom: 0;
+			width: 400px;
+			background: rgba(10, 14, 20, 0.97);
+			backdrop-filter: blur(10px);
+			z-index: 100;
+			transition: right .3s;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+		}
+
+		#settings-drawer.open {
+			right: 0;
+		}
+
+		.settings-header {
+			padding: 18px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid rgba(255, 255, 255, .1);
+			flex-shrink: 0;
+		}
+
+		.settings-header h2 {
+			color: #fff;
+			font-size: 1.2rem;
+		}
+
+		.settings-close-btn {
+			background: none;
+			border: none;
+			color: rgba(255, 255, 255, .4);
+			font-size: 22px;
+			cursor: pointer;
+			padding: 4px;
+			transition: color .2s;
+		}
+
+		.settings-close-btn:hover {
+			color: #fff;
+		}
+
+		.settings-tabs {
+			display: flex;
+			border-bottom: 1px solid rgba(255, 255, 255, .1);
+			flex-shrink: 0;
+			overflow-x: auto;
+		}
+
+		.settings-tab {
+			flex-shrink: 0;
+			padding: 12px 10px;
+			border: none;
+			background: rgba(255, 255, 255, .04);
+			color: rgba(255, 255, 255, .5);
+			cursor: pointer;
+			font-size: 11px;
+			font-weight: 600;
+			transition: background .2s, color .2s;
+			border-bottom: 2px solid transparent;
+		}
+
+		.settings-tab:hover {
+			background: rgba(255, 255, 255, .09);
+		}
+
+		.settings-tab.active {
+			background: rgba(255, 255, 255, .07);
+			color: #fff;
+			border-bottom-color: #fff;
+		}
+
+		.settings-content {
+			flex: 1;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: rgba(255, 255, 255, .1) transparent;
+		}
+
+		.settings-panel {
+			display: none;
+			padding: 16px 18px;
+		}
+
+		.settings-panel.active {
+			display: block;
+		}
+
+		.settings-group {
+			margin-bottom: 22px;
+		}
+
+		.settings-group-title {
+			display: block;
+			color: rgba(255, 255, 255, .4);
+			font-weight: 700;
+			font-size: 10px;
+			letter-spacing: .08em;
+			text-transform: uppercase;
+			margin-bottom: 12px;
+		}
+
+		.settings-option {
+			margin-bottom: 14px;
+		}
+
+		.settings-option label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			cursor: pointer;
+			font-size: 14px;
+			color: rgba(255, 255, 255, .8);
+		}
+
+		.settings-toggle {
+			width: 40px;
+			height: 22px;
+			background: rgba(255, 255, 255, .1);
+			border: none;
+			border-radius: 12px;
+			cursor: pointer;
+			position: relative;
+			transition: background .2s;
+			margin-left: auto;
+		}
+
+		.settings-toggle::after {
+			content: '';
+			position: absolute;
+			width: 18px;
+			height: 18px;
+			background: #fff;
+			border-radius: 50%;
+			top: 2px;
+			left: 2px;
+			transition: left .2s;
+		}
+
+		.settings-toggle.active {
+			background: rgba(255, 255, 255, .3);
+		}
+
+		.settings-toggle.active::after {
+			left: 20px;
+		}
+
+		.settings-buttons {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.settings-btn {
+			padding: 10px;
+			border-radius: 8px;
+			background: rgba(255, 255, 255, .08);
+			color: #fff;
+			cursor: pointer;
+			font-weight: 600;
+			font-size: 13px;
+			text-align: center;
+			transition: background .2s;
+			border: none;
+			width: 100%;
+		}
+
+		.settings-btn:hover {
+			background: rgba(255, 255, 255, .15);
+		}
+
+		.settings-description {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .3);
+			margin-top: 6px;
+			line-height: 1.4;
+		}
+
+		.slider-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 12px;
+			color: rgba(255, 255, 255, .6);
+			margin-bottom: 4px;
+		}
+
+		.slider-val {
+			color: rgba(255, 255, 255, .85);
+			font-weight: 600;
+		}
+
+		.range-slider {
+			width: 100%;
+			height: 5px;
+			border-radius: 3px;
+			background: rgba(255, 255, 255, .14);
+			outline: none;
+			-webkit-appearance: none;
+			appearance: none;
+			margin: 10px 0 4px;
+			cursor: pointer;
+		}
+
+		.range-slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: #fff;
+			cursor: pointer;
+			box-shadow: 0 0 6px rgba(255, 255, 255, .4);
+		}
+
+		.range-slider::-moz-range-thumb {
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: #fff;
+			cursor: pointer;
+			border: none;
+		}
+
+		.bg-grid-options {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 8px;
+			margin-bottom: 6px;
+		}
+
+		.bg-option {
+			padding: 10px;
+			border: 2px solid rgba(255, 255, 255, .12);
+			border-radius: 8px;
+			background: rgba(255, 255, 255, .04);
+			color: #fff;
+			cursor: pointer;
+			font-size: 12px;
+			font-weight: 600;
+			text-align: center;
+			transition: border-color .2s, background .2s;
+		}
+
+		.bg-option:hover {
+			border-color: rgba(255, 255, 255, .28);
+			background: rgba(255, 255, 255, .09);
+		}
+
+		.bg-option.active {
+			border-color: #fff;
+			background: rgba(255, 255, 255, .14);
+		}
+
+		.color-swatches {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			margin-bottom: 10px;
+		}
+
+		.color-swatch {
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			cursor: pointer;
+			border: 2px solid transparent;
+			transition: border-color .2s, transform .15s;
+			flex-shrink: 0;
+		}
+
+		.color-swatch:hover {
+			transform: scale(1.15);
+		}
+
+		.color-swatch.active {
+			border-color: #fff;
+			box-shadow: 0 0 0 2px rgba(255, 255, 255, .4);
+		}
+
+		.color-picker-row {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-top: 4px;
+		}
+
+		.color-picker-row label {
+			font-size: 13px;
+			color: rgba(255, 255, 255, .6);
+		}
+
+		#custom-color {
+			width: 36px;
+			height: 30px;
+			border: 1px solid rgba(255, 255, 255, .2);
+			border-radius: 6px;
+			cursor: pointer;
+			padding: 2px;
+			background: rgba(255, 255, 255, .05);
+		}
+
+		/* ── DISCLAIMER MODAL ── */
+		#disclaimer-modal {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 200;
+			background: rgba(0, 0, 0, .7);
+			backdrop-filter: blur(8px);
+			align-items: center;
+			justify-content: center;
+		}
+
+		#disclaimer-modal.on {
+			display: flex;
+		}
+
+		#disclaimer-box {
+			background: rgba(13, 17, 23, 0.97);
+			border: 1px solid rgba(255, 255, 255, .18);
+			border-radius: 16px;
+			padding: 32px 28px 24px;
+			max-width: 400px;
+			width: 90%;
+			text-align: center;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+			animation: disclaimer-pop .25s cubic-bezier(.34, 1.56, .64, 1);
+		}
+
+		@keyframes disclaimer-pop {
+			from {
+				transform: scale(.88);
+				opacity: 0;
+			}
+
+			to {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+
+		#disclaimer-box .disc-icon {
+			font-size: 2rem;
+			margin-bottom: 14px;
+			display: block;
+		}
+
+		#disclaimer-box h3 {
+			font-size: 1.05rem;
+			font-weight: 700;
+			color: #fff;
+			margin-bottom: 12px;
+		}
+
+		#disclaimer-box p {
+			font-size: 13px;
+			color: rgba(255, 255, 255, .6);
+			line-height: 1.6;
+			margin-bottom: 22px;
+		}
+
+		#disclaimer-ok {
+			padding: 10px 28px;
+			border: none;
+			border-radius: 8px;
+			background: #fff;
+			color: #000;
+			font-weight: 700;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		#disclaimer-ok:hover {
+			filter: brightness(.88);
+		}
+
+		/* Premium */
+		#premium-password {
+			width: 100%;
+			padding: 10px;
+			background: rgba(255, 255, 255, .1);
+			border: 1px solid rgba(255, 255, 255, .2);
+			border-radius: 6px;
+			color: #fff;
+			font-size: 14px;
+			margin-bottom: 8px;
+			transition: border-color .2s;
+		}
+
+		#premium-password::placeholder {
+			color: rgba(255, 255, 255, .4);
+		}
+
+		#premium-password:focus {
+			outline: none;
+			border-color: rgba(100, 200, 255, .6);
+			background: rgba(255, 255, 255, .12);
+		}
+
+		#unlock-premium-btn {
+			background: rgba(100, 200, 255, .2) !important;
+			border: 1px solid rgba(100, 200, 255, .4) !important;
+			color: rgba(100, 200, 255, .9);
+		}
+
+		#unlock-premium-btn:hover {
+			background: rgba(100, 200, 255, .3) !important;
+		}
+
+		#links-container {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		.link-card {
+			background: rgba(255, 255, 255, .05);
+			border: 1px solid rgba(255, 255, 255, .15);
+			border-radius: 8px;
+			padding: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			transition: all .2s;
+			cursor: pointer;
+		}
+
+		.link-card:hover {
+			background: rgba(255, 255, 255, .1);
+			border-color: rgba(255, 255, 255, .25);
+		}
+
+		.link-title {
+			font-weight: 600;
+			color: #fff;
+			margin-bottom: 4px;
+		}
+
+		.link-url {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .5);
+			word-break: break-all;
+		}
+	</style>
 </head>
+
 <body>
-  <div id="bg-layer" class="stars"></div>
-  <canvas id="rain-canvas"></canvas>
+	<div id="bg-layer" class="stars"></div>
+	<canvas id="rain-canvas"></canvas>
 
-  <div id="topbar">
-    <div id="logo">MathLine</div>
-    <input id="search" type="text" placeholder="Search games…" />
-    <div id="tab-buttons">
-      <button class="tab-btn active" data-tab="games">Games</button>
-      <button class="tab-btn" data-tab="browser">Browser</button>
-    </div>
-    <div id="top-right">
-      <button id="disclaimer-btn" title="Disclaimer">⚠️</button>
-      <button id="info-btn" title="What's New">🔔</button>
-      <button id="settings-btn" title="Settings">⚙</button>
-    </div>
-  </div>
+	<div id="topbar">
+		<div id="logo">MathLine</div>
+		<input id="search" type="text" placeholder="Search games…" />
+		<div id="tab-buttons">
+			<button class="tab-btn active" data-tab="games">Games</button>
+			<button class="tab-btn" data-tab="browser">Browser</button>
+		</div>
+		<div id="top-right">
+			<button id="disclaimer-btn" title="Disclaimer">⚠️</button>
+			<button id="info-btn" title="What's New">🔔</button>
+			<button id="settings-btn" title="Settings">⚙</button>
+		</div>
+	</div>
 
-  <div id="main">
-    <div id="content">
-      <div class="section-header">
-        <h1 class="section-title">Games</h1>
-        <span class="section-count" id="game-count">0 games</span>
-      </div>
-      <div id="game-list"></div>
-    </div>
-    <div id="browser-container">
-      <iframe id="browser-frame" src="https://unpkg.com/browselucide@1.0.2/logo.svg#/"></iframe>
-    </div>
-  </div>
+	<div id="main">
+		<div id="content">
+			<div class="section-header">
+				<h1 class="section-title">Games</h1>
+				<span class="section-count" id="game-count">0 games</span>
+			</div>
+			<div id="game-list"></div>
+		</div>
+		<div id="browser-container">
+			<iframe id="browser-frame" src="https://unpkg.com/browselucide@1.0.2/logo.svg#/"></iframe>
+		</div>
+	</div>
 
-  <!-- Disclaimer modal -->
-  <div id="disclaimer-modal">
-    <div id="disclaimer-box">
-      <span class="disc-icon">⚠️</span>
-      <h3>Disclaimer</h3>
-      <p>I do not claim this is mine — credit goes to the respective owner.</p>
-      <button id="disclaimer-ok">Got it</button>
-    </div>
-  </div>
+	<!-- Disclaimer modal -->
+	<div id="disclaimer-modal">
+		<div id="disclaimer-box">
+			<span class="disc-icon">⚠️</span>
+			<h3>Disclaimer</h3>
+			<p>I do not claim this is mine — credit goes to the respective owner.</p>
+			<button id="disclaimer-ok">Got it</button>
+		</div>
+	</div>
 
-  <!-- Game overlay — NO sandbox so games can load properly -->
-  <div id="overlay">
-    <div id="gload">
-      <div class="spin"></div>
-      <div id="bar-lbl">Loading game…</div>
-      <div id="bar-wrap"><div id="bar"></div></div>
-    </div>
-    <iframe id="gframe" allow="fullscreen; pointer-lock"></iframe>
-    <button id="fs-btn">⛶ Fullscreen</button>
-    <button id="bk-btn">← Back</button>
-  </div>
+	<!-- Game overlay -->
+	<div id="overlay">
+		<div id="gload">
+			<div class="spin"></div>
+			<div id="bar-lbl">Loading game…</div>
+			<div id="bar-wrap">
+				<div id="bar"></div>
+			</div>
+		</div>
+		<iframe id="gframe" allow="fullscreen; pointer-lock"></iframe>
+		<button id="fs-btn">⛶ Fullscreen</button>
+		<button id="bk-btn">← Back</button>
+	</div>
 
-  <!-- Game info modal -->
-  <div class="modal" id="game-modal">
-    <div class="modal-box">
-      <div class="modal-thumb">
-        <div class="modal-thumb-title" id="modal-thumb-title">A</div>
-      </div>
-      <div class="mtrow">
-        <h2 id="modal-game-name">Game Name</h2>
-        <button class="mfav" id="modal-fav">☆</button>
-      </div>
-      <div id="game-stats"></div>
-      <div class="mbtns">
-        <button class="mbplay" id="play-game-btn">▶ Play Now</button>
-        <button class="mbclose" id="close-game-modal">Close</button>
-      </div>
-    </div>
-  </div>
+	<!-- Game info modal -->
+	<div class="modal" id="game-modal">
+		<div class="modal-box">
+			<div class="modal-thumb">
+				<div class="modal-thumb-title" id="modal-thumb-title">A</div>
+			</div>
+			<div class="mtrow">
+				<h2 id="modal-game-name">Game Name</h2>
+				<button class="mfav" id="modal-fav">☆</button>
+			</div>
+			<div id="game-stats"></div>
+			<div class="mbtns">
+				<button class="mbplay" id="play-game-btn">▶ Play Now</button>
+				<button class="mbclose" id="close-game-modal">Close</button>
+			</div>
+		</div>
+	</div>
 
-  <!-- Settings drawer -->
-  <div id="settings-drawer">
-    <div class="settings-header">
-      <h2>⚙ Settings</h2>
-      <button class="settings-close-btn" id="settings-close-btn">✕</button>
-    </div>
-    <div class="settings-tabs">
-      <button class="settings-tab active" data-tab="appearance">Visual</button>
-      <button class="settings-tab" data-tab="background">Background</button>
-      <button class="settings-tab" data-tab="cards">Cards</button>
-      <button class="settings-tab" data-tab="gameplay">Gameplay</button>
-      <button class="settings-tab" data-tab="advanced">Advanced</button>
-    </div>
-    <div class="settings-content">
+	<!-- Settings drawer -->
+	<div id="settings-drawer">
+		<div class="settings-header">
+			<h2>⚙ Settings</h2>
+			<button class="settings-close-btn" id="settings-close-btn">✕</button>
+		</div>
+		<div class="settings-tabs">
+			<button class="settings-tab active" data-tab="appearance">Visual</button>
+			<button class="settings-tab" data-tab="background">Background</button>
+			<button class="settings-tab" data-tab="cards">Cards</button>
+			<button class="settings-tab" data-tab="gameplay">Gameplay</button>
+			<button class="settings-tab" data-tab="advanced">Advanced</button>
+		</div>
+		<div class="settings-content">
 
-      <!-- VISUAL -->
-      <div class="settings-panel active" data-panel="appearance">
-        <div class="settings-group">
-          <span class="settings-group-title">Effects</span>
-          <div class="settings-option">
-            <label><span>Card Animations</span><button class="settings-toggle active" id="animation-toggle"></button></label>
-            <div class="settings-description">Smooth card hover transitions</div>
+			<!-- VISUAL -->
+			<div class="settings-panel active" data-panel="appearance">
+				<div class="settings-group">
+					<span class="settings-group-title">Effects</span>
+					<div class="settings-option">
+						<label><span>Card Animations</span><button class="settings-toggle active" id="animation-toggle"></button></label>
+						<div class="settings-description">Smooth card hover transitions</div>
+					</div>
+					<div class="settings-option">
+						<label><span>Glow on Hover</span><button class="settings-toggle" id="glow-toggle"></button></label>
+						<div class="settings-description">White glow around cards on hover</div>
+					</div>
+					<div class="settings-option">
+						<label><span>Card Blur (Glass)</span><button class="settings-toggle active" id="blur-toggle"></button></label>
+						<div class="settings-description">Frosted glass effect on cards</div>
+					</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Font Size</span>
+					<div class="slider-row">
+						<span>Card name size</span><span class="slider-val" id="fontsize-value">13px</span></div>
+					<input type="range" id="fontsize-slider" class="range-slider" min="10" max="18" value="13">
+					<div class="settings-description">Adjust the size of game name text on cards</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Card Style</span>
+					<div class="slider-row">
+						<span>Border radius</span><span class="slider-val" id="radius-value">10px</span></div>
+					<input type="range" id="radius-slider" class="range-slider" min="0" max="24" value="10">
+					<div class="settings-description">Roundness of card corners</div>
+					<div class="slider-row" style="margin-top:14px;">
+						<span>Card gap</span><span class="slider-val" id="gap-value">20px</span></div>
+					<input type="range" id="gap-slider" class="range-slider" min="4" max="28" value="20">
+					<div class="settings-description">Space between cards in the grid</div>
+				</div>
+			</div>
+
+			<!-- BACKGROUND -->
+			<div class="settings-panel" data-panel="background">
+				<div class="settings-group">
+					<span class="settings-group-title">Effect Style</span>
+					<div class="bg-grid-options">
+						<button class="bg-option active" data-bg="stars">Stars</button>
+						<button class="bg-option" data-bg="rain">Rain</button>
+						<button class="bg-option" data-bg="grid">Grid</button>
+						<button class="bg-option" data-bg="dots">Dots</button>
+						<button class="bg-option" data-bg="lines">Lines</button>
+						<button class="bg-option" data-bg="waves">Waves</button>
+						<button class="bg-option" data-bg="none">None</button>
+					</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Brightness</span>
+					<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">100%</span>
+					</div>
+					<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="100">
+        </div>
+					<div class="settings-group" id="rain-speed-group" style="display:none;">
+						<span class="settings-group-title">Rain Speed</span>
+						<div class="slider-row">
+							<span>Drop speed</span><span class="slider-val" id="rain-speed-value">Medium</span></div>
+						<input type="range" id="rain-speed-slider" class="range-slider" min="1" max="5" value="3">
+						<div class="settings-description">How fast the rain drops fall</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Pattern Color</span>
+						<div class="color-swatches">
+							<div class="color-swatch active" data-rgb="255,255,255" style="background:#fff"
+								title="White"></div>
+							<div class="color-swatch" data-rgb="100,180,255" style="background:#64b4ff" title="Blue">
+							</div>
+							<div class="color-swatch" data-rgb="180,100,255" style="background:#b464ff" title="Purple">
+							</div>
+							<div class="color-swatch" data-rgb="80,220,160" style="background:#50dca0" title="Teal">
+							</div>
+							<div class="color-swatch" data-rgb="255,160,80" style="background:#ffa050" title="Orange">
+							</div>
+							<div class="color-swatch" data-rgb="255,80,120" style="background:#ff5078" title="Red">
+							</div>
+							<div class="color-swatch" data-rgb="80,255,120" style="background:#50ff78" title="Green">
+							</div>
+							<div class="color-swatch" data-rgb="255,230,80" style="background:#ffe650" title="Yellow">
+							</div>
+						</div>
+						<div class="color-picker-row">
+							<label for="custom-color">Custom:</label>
+							<input type="color" id="custom-color" value="#ffffff">
           </div>
-          <div class="settings-option">
-            <label><span>Glow on Hover</span><button class="settings-toggle" id="glow-toggle"></button></label>
-            <div class="settings-description">White glow around cards on hover</div>
-          </div>
-          <div class="settings-option">
-            <label><span>Card Blur (Glass)</span><button class="settings-toggle active" id="blur-toggle"></button></label>
-            <div class="settings-description">Frosted glass effect on cards</div>
-          </div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Font Size</span>
-          <div class="slider-row"><span>Card name size</span><span class="slider-val" id="fontsize-value">13px</span></div>
-          <input type="range" id="fontsize-slider" class="range-slider" min="10" max="18" value="13">
-          <div class="settings-description">Adjust the size of game name text on cards</div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Card Style</span>
-          <div class="slider-row"><span>Border radius</span><span class="slider-val" id="radius-value">10px</span></div>
-          <input type="range" id="radius-slider" class="range-slider" min="0" max="24" value="10">
-          <div class="settings-description">Roundness of card corners</div>
-          <div class="slider-row" style="margin-top:14px;"><span>Card gap</span><span class="slider-val" id="gap-value">20px</span></div>
-          <input type="range" id="gap-slider" class="range-slider" min="4" max="28" value="20">
-          <div class="settings-description">Space between cards in the grid</div>
-        </div>
-      </div>
+						</div>
+					</div>
 
-      <!-- BACKGROUND -->
-      <div class="settings-panel" data-panel="background">
-        <div class="settings-group">
-          <span class="settings-group-title">Effect Style</span>
-          <div class="bg-grid-options">
-            <button class="bg-option active" data-bg="stars">Stars</button>
-            <button class="bg-option" data-bg="rain">Rain</button>
-            <button class="bg-option" data-bg="grid">Grid</button>
-            <button class="bg-option" data-bg="dots">Dots</button>
-            <button class="bg-option" data-bg="lines">Lines</button>
-            <button class="bg-option" data-bg="waves">Waves</button>
-            <button class="bg-option" data-bg="none">None</button>
-          </div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Brightness</span>
-          <div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">100%</span></div>
-          <input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="100">
-        </div>
-        <div class="settings-group" id="rain-speed-group" style="display:none;">
-          <span class="settings-group-title">Rain Speed</span>
-          <div class="slider-row"><span>Drop speed</span><span class="slider-val" id="rain-speed-value">Medium</span></div>
-          <input type="range" id="rain-speed-slider" class="range-slider" min="1" max="5" value="3">
-          <div class="settings-description">How fast the rain drops fall</div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Pattern Color</span>
-          <div class="color-swatches">
-            <div class="color-swatch active" data-rgb="255,255,255" style="background:#fff" title="White"></div>
-            <div class="color-swatch" data-rgb="100,180,255" style="background:#64b4ff" title="Blue"></div>
-            <div class="color-swatch" data-rgb="180,100,255" style="background:#b464ff" title="Purple"></div>
-            <div class="color-swatch" data-rgb="80,220,160" style="background:#50dca0" title="Teal"></div>
-            <div class="color-swatch" data-rgb="255,160,80" style="background:#ffa050" title="Orange"></div>
-            <div class="color-swatch" data-rgb="255,80,120" style="background:#ff5078" title="Red"></div>
-            <div class="color-swatch" data-rgb="80,255,120" style="background:#50ff78" title="Green"></div>
-            <div class="color-swatch" data-rgb="255,230,80" style="background:#ffe650" title="Yellow"></div>
-          </div>
-          <div class="color-picker-row">
-            <label for="custom-color">Custom:</label>
-            <input type="color" id="custom-color" value="#ffffff">
-          </div>
-        </div>
-      </div>
-
-      <!-- CARDS -->
-      <div class="settings-panel" data-panel="cards">
-        <div class="settings-group">
-          <span class="settings-group-title">Card Size</span>
-          <div class="settings-option">
-            <label>
+					<!-- CARDS -->
+					<div class="settings-panel" data-panel="cards">
+						<div class="settings-group">
+							<span class="settings-group-title">Card Size</span>
+							<div class="settings-option">
+								<label>
               <span>Grid Size</span>
               <select id="grid-size" style="margin-left:auto;padding:5px 8px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:4px;">
                 <option value="small">Small</option>
@@ -634,95 +1307,93 @@
                 <option value="xlarge" selected>Extra Large</option>
               </select>
             </label>
-            <div class="settings-description">Adjust game card size in the grid</div>
-          </div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Card Opacity</span>
-          <div class="slider-row"><span>Transparency</span><span class="slider-val" id="opacity-value">55%</span></div>
-          <input type="range" id="opacity-slider" class="range-slider" min="15" max="95" value="55">
-          <div class="settings-description">How solid or transparent the card background appears</div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Favorites</span>
-          <div class="settings-buttons">
-            <button class="settings-btn" id="clear-favorites">Clear All Favorites</button>
-          </div>
-          <div class="settings-description">Remove all saved favorite games</div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Play History</span>
-          <div class="settings-buttons">
-            <button class="settings-btn" id="clear-playcounts">Clear Play Counts</button>
-          </div>
-          <div class="settings-description">Reset all play count data</div>
-        </div>
-      </div>
+								<div class="settings-description">Adjust game card size in the grid</div>
+							</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Card Opacity</span>
+							<div class="slider-row">
+								<span>Transparency</span><span class="slider-val" id="opacity-value">55%</span></div>
+							<input type="range" id="opacity-slider" class="range-slider" min="15" max="95" value="55">
+							<div class="settings-description">How solid or transparent the card background appears</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Favorites</span>
+							<div class="settings-buttons">
+								<button class="settings-btn" id="clear-favorites">Clear All Favorites</button>
+							</div>
+							<div class="settings-description">Remove all saved favorite games</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Play History</span>
+							<div class="settings-buttons">
+								<button class="settings-btn" id="clear-playcounts">Clear Play Counts</button>
+							</div>
+							<div class="settings-description">Reset all play count data</div>
+						</div>
+					</div>
 
-      <!-- GAMEPLAY -->
-      <div class="settings-panel" data-panel="gameplay">
-        <div class="settings-group">
-          <span class="settings-group-title">Game Behavior</span>
-          <div class="settings-option">
-            <label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
-            <div class="settings-description">Automatically load games when selected</div>
-          </div>
-          <div class="settings-option">
-            <label><span>Show Play Count</span><button class="settings-toggle active" id="playcount-toggle"></button></label>
-            <div class="settings-description">Show how many times each game has been played</div>
-          </div>
-        </div>
-      </div>
+					<!-- GAMEPLAY -->
+					<div class="settings-panel" data-panel="gameplay">
+						<div class="settings-group">
+							<span class="settings-group-title">Game Behavior</span>
+							<div class="settings-option">
+								<label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
+								<div class="settings-description">Automatically load games when selected</div>
+							</div>
+							<div class="settings-option">
+								<label><span>Show Play Count</span><button class="settings-toggle active" id="playcount-toggle"></button></label>
+								<div class="settings-description">Show how many times each game has been played</div>
+							</div>
+						</div>
+					</div>
 
-      <!-- ADVANCED -->
-      <div class="settings-panel" data-panel="advanced">
-        <div class="settings-group">
-          <span class="settings-group-title">Performance</span>
-          <div class="settings-option">
-            <label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
-            <div class="settings-description">Enable smooth scroll behavior</div>
-          </div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Topbar Color</span>
-          <input type="color" id="topbar-color-picker" value="#0a0e14" style="width:100%;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;padding:2px;background:rgba(255,255,255,.05);margin-top:8px;">
-          <div class="settings-description" style="margin-top:6px;">Change the color of the top navigation bar</div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Reset</span>
-          <div class="settings-buttons">
-            <button class="settings-btn" id="reset-settings">Reset All Settings</button>
-          </div>
-          <div class="settings-description">Reset all settings to defaults and reload</div>
-        </div>
-        <div class="settings-group">
-          <span class="settings-group-title">Premium</span>
-          <input type="password" id="premium-password" placeholder="Enter password…" />
-          <button id="unlock-premium-btn" class="settings-btn">Unlock</button>
-          <div id="premium-content" style="display:none;margin-top:16px;">
-            <div id="links-container"></div>
-          </div>
-        </div>
-      </div>
+					<!-- ADVANCED -->
+					<div class="settings-panel" data-panel="advanced">
+						<div class="settings-group">
+							<span class="settings-group-title">Performance</span>
+							<div class="settings-option">
+								<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
+								<div class="settings-description">Enable smooth scroll behavior</div>
+							</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Topbar Color</span>
+							<input type="color" id="topbar-color-picker" value="#0a0e14" style="width:100%;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;padding:2px;background:rgba(255,255,255,.05);margin-top:8px;">
+							<div class="settings-description" style="margin-top:6px;">Change the color of the top
+								navigation bar</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Reset</span>
+							<div class="settings-buttons">
+								<button class="settings-btn" id="reset-settings">Reset All Settings</button>
+							</div>
+							<div class="settings-description">Reset all settings to defaults and reload</div>
+						</div>
+						<div class="settings-group">
+							<span class="settings-group-title">Premium</span>
+							<input type="password" id="premium-password" placeholder="Enter password…" />
+							<button id="unlock-premium-btn" class="settings-btn">Unlock</button>
+							<div id="premium-content" style="display:none;margin-top:16px;">
+								<div id="links-container"></div>
+							</div>
+						</div>
+					</div>
 
-    </div>
-  </div>
+				</div>
+			</div>
 
-  <script>
-    /* ─── CONFIG ─── */
+			<script>
+				/* ─── CONFIG ─── */
     const SK = 'mathline.';
     const PREMIUM_PASSWORD = '4557';
 
     const DEFAULT_LINKS = [
-      { title: 'Lucide', url: 'https://unpkg.com/browselucide@1.0.2/logo.svg#/' },
-      { title: 'Zodiac', url: 'https://cdn.jsdelivr.net/gh/darkdragonzxs/zd-pages@latest/svg.svg' },
-      { title: 'Sean Beans', url: 'https://cdn.jsdelivr.net/gh/Mr-Calvin-Math-Class/exponential-differential-2561@main/INVADDEX.SVG' },
+      { title: 'Lucide',      url: 'https://unpkg.com/browselucide@1.0.2/logo.svg#/' },
+      { title: 'Zodiac',      url: 'https://cdn.jsdelivr.net/gh/darkdragonzxs/zd-pages@latest/svg.svg' },
+      { title: 'Sean Beans',  url: 'https://cdn.jsdelivr.net/gh/Mr-Calvin-Math-Class/exponential-differential-2561@main/INVADDEX.SVG' },
     ];
 
-    /* ── GAMES LIST ──
-       All paths are relative — put this HTML in the same folder as your game files.
-       If your games are in a subfolder, prefix each url e.g. 'games/Ragdoll-Archers.html'
-    */
     const GAMES = [
       {n:'Ragdoll Archers',u:'Ragdoll-Archers.html'},
       {n:'Ragdoll Hit',u:'Ragdoll-hit.html'},
@@ -836,11 +1507,11 @@
     ];
 
     /* ─── STATE ─── */
-    const ls  = k   => localStorage.getItem(SK + k);
+    const ls  = k     => localStorage.getItem(SK + k);
     const lss = (k,v) => localStorage.setItem(SK + k, v);
 
-    let favorites     = new Set(JSON.parse(ls('favorites')  || '[]'));
-    let playCounts    = JSON.parse(ls('playCounts') || '{}');
+    let favorites       = new Set(JSON.parse(ls('favorites')  || '[]'));
+    let playCounts      = JSON.parse(ls('playCounts') || '{}');
     let premiumUnlocked = ls('premiumUnlocked') === 'true';
 
     let S = {
@@ -862,7 +1533,7 @@
       rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
     };
 
-    /* ─── RAIN CANVAS ─── */
+    /* ─── RAIN ─── */
     let rainAnim = null;
     function startRain() {
       const canvas = document.getElementById('rain-canvas');
@@ -903,8 +1574,7 @@
       if (rainAnim) { cancelAnimationFrame(rainAnim); rainAnim = null; }
       const canvas = document.getElementById('rain-canvas');
       canvas.style.display = 'none';
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     }
 
     /* ─── BG EFFECT ─── */
@@ -914,26 +1584,70 @@
       document.querySelectorAll('.bg-option').forEach(b => b.classList.toggle('active', b.dataset.bg === effect));
       const layer = document.getElementById('bg-layer');
       if (effect === 'rain') {
-        layer.className = 'none';
-        layer.classList.add('none');
         layer.style.display = 'none';
         startRain();
       } else {
         stopRain();
         layer.style.display = '';
-        layer.className = '';
-        layer.classList.add(effect === 'none' ? 'none' : effect);
+        layer.className = effect === 'none' ? 'none' : effect;
       }
       const rainGroup = document.getElementById('rain-speed-group');
       if (rainGroup) rainGroup.style.display = effect === 'rain' ? 'block' : 'none';
+    }
+
+    /* ─── APPLY SETTINGS ─── */
+    function applyBrightness(v) {
+      S.bgBrightness = +v; lss('bgBrightness', v);
+      document.documentElement.style.setProperty('--bg-brightness', v/100);
+      document.getElementById('brightness-value').textContent = v + '%';
+    }
+    function applyOpacity(v) {
+      S.cardOpacity = +v; lss('cardOpacity', v);
+      const o = v/100;
+      document.documentElement.style.setProperty('--card-bg',    `rgba(22,27,34,${o})`);
+      document.documentElement.style.setProperty('--card-hover', `rgba(30,36,44,${Math.min(o+.2,1)})`);
+      document.getElementById('opacity-value').textContent = v + '%';
+    }
+    function applyFontSize(v) {
+      S.fontSize = +v; lss('fontSize', v);
+      document.getElementById('fontsize-value').textContent = v + 'px';
+      document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = v + 'px');
+    }
+    function applyCardRadius(v) {
+      S.cardRadius = +v; lss('cardRadius', v);
+      document.getElementById('radius-value').textContent = v + 'px';
+      document.querySelectorAll('.card').forEach(el => el.style.borderRadius = v + 'px');
+    }
+    function applyCardGap(v) {
+      S.cardGap = +v; lss('cardGap', v);
+      document.getElementById('gap-value').textContent = v + 'px';
+      document.getElementById('game-list').style.gap = v + 'px';
+    }
+    function applyTopbarColor(c) {
+      S.topbarColor = c; lss('topbarColor', c);
+      document.getElementById('topbar').style.background = c;
+    }
+    function applyBgColor(rgb) {
+      S.bgColor = rgb; lss('bgColor', rgb);
+      document.documentElement.style.setProperty('--bg-color', rgb);
+    }
+    function updateGridSize() {
+      const map = {
+        small:  'repeat(auto-fill, minmax(120px,1fr))',
+        normal: 'repeat(auto-fill, minmax(160px,1fr))',
+        large:  'repeat(auto-fill, minmax(200px,1fr))',
+        xlarge: 'repeat(6,1fr)',
+      };
+      document.getElementById('game-list').style.gridTemplateColumns = map[S.gridSize] || map.xlarge;
+    }
+    function syncToggle(id, on) {
+      document.getElementById(id).classList.toggle('active', on);
     }
 
     /* ─── RENDER CARDS ─── */
     function renderGameList() {
       const container = document.getElementById('game-list');
       const query = document.getElementById('search').value.toLowerCase().trim();
-
-      // Filter then sort A–Z
       const filtered = (query ? GAMES.filter(g => g.n.toLowerCase().includes(query)) : [...GAMES])
         .sort((a, b) => a.n.localeCompare(b.n));
 
@@ -943,17 +1657,17 @@
         const plays = playCounts[game.u] || 0;
         const card = document.createElement('div');
         card.className = 'card';
+        card.style.borderRadius = S.cardRadius + 'px';
         card.innerHTML = `
           <div class="card-thumb">
             <div class="card-initials">${game.n[0]}</div>
           </div>
           <div class="card-info">
             <div class="card-name" style="font-size:${S.fontSize}px">${game.n}</div>
-            <div class="card-plays" style="display:${S.playcount?'block':'none'}">${plays} plays</div>
+            <div class="card-plays" style="display:${S.playcount?'block':'none'}">${plays} play${plays===1?'':'s'}</div>
           </div>
           <button class="card-fav${isFav?' on':''}">★</button>
         `;
-        card.style.borderRadius = S.cardRadius + 'px';
         card.addEventListener('click', () => openGameModal(game));
         card.querySelector('.card-fav').addEventListener('click', e => {
           e.stopPropagation();
@@ -964,7 +1678,7 @@
         container.appendChild(card);
       });
 
-      // Always append "Request a Game" card last
+      // Request a Game card
       const reqCard = document.createElement('div');
       reqCard.className = 'card request-card';
       reqCard.style.borderRadius = S.cardRadius + 'px';
@@ -987,9 +1701,9 @@
     let currentGame = null;
     function openGameModal(game) {
       currentGame = game;
-      document.getElementById('modal-game-name').textContent = game.n;
+      document.getElementById('modal-game-name').textContent   = game.n;
       document.getElementById('modal-thumb-title').textContent = game.n[0];
-      const isFav = favorites.has(game.u);
+      const isFav  = favorites.has(game.u);
       const favBtn = document.getElementById('modal-fav');
       favBtn.textContent = isFav ? '★' : '☆';
       favBtn.classList.toggle('on', isFav);
@@ -998,9 +1712,10 @@
       document.getElementById('game-modal').classList.add('on');
     }
 
-    /* ─── LOAD GAME ─── */
+    /* ─── LOAD GAME (FIXED) ─── */
     function loadGame(url) {
       document.getElementById('game-modal').classList.remove('on');
+
       const overlay = document.getElementById('overlay');
       const gload   = document.getElementById('gload');
       const frame   = document.getElementById('gframe');
@@ -1009,85 +1724,32 @@
       overlay.classList.add('on');
       gload.classList.remove('hide');
       bar.style.width = '0%';
-      frame.src = '';
 
-      // Animate the progress bar
+      // Animate progress bar
       let pct = 0;
       const barTimer = setInterval(() => {
         pct = Math.min(pct + Math.random() * 8, 90);
         bar.style.width = pct + '%';
       }, 200);
 
-      // Small delay so browser registers the src change
-      setTimeout(() => {
-        frame.src = url;
-      }, 50);
-
-      // Hide loader on iframe load (fires for same-origin pages)
-      frame.onload = () => {
+      // Track whether we've already hidden the loader
+      let loaded = false;
+      function finishLoad() {
+        if (loaded) return;
+        loaded = true;
         clearInterval(barTimer);
         bar.style.width = '100%';
         setTimeout(() => gload.classList.add('hide'), 300);
-      };
+      }
 
-      // Fallback: hide after 10 s regardless
-      setTimeout(() => {
-        clearInterval(barTimer);
-        bar.style.width = '100%';
-        gload.classList.add('hide');
-      }, 10000);
-    }
+      // Set onload BEFORE setting src to catch the load event
+      frame.onload = finishLoad;
 
-    /* ─── APPLY SETTINGS ─── */
-    const grid$    = () => document.getElementById('game-list');
-    const topbar$  = () => document.getElementById('topbar');
+      // Set src directly — never blank first
+      frame.src = url;
 
-    function applyBrightness(v) {
-      S.bgBrightness = +v; lss('bgBrightness', v);
-      document.documentElement.style.setProperty('--bg-brightness', v/100);
-      document.getElementById('brightness-value').textContent = v + '%';
-    }
-    function applyOpacity(v) {
-      S.cardOpacity = +v; lss('cardOpacity', v);
-      const o = v/100;
-      document.documentElement.style.setProperty('--card-bg', `rgba(22,27,34,${o})`);
-      document.documentElement.style.setProperty('--card-hover', `rgba(30,36,44,${Math.min(o+.2,1)})`);
-      document.getElementById('opacity-value').textContent = v + '%';
-    }
-    function applyFontSize(v) {
-      S.fontSize = +v; lss('fontSize', v);
-      document.getElementById('fontsize-value').textContent = v + 'px';
-      document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = v + 'px');
-    }
-    function applyCardRadius(v) {
-      S.cardRadius = +v; lss('cardRadius', v);
-      document.getElementById('radius-value').textContent = v + 'px';
-      document.querySelectorAll('.card').forEach(el => el.style.borderRadius = v + 'px');
-    }
-    function applyCardGap(v) {
-      S.cardGap = +v; lss('cardGap', v);
-      document.getElementById('gap-value').textContent = v + 'px';
-      grid$().style.gap = v + 'px';
-    }
-    function applyTopbarColor(c) {
-      S.topbarColor = c; lss('topbarColor', c);
-      topbar$().style.background = c;
-    }
-    function updateGridSize() {
-      const map = {
-        small:  'repeat(auto-fill, minmax(120px,1fr))',
-        normal: 'repeat(auto-fill, minmax(160px,1fr))',
-        large:  'repeat(auto-fill, minmax(200px,1fr))',
-        xlarge: 'repeat(6,1fr)',
-      };
-      grid$().style.gridTemplateColumns = map[S.gridSize] || map.xlarge;
-    }
-    function applyBgColor(rgb) {
-      S.bgColor = rgb; lss('bgColor', rgb);
-      document.documentElement.style.setProperty('--bg-color', rgb);
-    }
-    function syncToggle(id, on) {
-      document.getElementById(id).classList.toggle('active', on);
+      // Fallback: hide loader after 8s regardless
+      setTimeout(finishLoad, 8000);
     }
 
     /* ─── RENDER LINKS ─── */
@@ -1118,20 +1780,19 @@
       }
     }
 
-    /* ─── INIT ─── */
+    /* ─── BOOT ─── */
     document.addEventListener('DOMContentLoaded', () => {
 
-      /* Load persisted settings */
       if (!S.animations) document.body.classList.add('hover-off');
       if (S.glow)        document.body.classList.add('glow-on');
       if (S.smoothScroll) document.documentElement.style.scrollBehavior = 'smooth';
 
-      document.getElementById('grid-size').value          = S.gridSize;
-      document.getElementById('brightness-slider').value  = S.bgBrightness;
-      document.getElementById('opacity-slider').value     = S.cardOpacity;
-      document.getElementById('fontsize-slider').value    = S.fontSize;
-      document.getElementById('radius-slider').value      = S.cardRadius;
-      document.getElementById('gap-slider').value         = S.cardGap;
+      document.getElementById('grid-size').value           = S.gridSize;
+      document.getElementById('brightness-slider').value   = S.bgBrightness;
+      document.getElementById('opacity-slider').value      = S.cardOpacity;
+      document.getElementById('fontsize-slider').value     = S.fontSize;
+      document.getElementById('radius-slider').value       = S.cardRadius;
+      document.getElementById('gap-slider').value          = S.cardGap;
       document.getElementById('topbar-color-picker').value = S.topbarColor;
 
       applyBrightness(S.bgBrightness);
@@ -1143,9 +1804,9 @@
       applyBgColor(S.bgColor);
       updateGridSize();
 
-      document.getElementById('fontsize-value').textContent = S.fontSize + 'px';
-      document.getElementById('radius-value').textContent   = S.cardRadius + 'px';
-      document.getElementById('gap-value').textContent      = S.cardGap + 'px';
+      document.getElementById('fontsize-value').textContent = S.fontSize    + 'px';
+      document.getElementById('radius-value').textContent   = S.cardRadius  + 'px';
+      document.getElementById('gap-value').textContent      = S.cardGap     + 'px';
 
       syncToggle('animation-toggle', S.animations);
       syncToggle('glow-toggle',      S.glow);
@@ -1156,10 +1817,8 @@
 
       applyBgEffect(S.bgEffect);
 
-      // Restore color swatch
-      document.querySelectorAll('.color-swatch').forEach(sw => {
-        sw.classList.toggle('active', sw.dataset.rgb === S.bgColor);
-      });
+      document.querySelectorAll('.color-swatch').forEach(sw =>
+        sw.classList.toggle('active', sw.dataset.rgb === S.bgColor));
 
       if (premiumUnlocked) {
         document.getElementById('premium-content').style.display = 'block';
@@ -1176,10 +1835,7 @@
           const isGames = btn.dataset.tab === 'games';
           document.getElementById('content').classList.toggle('hidden', !isGames);
           document.getElementById('browser-container').classList.toggle('active', !isGames);
-          // Show disclaimer every time browser tab is opened
-          if (!isGames) {
-            document.getElementById('disclaimer-modal').classList.add('on');
-          }
+          if (!isGames) document.getElementById('disclaimer-modal').classList.add('on');
         });
       });
 
@@ -1229,7 +1885,6 @@
         const labels = ['','Slow','Medium-Slow','Medium','Medium-Fast','Fast'];
         document.getElementById('rain-speed-value').textContent = labels[S.rainSpeed];
       });
-
       document.querySelectorAll('.color-swatch').forEach(sw => {
         sw.addEventListener('click', () => {
           document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
@@ -1244,7 +1899,7 @@
         applyBgColor(`${r},${g},${b}`);
       });
 
-      /* ── CARDS ── */
+      /* ── CARDS SETTINGS ── */
       document.getElementById('grid-size').addEventListener('change', e => {
         S.gridSize = e.target.value; lss('gridSize', S.gridSize); updateGridSize();
       });
@@ -1303,9 +1958,11 @@
 
       /* ── OVERLAY CONTROLS ── */
       document.getElementById('bk-btn').addEventListener('click', () => {
+        const frame = document.getElementById('gframe');
+        frame.onload = null;       // prevent stale handler firing
+        frame.src = 'about:blank'; // cleanly unload the game
         document.getElementById('overlay').classList.remove('on');
         document.getElementById('gload').classList.remove('hide');
-        document.getElementById('gframe').src = '';
         document.getElementById('bar').style.width = '0%';
       });
       document.getElementById('fs-btn').addEventListener('click', () => {
@@ -1315,6 +1972,7 @@
       /* ── SEARCH ── */
       document.getElementById('search').addEventListener('input', renderGameList);
     });
-  </script>
+			</script>
 </body>
+
 </html>

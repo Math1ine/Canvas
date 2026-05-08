@@ -759,48 +759,8 @@
 
     function loadGame(url) {
       document.getElementById('game-modal').classList.remove('on');
-      const overlay = document.getElementById('overlay');
-      const gload   = document.getElementById('gload');
-      const frame   = document.getElementById('gframe');
-      const bar     = document.getElementById('bar');
-      const hint    = document.getElementById('load-hint');
-      const playBtn = document.getElementById('load-play-btn');
-
-      overlay.classList.add('on');
-      gload.classList.remove('hide');
-      playBtn.style.display = 'none';
-      hint.textContent = 'Loading game… this may take 20–40 seconds for 3D games.';
-      bar.style.width = '0%';
-
-      /* Progress bar crawls to 95% then stops — user dismisses manually */
-      let pct = 0;
-      const barTimer = setInterval(() => {
-        if (pct < 95) {
-          const step = pct < 60 ? (Math.random() * 3 + 1) : (Math.random() * 0.8 + 0.1);
-          pct = Math.min(pct + step, 95);
-          bar.style.width = pct + '%';
-        }
-      }, 400);
-
-      /* After 8s show the "I can see the game" button */
-      const btnTimer = setTimeout(() => {
-        hint.textContent = 'If you can see the game below, tap the button to dismiss this overlay.';
-        playBtn.style.display = 'inline-block';
-      }, 8000);
-
-      frame.onload = null;
-      frame.src = url;
-
-      /* Store timers so back button can clear them */
-      loadGame._barTimer = barTimer;
-      loadGame._btnTimer = btnTimer;
-    }
-
-    function dismissLoader() {
-      clearInterval(loadGame._barTimer);
-      clearTimeout(loadGame._btnTimer);
-      document.getElementById('bar').style.width = '100%';
-      setTimeout(() => document.getElementById('gload').classList.add('hide'), 200);
+      // Open the game directly in a new tab — avoids iframe CSP blocking on GitHub Pages
+      window.open(url, '_blank');
     }
 
     function renderLinks() {

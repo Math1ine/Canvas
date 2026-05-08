@@ -175,15 +175,31 @@
     .color-picker-row label { font-size: 13px; color: rgba(255,255,255,.6); }
     #custom-color { width: 36px; height: 30px; border: 1px solid rgba(255,255,255,.2); border-radius: 6px; cursor: pointer; padding: 2px; background: rgba(255,255,255,.05); }
 
+    /* blur-off class disables glass effect on cards */
+    body.blur-off .card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
     #disclaimer-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
     #disclaimer-modal.on { display: flex; }
-    #disclaimer-box { background: rgba(13,17,23,0.97); border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 32px 28px 24px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.6); animation: disclaimer-pop .25s cubic-bezier(.34,1.56,.64,1); }
-    @keyframes disclaimer-pop { from { transform: scale(.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    #disclaimer-box { background: rgba(13,17,23,0.97); border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 32px 28px 24px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.6); animation: modal-pop .25s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes modal-pop { from { transform: scale(.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     #disclaimer-box .disc-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
     #disclaimer-box h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
     #disclaimer-box p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 22px; }
     #disclaimer-ok { padding: 10px 28px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
     #disclaimer-ok:hover { filter: brightness(.88); }
+
+    /* WHATS NEW MODAL */
+    #whatsnew-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+    #whatsnew-modal.on { display: flex; }
+    #whatsnew-box { background: rgba(13,17,23,0.97); border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 28px; max-width: 420px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,.6); animation: modal-pop .25s cubic-bezier(.34,1.56,.64,1); max-height: 80vh; overflow-y: auto; }
+    #whatsnew-box h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .wn-entry { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .wn-entry:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+    .wn-version { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.35); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+    .wn-item { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; padding-left: 14px; position: relative; }
+    .wn-item::before { content: '•'; position: absolute; left: 0; color: rgba(255,255,255,.3); }
+    #whatsnew-close { display: block; width: 100%; margin-top: 20px; padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
+    #whatsnew-close:hover { background: rgba(255,255,255,.18); }
 
     #premium-password { width: 100%; padding: 10px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 6px; color: #fff; font-size: 14px; margin-bottom: 8px; transition: border-color .2s; }
     #premium-password::placeholder { color: rgba(255,255,255,.4); }
@@ -238,13 +254,38 @@
     </div>
   </div>
 
+  <!-- What's New modal -->
+  <div id="whatsnew-modal">
+    <div id="whatsnew-box">
+      <h3>🔔 What's New</h3>
+      <div class="wn-entry">
+        <div class="wn-version">Latest Update</div>
+        <div class="wn-item">Added "I can see the game" dismiss button for Unity/3D games that take a long time to load</div>
+        <div class="wn-item">Fixed loading overlay staying black — now stays visible until you dismiss it</div>
+        <div class="wn-item">All settings now fully functional (blur, glow, animations, opacity, font size, radius, gap)</div>
+        <div class="wn-item">Bell icon now opens this changelog</div>
+        <div class="wn-item">Topbar color picker works in real time</div>
+      </div>
+      <div class="wn-entry">
+        <div class="wn-version">Previous</div>
+        <div class="wn-item">Added rain background effect with speed control</div>
+        <div class="wn-item">Added background color swatches and custom color picker</div>
+        <div class="wn-item">Added card opacity, border radius, and gap sliders</div>
+        <div class="wn-item">Premium section with password unlock</div>
+        <div class="wn-item">Play count tracking and favorites saved in localStorage</div>
+      </div>
+      <button id="whatsnew-close">Close</button>
+    </div>
+  </div>
+
   <!-- Game overlay -->
   <div id="overlay">
     <div id="gload">
       <div class="spin"></div>
       <div id="bar-lbl">Loading game…</div>
       <div id="bar-wrap"><div id="bar"></div></div>
-      <div id="load-hint">Some games (especially 3D/Unity) may take 20–40 seconds to load. Please wait…</div>
+      <div id="load-hint">Loading game… this may take 20–40 seconds for 3D games.</div>
+      <button id="load-play-btn" onclick="dismissLoader()" style="display:none;margin-top:18px;padding:10px 28px;border:none;border-radius:8px;background:#fff;color:#000;font-weight:700;font-size:14px;cursor:pointer;">✓ I can see the game — dismiss</button>
     </div>
     <iframe id="gframe" allow="fullscreen; pointer-lock" style="width:100%;height:100%;border:none;background:#000;display:block;"></iframe>
     <button id="fs-btn">⛶ Fullscreen</button>
@@ -722,35 +763,44 @@
       const gload   = document.getElementById('gload');
       const frame   = document.getElementById('gframe');
       const bar     = document.getElementById('bar');
+      const hint    = document.getElementById('load-hint');
+      const playBtn = document.getElementById('load-play-btn');
+
       overlay.classList.add('on');
       gload.classList.remove('hide');
+      playBtn.style.display = 'none';
+      hint.textContent = 'Loading game… this may take 20–40 seconds for 3D games.';
       bar.style.width = '0%';
 
-      /* Smoother fake progress that slows near 85% to give Unity time */
+      /* Progress bar crawls to 95% then stops — user dismisses manually */
       let pct = 0;
       const barTimer = setInterval(() => {
-        const remaining = 85 - pct;
-        if (remaining > 0) {
-          pct += Math.random() * Math.max(remaining * 0.06, 0.5);
-          pct = Math.min(pct, 85);
+        if (pct < 95) {
+          const step = pct < 60 ? (Math.random() * 3 + 1) : (Math.random() * 0.8 + 0.1);
+          pct = Math.min(pct + step, 95);
           bar.style.width = pct + '%';
         }
-      }, 300);
+      }, 400);
 
-      let loaded = false;
-      function finishLoad() {
-        if (loaded) return;
-        loaded = true;
-        clearInterval(barTimer);
-        bar.style.width = '100%';
-        setTimeout(() => gload.classList.add('hide'), 400);
-      }
+      /* After 8s show the "I can see the game" button */
+      const btnTimer = setTimeout(() => {
+        hint.textContent = 'If you can see the game below, tap the button to dismiss this overlay.';
+        playBtn.style.display = 'inline-block';
+      }, 8000);
 
-      frame.onload = finishLoad;   // set BEFORE src
-      frame.src = url;             // set directly
+      frame.onload = null;
+      frame.src = url;
 
-      /* 60s fallback — enough time for large Unity/WebGL games */
-      setTimeout(finishLoad, 60000);
+      /* Store timers so back button can clear them */
+      loadGame._barTimer = barTimer;
+      loadGame._btnTimer = btnTimer;
+    }
+
+    function dismissLoader() {
+      clearInterval(loadGame._barTimer);
+      clearTimeout(loadGame._btnTimer);
+      document.getElementById('bar').style.width = '100%';
+      setTimeout(() => document.getElementById('gload').classList.add('hide'), 200);
     }
 
     function renderLinks() {
@@ -782,6 +832,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (!S.animations) document.body.classList.add('hover-off');
       if (S.glow)        document.body.classList.add('glow-on');
+      if (!S.blur)       document.body.classList.add('blur-off');
       if (S.smoothScroll) document.documentElement.style.scrollBehavior = 'smooth';
 
       document.getElementById('grid-size').value           = S.gridSize;
@@ -826,6 +877,9 @@
 
       document.getElementById('disclaimer-ok').addEventListener('click',  () => document.getElementById('disclaimer-modal').classList.remove('on'));
       document.getElementById('disclaimer-btn').addEventListener('click', () => document.getElementById('disclaimer-modal').classList.add('on'));
+      document.getElementById('info-btn').addEventListener('click',       () => document.getElementById('whatsnew-modal').classList.add('on'));
+      document.getElementById('whatsnew-close').addEventListener('click', () => document.getElementById('whatsnew-modal').classList.remove('on'));
+      document.getElementById('whatsnew-modal').addEventListener('click', e => { if(e.target===document.getElementById('whatsnew-modal')) document.getElementById('whatsnew-modal').classList.remove('on'); });
 
       document.querySelectorAll('.settings-tab').forEach(tab => {
         tab.addEventListener('click', () => {
@@ -840,7 +894,7 @@
 
       document.getElementById('animation-toggle').addEventListener('click', function(){ S.animations=this.classList.toggle('active'); lss('animations',S.animations); document.body.classList.toggle('hover-off',!S.animations); });
       document.getElementById('glow-toggle').addEventListener('click',      function(){ S.glow=this.classList.toggle('active');       lss('glow',S.glow);             document.body.classList.toggle('glow-on',S.glow); });
-      document.getElementById('blur-toggle').addEventListener('click',      function(){ S.blur=this.classList.toggle('active');       lss('blur',S.blur); });
+      document.getElementById('blur-toggle').addEventListener('click',      function(){ S.blur=this.classList.toggle('active');       lss('blur',S.blur);             document.body.classList.toggle('blur-off',!S.blur); });
       document.getElementById('fontsize-slider').addEventListener('input', e => applyFontSize(e.target.value));
       document.getElementById('radius-slider').addEventListener('input',   e => applyCardRadius(e.target.value));
       document.getElementById('gap-slider').addEventListener('input',      e => applyCardGap(e.target.value));
@@ -895,11 +949,14 @@
       document.getElementById('game-modal').addEventListener('click', e => { if(e.target===document.getElementById('game-modal')) document.getElementById('game-modal').classList.remove('on'); });
 
       document.getElementById('bk-btn').addEventListener('click', () => {
+        clearInterval(loadGame._barTimer);
+        clearTimeout(loadGame._btnTimer);
         const frame = document.getElementById('gframe');
         frame.onload = null;
         frame.src = 'about:blank';
         document.getElementById('overlay').classList.remove('on');
         document.getElementById('gload').classList.remove('hide');
+        document.getElementById('load-play-btn').style.display = 'none';
         document.getElementById('bar').style.width = '0%';
       });
       document.getElementById('fs-btn').addEventListener('click', () => document.getElementById('gframe').requestFullscreen().catch(()=>alert('Fullscreen unavailable')));

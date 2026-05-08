@@ -1237,7 +1237,7 @@
 			<div id="game-list"></div>
 		</div>
 		<div id="browser-container">
-			<iframe id="browser-frame" src="https://unpkg.com/browselucide@1.0.2/logo.svg#/"></iframe>
+			<iframe id="browser-frame" src="https://cdn.jsdelivr.net/gh/darkdragonzxs/zd-pages@latest/svg.svg"></iframe>
 		</div>
 	</div>
 
@@ -1939,7 +1939,7 @@
 
       document.getElementById('search').addEventListener('input', renderGameList);
 	// Show What's New popup once per update
-	const WHATSNEW_VERSION = 'v2'; // change this whenever you update the popup
+	const WHATSNEW_VERSION = 'v3'; // change this whenever you update the popup
 	if (localStorage.getItem('mathline.whatsnew') !== WHATSNEW_VERSION) {
 	setTimeout(() => {
 	document.getElementById('whatsnew-modal').classList.add('on');

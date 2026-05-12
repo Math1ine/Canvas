@@ -106,10 +106,6 @@
 			100% { background-position: 40px 40px; }
 		}
 
-		@keyframes spin {
-			to { transform: rotate(360deg); }
-		}
-
 		@keyframes modal-pop {
 			from { transform: scale(.88); opacity: 0; }
 			to   { transform: scale(1);  opacity: 1; }
@@ -695,10 +691,10 @@
 			<h3>🔔 What's New</h3>
 			<div class="wn-entry">
 				<div class="wn-version">Latest Update</div>
+				<!-- ✏️ Edit changelog items here -->
 				<div class="wn-item">The reason for all of the games not working is the code expired — new games are being sourced to replace the old ones</div>
 				<div class="wn-item">Games now open in a new tab titled "about:blank" so it looks less suspicious</div>
-				<div class="wn-item">Added Popular section showing curated fan-favourite games (Ships 3D, Hello Neighbor, Mk48, Skribble.io, and more)</div>
-				<div class="wn-item">Popular section now always shows the curated list until you've played enough games to build your own history</div>
+				<div class="wn-item">Popular section is now fully curated — always shows exactly the games set in POPULAR_GAMES</div>
 			</div>
 			<div class="wn-entry">
 				<div class="wn-version">Previous</div>
@@ -905,12 +901,20 @@
 		// ║  Bump this string any time you want the What's New  ║
 		// ║  popup to show again for all visitors.              ║
 		// ╚══════════════════════════════════════════════════════╝
-		const WHATSNEW_VERSION = 'v6-ships3d';
+		const WHATSNEW_VERSION = 'v7-hardcoded-popular';
 
-		// ── Curated Popular list — always shown until the user has
-		//    played 4+ different games of their own. ──────────────
-		// Edit / reorder these URLs to control what appears.
-		const FALLBACK_POPULAR_URLS = [
+		// ╔══════════════════════════════════════════════════════════════╗
+		// ║  POPULAR GAMES — the ONLY source for the Popular section.   ║
+		// ║  Play history is completely ignored for Popular.            ║
+		// ║                                                              ║
+		// ║  To change Popular:                                         ║
+		// ║    • Add a game URL string to show it                       ║
+		// ║    • Remove a line to hide it                               ║
+		// ║    • Reorder lines to change the left-to-right order        ║
+		// ║                                                              ║
+		// ║  Game URLs must match exactly what's in the GAMES array.    ║
+		// ╚══════════════════════════════════════════════════════════════╝
+		const POPULAR_GAMES = [
 			'Ship.html',      // Ships 3D
 			'Hn.html',        // Hello Neighbor
 			'Mk.html',        // Mk48
@@ -919,10 +923,8 @@
 			'Crossy.html',    // Crossy Road
 			'eggy.html',      // Eggy Car
 			'BTD5.html',      // BTD5
+			// ← Add more game URLs here any time
 		];
-
-		// How many cards to show in the Popular row
-		const POPULAR_COUNT = 8;
 
 		const DEFAULT_LINKS = [
 			{ title: 'Lucide',     url: 'https://unpkg.com/browselucide@1.0.2/logo.svg#/' },
@@ -1019,7 +1021,6 @@
 			{n:'Hello neighbor',u:'Hn.html'},
 			{n:'Ships 3D',u:'Ship.html'},
 			{n:'Google snake',u:'Google.html'},
-
 		];
 
 		const ls  = k     => localStorage.getItem(SK + k);
@@ -1028,6 +1029,10 @@
 		let favorites       = new Set(JSON.parse(ls('favorites')  || '[]'));
 		let playCounts      = JSON.parse(ls('playCounts') || '{}');
 		let premiumUnlocked = ls('premiumUnlocked') === 'true';
+
+		// Build URL → game object lookup
+		const GAME_MAP = {};
+		GAMES.forEach(g => { GAME_MAP[g.u] = g; });
 
 		let S = {
 			animations:   ls('animations')   !== 'false',
@@ -1048,33 +1053,11 @@
 			rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
 		};
 
-		// Build URL → game object lookup
-		const GAME_MAP = {};
-		GAMES.forEach(g => { GAME_MAP[g.u] = g; });
-
-		// ─────────────────────────────────────────────────────────
-		// getPopularGames()
-		//
-		// FIX: Popular is now ALWAYS the curated FALLBACK list
-		// unless the player has personally played 4+ distinct games,
-		// in which case their own top-played games take over.
-		// This guarantees Ships 3D etc. always appear on first load.
-		// ─────────────────────────────────────────────────────────
+		// ── Popular: always exactly POPULAR_GAMES, no play-history override ──
 		function getPopularGames() {
-			const played = GAMES
-				.filter(g => (playCounts[g.u] || 0) > 0)
-				.sort((a, b) => (playCounts[b.u] || 0) - (playCounts[a.u] || 0))
-				.slice(0, POPULAR_COUNT);
-
-			// Only switch to personal history once the player has
-			// actually played at least 4 different games themselves.
-			if (played.length >= 4) return played;
-
-			// Otherwise always show the curated fallback list.
-			return FALLBACK_POPULAR_URLS
+			return POPULAR_GAMES
 				.map(u => GAME_MAP[u])
-				.filter(Boolean)
-				.slice(0, POPULAR_COUNT);
+				.filter(Boolean); // silently skips any URL not found in GAMES
 		}
 
 		// ── Rain background ──────────────────────────────────────
@@ -1210,20 +1193,16 @@
 		function renderGameList() {
 			const query = document.getElementById('search').value.toLowerCase().trim();
 
-			// Popular section
+			// Popular section — always hardcoded, hidden during search
 			const popularContainer = document.getElementById('popular-list');
 			const popularSection   = document.getElementById('popular-section');
 			popularContainer.innerHTML = '';
 
 			if (!query) {
 				const popularGames = getPopularGames();
-				if (popularGames.length > 0) {
-					popularSection.style.display = '';
-					document.getElementById('popular-count').textContent = popularGames.length + ' games';
-					popularGames.forEach(game => popularContainer.appendChild(buildCard(game, true)));
-				} else {
-					popularSection.style.display = 'none';
-				}
+				popularSection.style.display = popularGames.length ? '' : 'none';
+				document.getElementById('popular-count').textContent = popularGames.length + ' games';
+				popularGames.forEach(game => popularContainer.appendChild(buildCard(game, true)));
 			} else {
 				popularSection.style.display = 'none';
 			}
@@ -1343,7 +1322,7 @@
 
 			renderGameList();
 
-			// ── Tab switching ────────────────────────────────────
+			// Tab switching
 			document.querySelectorAll('.tab-btn').forEach(btn => {
 				btn.addEventListener('click', () => {
 					document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1355,11 +1334,11 @@
 				});
 			});
 
-			// ── Disclaimer ───────────────────────────────────────
+			// Disclaimer
 			document.getElementById('disclaimer-ok').addEventListener('click',  () => document.getElementById('disclaimer-modal').classList.remove('on'));
 			document.getElementById('disclaimer-btn').addEventListener('click', () => document.getElementById('disclaimer-modal').classList.add('on'));
 
-			// ── What's New ───────────────────────────────────────
+			// What's New
 			document.getElementById('info-btn').addEventListener('click',       () => document.getElementById('whatsnew-modal').classList.add('on'));
 			document.getElementById('whatsnew-close').addEventListener('click', () => document.getElementById('whatsnew-modal').classList.remove('on'));
 			document.getElementById('whatsnew-modal').addEventListener('click', e => {
@@ -1367,7 +1346,7 @@
 					document.getElementById('whatsnew-modal').classList.remove('on');
 			});
 
-			// ── Settings tabs ────────────────────────────────────
+			// Settings tabs
 			document.querySelectorAll('.settings-tab').forEach(tab => {
 				tab.addEventListener('click', () => {
 					document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
@@ -1411,8 +1390,8 @@
 			// Cards
 			document.getElementById('grid-size').addEventListener('change', e => { S.gridSize = e.target.value; lss('gridSize', S.gridSize); updateGridSize(); });
 			document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
-			document.getElementById('clear-favorites').addEventListener('click',  () => { if (confirm('Clear all favorites?'))  { favorites.clear(); lss('favorites', '[]');      renderGameList(); } });
-			document.getElementById('clear-playcounts').addEventListener('click', () => { if (confirm('Clear play counts?'))    { playCounts = {};    lss('playCounts', '{}');    renderGameList(); } });
+			document.getElementById('clear-favorites').addEventListener('click',  () => { if (confirm('Clear all favorites?'))  { favorites.clear(); lss('favorites', '[]');   renderGameList(); } });
+			document.getElementById('clear-playcounts').addEventListener('click', () => { if (confirm('Clear play counts?'))    { playCounts = {};    lss('playCounts', '{}'); renderGameList(); } });
 
 			// Gameplay
 			document.getElementById('autoload-toggle').addEventListener('click',  function() { S.autoload  = this.classList.toggle('active'); lss('autoload',  S.autoload); });
@@ -1449,8 +1428,7 @@
 			// Search
 			document.getElementById('search').addEventListener('input', renderGameList);
 
-			// ── What's New auto-popup ────────────────────────────
-			// Bumping WHATSNEW_VERSION above re-triggers this for every visitor.
+			// What's New auto-popup — bump WHATSNEW_VERSION to re-trigger
 			if (localStorage.getItem('mathline.whatsnew') !== WHATSNEW_VERSION) {
 				setTimeout(() => document.getElementById('whatsnew-modal').classList.add('on'), 700);
 				localStorage.setItem('mathline.whatsnew', WHATSNEW_VERSION);

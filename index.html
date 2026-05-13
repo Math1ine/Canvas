@@ -84,9 +84,7 @@
 			animation: wavemove 3s linear infinite;
 		}
 
-		#bg-layer.none {
-			display: none;
-		}
+		#bg-layer.none { display: none; }
 
 		#rain-canvas {
 			position: fixed;
@@ -233,6 +231,10 @@
 		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
 		#browser-container.active { display: flex; flex-direction: column; }
 		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
+
+		#otonic-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
+		#otonic-container.active { display: flex; flex-direction: column; }
+		#otonic-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
 
 		.card {
 			background: var(--card-bg);
@@ -642,6 +644,7 @@
 		<div id="tab-buttons">
 			<button class="tab-btn active" data-tab="games">Games</button>
 			<button class="tab-btn" data-tab="browser">Browser</button>
+			<button class="tab-btn" data-tab="otonic">Otonic</button>
 		</div>
 		<div id="top-right">
 			<button id="disclaimer-btn" title="Disclaimer">⚠️</button>
@@ -671,7 +674,10 @@
 			</div>
 		</div>
 		<div id="browser-container">
-			<iframe id="browser-frame" src="https://signup.clever.com.kesc.gr/"></iframe>
+			<iframe id="browser-frame" src="https://elijah-gutierrez-77.b-cdn.net/"></iframe>
+		</div>
+		<div id="otonic-container">
+			<iframe id="otonic-frame" src="https://mathscienceallday.b-cdn.net/"></iframe>
 		</div>
 	</div>
 
@@ -905,31 +911,22 @@
 
 		// ╔══════════════════════════════════════════════════════════════╗
 		// ║  POPULAR GAMES — the ONLY source for the Popular section.   ║
-		// ║  Play history is completely ignored for Popular.            ║
-		// ║                                                              ║
-		// ║  To change Popular:                                         ║
-		// ║    • Add a game URL string to show it                       ║
-		// ║    • Remove a line to hide it                               ║
-		// ║    • Reorder lines to change the left-to-right order        ║
-		// ║                                                              ║
-		// ║  Game URLs must match exactly what's in the GAMES array.    ║
 		// ╚══════════════════════════════════════════════════════════════╝
 		const POPULAR_GAMES = [
-			'Ship.html',      // Ships 3D
-			'Hn.html',        // Hello Neighbor
-			'Mk.html',        // Mk48
-			'Skribble.html',  // Skribble.io
-			'Shapez.html',    // Shapez.io
-			'Crossy.html',    // Crossy Road
-			'eggy.html',      // Eggy Car
-			'BTD5.html',      // BTD5
-			// ← Add more game URLs here any time
+			'Ship.html',
+			'Hn.html',
+			'Mk.html',
+			'Skribble.html',
+			'Shapez.html',
+			'Crossy.html',
+			'eggy.html',
+			'BTD5.html',
 		];
 
 		const DEFAULT_LINKS = [
 			{ title: 'Fern',     url: 'https://elijah-gutierrez-77.b-cdn.net/' },
 			{ title: 'New link later',     url: '' },
-			{ title: 'Req otonic if you want the link', url: 'in req a game form if you want the link' },
+			{ title: 'more links later', url: '' },
 		];
 
 		const GAMES = [
@@ -1030,7 +1027,6 @@
 		let playCounts      = JSON.parse(ls('playCounts') || '{}');
 		let premiumUnlocked = ls('premiumUnlocked') === 'true';
 
-		// Build URL → game object lookup
 		const GAME_MAP = {};
 		GAMES.forEach(g => { GAME_MAP[g.u] = g; });
 
@@ -1053,14 +1049,10 @@
 			rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
 		};
 
-		// ── Popular: always exactly POPULAR_GAMES, no play-history override ──
 		function getPopularGames() {
-			return POPULAR_GAMES
-				.map(u => GAME_MAP[u])
-				.filter(Boolean); // silently skips any URL not found in GAMES
+			return POPULAR_GAMES.map(u => GAME_MAP[u]).filter(Boolean);
 		}
 
-		// ── Rain background ──────────────────────────────────────
 		let rainAnim = null;
 		function startRain() {
 			const canvas = document.getElementById('rain-canvas');
@@ -1104,7 +1096,6 @@
 			canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 		}
 
-		// ── Settings helpers ──────────────────────────────────────
 		function applyBgEffect(effect) {
 			S.bgEffect = effect; lss('bgEffect', effect);
 			document.querySelectorAll('.bg-option').forEach(b => b.classList.toggle('active', b.dataset.bg === effect));
@@ -1164,7 +1155,6 @@
 		}
 		function syncToggle(id, on) { document.getElementById(id).classList.toggle('active', on); }
 
-		// ── Card builder ──────────────────────────────────────────
 		function buildCard(game, showPopularBadge) {
 			const isFav = favorites.has(game.u);
 			const plays = playCounts[game.u] || 0;
@@ -1189,11 +1179,9 @@
 			return card;
 		}
 
-		// ── Render ────────────────────────────────────────────────
 		function renderGameList() {
 			const query = document.getElementById('search').value.toLowerCase().trim();
 
-			// Popular section — always hardcoded, hidden during search
 			const popularContainer = document.getElementById('popular-list');
 			const popularSection   = document.getElementById('popular-section');
 			popularContainer.innerHTML = '';
@@ -1207,7 +1195,6 @@
 				popularSection.style.display = 'none';
 			}
 
-			// All Games section
 			const container = document.getElementById('game-list');
 			container.innerHTML = '';
 			const filtered = (query ? GAMES.filter(g => g.n.toLowerCase().includes(query)) : [...GAMES])
@@ -1215,7 +1202,6 @@
 
 			filtered.forEach(game => container.appendChild(buildCard(game, false)));
 
-			// Request card
 			const reqCard = document.createElement('div');
 			reqCard.className = 'card request-card';
 			reqCard.style.borderRadius = S.cardRadius + 'px';
@@ -1231,7 +1217,6 @@
 			document.getElementById('game-count').textContent = filtered.length + ' games';
 		}
 
-		// ── Game modal ────────────────────────────────────────────
 		let currentGame = null;
 		function openGameModal(game) {
 			currentGame = game;
@@ -1253,7 +1238,6 @@
 			else     { window.open(url, '_blank'); }
 		}
 
-		// ── Premium links ─────────────────────────────────────────
 		function renderLinks() {
 			const c = document.getElementById('links-container');
 			c.innerHTML = '';
@@ -1278,6 +1262,16 @@
 				inp.style.borderColor = 'rgba(255,0,0,.8)'; inp.value = '';
 				setTimeout(() => inp.style.borderColor = 'rgba(255,255,255,.2)', 1500);
 			}
+		}
+
+		// ── Tab switcher ──────────────────────────────────────────
+		function switchTab(tab) {
+			document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+			document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
+			document.getElementById('content').classList.toggle('hidden', tab !== 'games');
+			document.getElementById('browser-container').classList.toggle('active', tab === 'browser');
+			document.getElementById('otonic-container').classList.toggle('active', tab === 'otonic');
+			if (tab !== 'games') document.getElementById('disclaimer-modal').classList.add('on');
 		}
 
 		// ── Boot ──────────────────────────────────────────────────
@@ -1324,14 +1318,7 @@
 
 			// Tab switching
 			document.querySelectorAll('.tab-btn').forEach(btn => {
-				btn.addEventListener('click', () => {
-					document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-					btn.classList.add('active');
-					const isGames = btn.dataset.tab === 'games';
-					document.getElementById('content').classList.toggle('hidden', !isGames);
-					document.getElementById('browser-container').classList.toggle('active', !isGames);
-					if (!isGames) document.getElementById('disclaimer-modal').classList.add('on');
-				});
+				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 			});
 
 			// Disclaimer

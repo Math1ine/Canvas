@@ -152,7 +152,19 @@
 
 		#search::placeholder { color: rgba(255,255,255,.35); }
 
-		#tab-buttons { display: flex; gap: 8px; margin-left: auto; margin-right: 10px; }
+		#refresh-hint {
+			font-size: 11px;
+			color: rgba(255,255,255,.38);
+			font-style: italic;
+			white-space: nowrap;
+			letter-spacing: .01em;
+			flex-shrink: 1;
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		#tab-buttons { display: flex; gap: 8px; }
 
 		.tab-btn {
 			background: rgba(255,255,255,.08);
@@ -169,7 +181,7 @@
 		.tab-btn:hover  { background: rgba(255,255,255,.15); color: rgba(255,255,255,.8); }
 		.tab-btn.active { background: rgba(255,255,255,.2);  color: #fff; }
 
-		#top-right { display: flex; align-items: center; gap: 10px; }
+		#top-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 
 		#settings-btn, #info-btn, #disclaimer-btn {
 			width: 36px; height: 36px;
@@ -231,10 +243,6 @@
 		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
 		#browser-container.active { display: flex; flex-direction: column; }
 		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
-
-		#otonic-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
-		#otonic-container.active { display: flex; flex-direction: column; }
-		#otonic-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
 
 		.card {
 			background: var(--card-bg);
@@ -664,10 +672,10 @@
 	<div id="topbar">
 		<div id="logo">MathLine</div>
 		<input id="search" type="text" placeholder="Search games…" />
+		<span id="refresh-hint">always refresh even if the games look blocked</span>
 		<div id="tab-buttons">
 			<button class="tab-btn active" data-tab="games">Games</button>
 			<button class="tab-btn" data-tab="browser">Browser</button>
-			<button class="tab-btn" data-tab="otonic">Otonic</button>
 		</div>
 		<div id="top-right">
 			<button id="disclaimer-btn" title="Disclaimer">⚠️</button>
@@ -698,9 +706,6 @@
 		</div>
 		<div id="browser-container">
 			<iframe id="browser-frame" src="https://dogeub--shawnjensen710.replit.app/"></iframe>
-		</div>
-		<div id="otonic-container">
-			<iframe id="otonic-frame" src="https://mathscienceallday.b-cdn.net/"></iframe>
 		</div>
 	</div>
 
@@ -948,9 +953,9 @@
 		];
 
 		const DEFAULT_LINKS = [
-			{ title: 'Fern',     url: 'https://elijah-gutierrez-77.b-cdn.net/' },
-			{ title: 'New link later',     url: '' },
-			{ title: 'more links later', url: '' },
+			{ title: 'Fern', url: 'https://elijah-gutierrez-77.b-cdn.net/' },
+			{ title: 'Otonic 1', url: 'https://www.google.com/url?q=https://signup.clever.com.kesc.gr/&sa=D&source=docs&ust=1778693546012314&usg=AOvVaw2Ju6TfQ8SHoUZbx3yBtedA' },
+			{ title: 'Otonic 2', url: 'https://mathscienceallday.b-cdn.net/' },
 		];
 
 		const GAMES = [
@@ -1296,7 +1301,6 @@
 			document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
 			document.getElementById('content').classList.toggle('hidden', tab !== 'games');
 			document.getElementById('browser-container').classList.toggle('active', tab === 'browser');
-			document.getElementById('otonic-container').classList.toggle('active', tab === 'otonic');
 			if (tab !== 'games') document.getElementById('disclaimer-modal').classList.add('on');
 		}
 

@@ -598,7 +598,30 @@
 		.wn-item { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; padding-left: 14px; position: relative; }
 		.wn-item::before { content: '•'; position: absolute; left: 0; color: rgba(255,255,255,.3); }
 
-		#whatsnew-close { display: block; width: 100%; margin-top: 20px; padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
+		#survey-btn {
+			display: block;
+			width: 100%;
+			margin-top: 12px;
+			padding: 11px;
+			border: none;
+			border-radius: 8px;
+			background: #22c55e;
+			color: #fff;
+			font-weight: 700;
+			font-size: 14px;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			box-sizing: border-box;
+			transition: background .2s, transform .1s;
+		}
+
+		#survey-btn:hover {
+			background: #16a34a;
+			transform: translateY(-1px);
+		}
+
+		#whatsnew-close { display: block; width: 100%; margin-top: 8px; padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
 		#whatsnew-close:hover { background: rgba(255,255,255,.18); }
 
 		#premium-password {
@@ -709,6 +732,7 @@
 				<div class="wn-item">Added rain background with speed control</div>
 				<div class="wn-item">Play count tracking and favorites saved locally</div>
 			</div>
+			<a id="survey-btn" href="https://forms.gle/R3iL5mpB8RLpVLTaA" target="_blank">📋 Take Survey</a>
 			<button id="whatsnew-close">Close</button>
 		</div>
 	</div>

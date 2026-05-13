@@ -673,11 +673,11 @@
 		<div id="logo">MathLine</div>
 		<input id="search" type="text" placeholder="Search games…" />
 		<span id="refresh-hint">always refresh even if the games look blocked</span>
-		<div id="tab-buttons">
-			<button class="tab-btn active" data-tab="games">Games</button>
-			<button class="tab-btn" data-tab="browser">Browser</button>
-		</div>
 		<div id="top-right">
+			<div id="tab-buttons">
+				<button class="tab-btn active" data-tab="games">Games</button>
+				<button class="tab-btn" data-tab="browser">Browser</button>
+			</div>
 			<button id="disclaimer-btn" title="Disclaimer">⚠️</button>
 			<button id="info-btn"       title="What's New">🔔</button>
 			<button id="settings-btn"   title="Settings">⚙</button>
@@ -932,15 +932,8 @@
 		const SK = 'mathline.';
 		const PREMIUM_PASSWORD = '4557';
 
-		// ╔══════════════════════════════════════════════════════╗
-		// ║  Bump this string any time you want the What's New  ║
-		// ║  popup to show again for all visitors.              ║
-		// ╚══════════════════════════════════════════════════════╝
 		const WHATSNEW_VERSION = 'v9-hardcoded-popular';
 
-		// ╔══════════════════════════════════════════════════════════════╗
-		// ║  POPULAR GAMES — the ONLY source for the Popular section.   ║
-		// ╚══════════════════════════════════════════════════════════════╝
 		const POPULAR_GAMES = [
 			'Ship.html',
 			'Hn.html',
@@ -1048,7 +1041,6 @@
 			{n:'Ships 3D',u:'Ship.html'},
 			{n:'Google snake',u:'Google.html'},
 			{n:'Universal Paperclips',u:'Pclip.html'},
-
 		];
 
 		const ls  = k     => localStorage.getItem(SK + k);
@@ -1295,7 +1287,6 @@
 			}
 		}
 
-		// ── Tab switcher ──────────────────────────────────────────
 		function switchTab(tab) {
 			document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 			document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
@@ -1304,7 +1295,6 @@
 			if (tab !== 'games') document.getElementById('disclaimer-modal').classList.add('on');
 		}
 
-		// ── Boot ──────────────────────────────────────────────────
 		document.addEventListener('DOMContentLoaded', () => {
 			if (!S.animations) document.body.classList.add('hover-off');
 			if (S.glow)        document.body.classList.add('glow-on');
@@ -1346,16 +1336,13 @@
 
 			renderGameList();
 
-			// Tab switching
 			document.querySelectorAll('.tab-btn').forEach(btn => {
 				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 			});
 
-			// Disclaimer
 			document.getElementById('disclaimer-ok').addEventListener('click',  () => document.getElementById('disclaimer-modal').classList.remove('on'));
 			document.getElementById('disclaimer-btn').addEventListener('click', () => document.getElementById('disclaimer-modal').classList.add('on'));
 
-			// What's New
 			document.getElementById('info-btn').addEventListener('click',       () => document.getElementById('whatsnew-modal').classList.add('on'));
 			document.getElementById('whatsnew-close').addEventListener('click', () => document.getElementById('whatsnew-modal').classList.remove('on'));
 			document.getElementById('whatsnew-modal').addEventListener('click', e => {
@@ -1363,7 +1350,6 @@
 					document.getElementById('whatsnew-modal').classList.remove('on');
 			});
 
-			// Settings tabs
 			document.querySelectorAll('.settings-tab').forEach(tab => {
 				tab.addEventListener('click', () => {
 					document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
@@ -1375,7 +1361,6 @@
 			document.getElementById('settings-btn').addEventListener('click',       () => document.getElementById('settings-drawer').classList.toggle('open'));
 			document.getElementById('settings-close-btn').addEventListener('click', () => document.getElementById('settings-drawer').classList.remove('open'));
 
-			// Visual toggles
 			document.getElementById('animation-toggle').addEventListener('click', function() { S.animations = this.classList.toggle('active'); lss('animations', S.animations); document.body.classList.toggle('hover-off', !S.animations); });
 			document.getElementById('glow-toggle').addEventListener('click',      function() { S.glow = this.classList.toggle('active');       lss('glow', S.glow);             document.body.classList.toggle('glow-on', S.glow); });
 			document.getElementById('blur-toggle').addEventListener('click',      function() { S.blur = this.classList.toggle('active');       lss('blur', S.blur);             document.body.classList.toggle('blur-off', !S.blur); });
@@ -1383,7 +1368,6 @@
 			document.getElementById('radius-slider').addEventListener('input',   e => applyCardRadius(e.target.value));
 			document.getElementById('gap-slider').addEventListener('input',      e => applyCardGap(e.target.value));
 
-			// Background
 			document.querySelectorAll('.bg-option').forEach(btn => btn.addEventListener('click', () => applyBgEffect(btn.dataset.bg)));
 			document.getElementById('brightness-slider').addEventListener('input', e => applyBrightness(e.target.value));
 			document.getElementById('rain-speed-slider').addEventListener('input', e => {
@@ -1404,26 +1388,21 @@
 				applyBgColor(`${r},${g},${b}`);
 			});
 
-			// Cards
 			document.getElementById('grid-size').addEventListener('change', e => { S.gridSize = e.target.value; lss('gridSize', S.gridSize); updateGridSize(); });
 			document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
 			document.getElementById('clear-favorites').addEventListener('click',  () => { if (confirm('Clear all favorites?'))  { favorites.clear(); lss('favorites', '[]');   renderGameList(); } });
 			document.getElementById('clear-playcounts').addEventListener('click', () => { if (confirm('Clear play counts?'))    { playCounts = {};    lss('playCounts', '{}'); renderGameList(); } });
 
-			// Gameplay
 			document.getElementById('autoload-toggle').addEventListener('click',  function() { S.autoload  = this.classList.toggle('active'); lss('autoload',  S.autoload); });
 			document.getElementById('playcount-toggle').addEventListener('click', function() { S.playcount = this.classList.toggle('active'); lss('playcount', S.playcount); renderGameList(); });
 
-			// Advanced
 			document.getElementById('smooth-scroll').addEventListener('click', function() { S.smoothScroll = this.classList.toggle('active'); lss('smoothScroll', S.smoothScroll); document.documentElement.style.scrollBehavior = S.smoothScroll ? 'smooth' : 'auto'; });
 			document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
 			document.getElementById('reset-settings').addEventListener('click', () => { if (confirm('Reset all settings to defaults?')) { localStorage.clear(); location.reload(); } });
 
-			// Premium
 			document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
 			document.getElementById('premium-password').addEventListener('keypress', e => { if (e.key === 'Enter') unlockPremium(); });
 
-			// Game modal
 			document.getElementById('modal-fav').addEventListener('click', () => {
 				if (!currentGame) return;
 				favorites.has(currentGame.u) ? favorites.delete(currentGame.u) : favorites.add(currentGame.u);
@@ -1442,10 +1421,8 @@
 					document.getElementById('game-modal').classList.remove('on');
 			});
 
-			// Search
 			document.getElementById('search').addEventListener('input', renderGameList);
 
-			// What's New auto-popup — bump WHATSNEW_VERSION to re-trigger
 			if (localStorage.getItem('mathline.whatsnew') !== WHATSNEW_VERSION) {
 				setTimeout(() => document.getElementById('whatsnew-modal').classList.add('on'), 700);
 				localStorage.setItem('mathline.whatsnew', WHATSNEW_VERSION);

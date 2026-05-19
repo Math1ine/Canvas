@@ -85,7 +85,6 @@
 			animation: dotPulse 5s ease-in-out infinite;
 		}
 
-		/* LINES — single color (white), clean horizontal lines */
 		#bg-layer.lines {
 			background-image:
 				repeating-linear-gradient(0deg,
@@ -605,7 +604,6 @@
 			background: rgba(255,255,255,.05);
 		}
 
-		/* Tab title text input */
 		.settings-text-input {
 			width: 100%;
 			padding: 10px;
@@ -1306,25 +1304,39 @@
 			document.getElementById('game-modal').classList.add('on');
 		}
 
+		/* ═══ FIXED loadGame — blob iframe keeps title locked ═══ */
 		function loadGame(url, gameName) {
 			document.getElementById('game-modal').classList.remove('on');
-			const customTitle = S.tabTitle.trim();
-			const titleToUse = customTitle || gameName;
-			const tab = window.open('about:blank', '_blank');
-			if (tab) {
-				// Write a redirect page that sets the tab title before navigating
-				tab.document.open();
-				tab.document.write(
-					'<!DOCTYPE html><html><head><title>' + titleToUse + '</title></head>' +
-					'<body style="margin:0;background:#000"><script>' +
-					'document.title=' + JSON.stringify(titleToUse) + ';' +
-					'window.location.replace(' + JSON.stringify(url) + ');' +
-					'<\/script></body></html>'
-				);
-				tab.document.close();
-			} else {
-				window.open(url, '_blank');
-			}
+			const titleToUse = S.tabTitle.trim() || gameName;
+
+			const html = `<!DOCTYPE html>
+<html>
+<head>
+	<title>${titleToUse}</title>
+</head>
+<body style="margin:0;padding:0;background:#000;overflow:hidden;">
+	<iframe
+		src="${url}"
+		style="width:100vw;height:100vh;border:none;display:block;"
+		allowfullscreen
+		allow="fullscreen *; autoplay *; gamepad *"
+	></iframe>
+	<script>
+		(function() {
+			var t = ${JSON.stringify(titleToUse)};
+			document.title = t;
+			// Hammer the title every 100ms so nothing can overwrite it
+			setInterval(function() {
+				if (document.title !== t) document.title = t;
+			}, 100);
+		})();
+	<\/script>
+</body>
+</html>`;
+
+			const blob    = new Blob([html], { type: 'text/html' });
+			const blobUrl = URL.createObjectURL(blob);
+			window.open(blobUrl, '_blank');
 		}
 
 		function renderLinks() {
@@ -1466,7 +1478,6 @@
 			document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
 			document.getElementById('reset-settings').addEventListener('click', () => { if (confirm('Reset all settings to defaults?')) { localStorage.clear(); location.reload(); } });
 
-			// Tab title
 			document.getElementById('save-tab-title').addEventListener('click', () => {
 				const val = document.getElementById('tab-title-input').value.trim();
 				S.tabTitle = val;

@@ -316,6 +316,56 @@
 
 		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
 		#browser-container.active { display: flex; flex-direction: column; }
+
+		/* Browser chrome UI */
+		#browser-bar {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 12px;
+			background: rgba(10,14,20,0.95);
+			border-bottom: 1px solid rgba(255,255,255,.1);
+			flex-shrink: 0;
+		}
+		#browser-back, #browser-forward, #browser-refresh {
+			width: 28px; height: 28px;
+			border-radius: 6px;
+			border: none;
+			background: rgba(255,255,255,.08);
+			color: rgba(255,255,255,.7);
+			font-size: 14px;
+			cursor: pointer;
+			display: flex; align-items: center; justify-content: center;
+			transition: background .2s;
+			flex-shrink: 0;
+		}
+		#browser-back:hover, #browser-forward:hover, #browser-refresh:hover { background: rgba(255,255,255,.18); color: #fff; }
+		#browser-url {
+			flex: 1;
+			background: rgba(255,255,255,.07);
+			border: 1px solid rgba(255,255,255,.12);
+			border-radius: 6px;
+			color: rgba(255,255,255,.85);
+			padding: 5px 12px;
+			font-size: 13px;
+			outline: none;
+			transition: border-color .2s, background .2s;
+		}
+		#browser-url:focus { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
+		#browser-go {
+			padding: 5px 14px;
+			border: none;
+			border-radius: 6px;
+			background: rgba(255,255,255,.15);
+			color: #fff;
+			font-size: 13px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .2s;
+			flex-shrink: 0;
+		}
+		#browser-go:hover { background: rgba(255,255,255,.25); }
+
 		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
 
 		.card {
@@ -761,7 +811,14 @@
 			</div>
 		</div>
 		<div id="browser-container">
-			<iframe id="browser-frame" src="https://dogeub--shawnjensen710.replit.app/"></iframe>
+			<div id="browser-bar">
+				<button id="browser-back" title="Back">&#8592;</button>
+				<button id="browser-forward" title="Forward">&#8594;</button>
+				<button id="browser-refresh" title="Refresh">&#8635;</button>
+				<input id="browser-url" type="text" placeholder="Enter a URL… e.g. https://google.com" />
+				<button id="browser-go">Go</button>
+			</div>
+			<iframe id="browser-frame" src="about:blank" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
 		</div>
 	</div>
 
@@ -785,6 +842,7 @@
 				<div class="wn-item">EVEN IF THE GAMES SAYS ITS BLOCKED ATLEAST REFRESH ONCE BEFORE PUTTING IN A FORM</div>
 				<div class="wn-item">NEW: Custom Tab URL — set your own fake address bar URL in Tab Title settings!</div>
 				<div class="wn-item">NEW: 3 extra neon background styles — Aurora, Pulse, Matrix!</div>
+				<div class="wn-item">NEW: Browser tab now has a working address bar!</div>
 			</div>
 			<div class="wn-entry">
 				<div class="wn-version">Previous</div>
@@ -985,10 +1043,8 @@
 						<button class="settings-btn url-preset" data-url="https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit">📄 Google Docs</button>
 						<button class="settings-btn url-preset" data-url="https://classroom.google.com/u/0/c/math-period3">🏫 Classroom</button>
 						<button class="settings-btn url-preset" data-url="https://canvas.instructure.com/courses/4821033/assignments">🎨 Canvas</button>
-						<button class="settings-btn url-preset" data-url="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:linear-equations">📐 Khan Academy</button>
 						<button class="settings-btn url-preset" data-url="https://quizlet.com/study-guides/chapter-7-review-notes">📚 Quizlet</button>
 						<button class="settings-btn url-preset" data-url="https://outlook.office.com/mail/inbox">📧 Outlook</button>
-						<button class="settings-btn url-preset" data-url="https://app.schoology.com/course/3948271/materials">🏛 Schoology</button>
 						<button class="settings-btn url-preset" data-url="https://drive.google.com/drive/folders/homework-q4">💾 Google Drive</button>
 					</div>
 					<div class="settings-description">Click a preset to fill the URL field above, or type your own.</div>
@@ -1033,7 +1089,7 @@
 	<script>
 		const SK = 'mathline.';
 		const PREMIUM_PASSWORD = '4557';
-		const WHATSNEW_VERSION = 'v12-custom-url';
+		const WHATSNEW_VERSION = 'v13-browser-fix';
 
 		const POPULAR_GAMES = [
 			'Ship.html','Hn.html','Crossy.html','BroT.html','Shapez.html','CsGo-clicker.html','eggy.html',
@@ -1456,12 +1512,20 @@
 			}
 		}
 
+		/* ═══ BROWSER TAB ═══ */
+		function navigateBrowser(url) {
+			if (!url) return;
+			// Add https:// if no protocol given
+			if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+			document.getElementById('browser-url').value = url;
+			document.getElementById('browser-frame').src = url;
+		}
+
 		function switchTab(tab) {
 			document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 			document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
 			document.getElementById('content').classList.toggle('hidden', tab !== 'games');
 			document.getElementById('browser-container').classList.toggle('active', tab === 'browser');
-			if (tab !== 'games') document.getElementById('disclaimer-modal').classList.add('on');
 		}
 
 		document.addEventListener('DOMContentLoaded', () => {
@@ -1511,6 +1575,24 @@
 			// Tab switching
 			document.querySelectorAll('.tab-btn').forEach(btn => {
 				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+			});
+
+			// Browser controls
+			document.getElementById('browser-go').addEventListener('click', () => {
+				navigateBrowser(document.getElementById('browser-url').value.trim());
+			});
+			document.getElementById('browser-url').addEventListener('keypress', e => {
+				if (e.key === 'Enter') navigateBrowser(e.target.value.trim());
+			});
+			document.getElementById('browser-back').addEventListener('click', () => {
+				try { document.getElementById('browser-frame').contentWindow.history.back(); } catch(e) {}
+			});
+			document.getElementById('browser-forward').addEventListener('click', () => {
+				try { document.getElementById('browser-frame').contentWindow.history.forward(); } catch(e) {}
+			});
+			document.getElementById('browser-refresh').addEventListener('click', () => {
+				const f = document.getElementById('browser-frame');
+				try { f.contentWindow.location.reload(); } catch(e) { f.src = f.src; }
 			});
 
 			// Modals

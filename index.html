@@ -317,7 +317,6 @@
 		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
 		#browser-container.active { display: flex; flex-direction: column; }
 
-		/* Browser chrome UI */
 		#browser-bar {
 			display: flex;
 			align-items: center;
@@ -749,28 +748,6 @@
 		.link-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
 		.link-title { font-weight: 600; color: #fff; margin-bottom: 4px; }
 		.link-url   { font-size: 12px; color: rgba(255,255,255,.5); word-break: break-all; }
-
-		/* URL preview badge */
-		.url-preview {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			background: rgba(255,255,255,.06);
-			border: 1px solid rgba(255,255,255,.12);
-			border-radius: 6px;
-			padding: 8px 10px;
-			margin-top: 8px;
-			font-size: 11px;
-			color: rgba(255,255,255,.4);
-			word-break: break-all;
-			line-height: 1.4;
-		}
-		.url-preview-dot {
-			width: 8px; height: 8px;
-			border-radius: 50%;
-			background: #22c55e;
-			flex-shrink: 0;
-		}
 	</style>
 </head>
 
@@ -847,7 +824,6 @@
 				<div class="wn-version">Latest Update</div>
 				<div class="wn-item">MAKE SURE YOU ALWAYS REFRESH YOUR TAB OR TABS</div>
 				<div class="wn-item">EVEN IF THE GAMES SAYS ITS BLOCKED ATLEAST REFRESH ONCE BEFORE PUTTING IN A FORM</div>
-				<div class="wn-item">NEW: Custom Tab URL — set your own fake address bar URL in Tab Title settings!</div>
 				<div class="wn-item">NEW: 3 extra neon background styles — Aurora, Pulse, Matrix!</div>
 				<div class="wn-item">NEW: Browser tab now has a working address bar!</div>
 			</div>
@@ -1035,27 +1011,6 @@
 					<input type="text" id="tab-title-input" class="settings-text-input" placeholder="e.g. Google Docs, Canvas, Math HW…" maxlength="60" />
 					<div class="settings-description">The text shown on the browser tab when a game is open. Leave blank to use the game's real name.</div>
 				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Custom Tab URL <span style="color:rgba(255,255,255,.25);font-weight:400;font-size:9px;letter-spacing:0;">(Visual Only)</span></span>
-					<input type="text" id="tab-url-input" class="settings-text-input" placeholder="e.g. https://docs.google.com/document/d/..." maxlength="300" />
-					<div class="settings-description">The URL shown in the address bar when a game opens. Visual only — the game still runs perfectly. Leave blank to pick a random school-looking URL automatically.</div>
-					<div id="url-preview-box" class="url-preview" style="display:none;">
-						<div class="url-preview-dot"></div>
-						<span id="url-preview-text"></span>
-					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Quick URL Presets</span>
-					<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
-						<button class="settings-btn url-preset" data-url="https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit">📄 Google Docs</button>
-						<button class="settings-btn url-preset" data-url="https://classroom.google.com/u/0/c/math-period3">🏫 Classroom</button>
-						<button class="settings-btn url-preset" data-url="https://canvas.instructure.com/courses/4821033/assignments">🎨 Canvas</button>
-						<button class="settings-btn url-preset" data-url="https://quizlet.com/study-guides/chapter-7-review-notes">📚 Quizlet</button>
-						<button class="settings-btn url-preset" data-url="https://outlook.office.com/mail/inbox">📧 Outlook</button>
-						<button class="settings-btn url-preset" data-url="https://drive.google.com/drive/folders/homework-q4">💾 Google Drive</button>
-					</div>
-					<div class="settings-description">Click a preset to fill the URL field above, or type your own.</div>
-				</div>
 				<div class="settings-buttons" style="margin-top:4px;">
 					<button class="settings-btn" id="save-tab-settings" style="background:rgba(0,255,100,.12);border:1px solid rgba(0,255,100,.25);color:rgba(0,255,150,.9);">Save Tab Settings</button>
 				</div>
@@ -1096,7 +1051,7 @@
 	<script>
 		const SK = 'mathline.';
 		const PREMIUM_PASSWORD = '4557';
-		const WHATSNEW_VERSION = 'v13-browser-fix';
+		const WHATSNEW_VERSION = 'v14-no-cloak';
 
 		const POPULAR_GAMES = [
 			'Ship.html','Hn.html','Crossy.html','BroT.html','Shapez.html','CsGo-clicker.html','eggy.html',
@@ -1106,21 +1061,6 @@
 			{ title: 'New link soon', url: '' },
 			{ title: 'New link soon', url: '' },
 			{ title: 'New link soon', url: '' },
-		];
-
-		const FAKE_URLS = [
-			'https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit',
-			'https://classroom.google.com/u/0/c/math-period3/a/assignments',
-			'https://canvas.instructure.com/courses/4821033/assignments/overview',
-			'https://drive.google.com/drive/folders/homework-q4-final',
-			'https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:linear-equations',
-			'https://outlook.office.com/mail/inbox/id/AAMkADExMjM',
-			'https://app.schoology.com/course/3948271/materials/gp/6112048',
-			'https://quizlet.com/study-guides/chapter-7-review-notes-flash',
-			'https://docs.google.com/spreadsheets/d/1A2B3C4D5E6F7G8H/edit#gid=0',
-			'https://classroom.google.com/u/0/c/science-period2/a/due-today',
-			'https://www.khanacademy.org/science/biology/cellular-molecular-biology',
-			'https://app.schoology.com/course/3948271/materials/discussion/8823421',
 		];
 
 		const GAMES = [
@@ -1246,7 +1186,6 @@
 			topbarColor:  ls('topbarColor')  || '#0a0e14',
 			rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
 			tabTitle:     ls('tabTitle')     || '',
-			tabUrl:       ls('tabUrl')       || '',
 		};
 
 		function getPopularGames() {
@@ -1367,17 +1306,6 @@
 		}
 		function syncToggle(id, on) { document.getElementById(id).classList.toggle('active', on); }
 
-		function updateUrlPreview(val) {
-			const box  = document.getElementById('url-preview-box');
-			const text = document.getElementById('url-preview-text');
-			if (val.trim()) {
-				box.style.display = 'flex';
-				text.textContent  = val.trim();
-			} else {
-				box.style.display = 'none';
-			}
-		}
-
 		function buildCard(game, showPopularBadge) {
 			const isFav = favorites.has(game.u);
 			const plays = playCounts[game.u] || 0;
@@ -1459,9 +1387,6 @@
 			const titleToUse = S.tabTitle.trim() || gameName;
 			const absoluteUrl = new URL(url, window.location.href).href;
 
-			// Use custom URL if set, otherwise pick a random school-looking one
-			const fakeUrl = S.tabUrl.trim() || FAKE_URLS[Math.floor(Math.random() * FAKE_URLS.length)];
-
 			const html = `<!DOCTYPE html>
 <html>
 <head>
@@ -1477,9 +1402,7 @@
 	<script>
 		(function() {
 			var t = ${JSON.stringify(titleToUse)};
-			var u = ${JSON.stringify(fakeUrl)};
 			document.title = t;
-			try { history.replaceState({}, '', u); } catch(e) {}
 			setInterval(function() {
 				if (document.title !== t) document.title = t;
 			}, 100);
@@ -1520,13 +1443,11 @@
 		}
 
 		/* ═══ BROWSER TAB ═══ */
-		let _browserFakeUrl = S.tabUrl || FAKE_URLS[0];
 		function navigateBrowser(input) {
 			if (!input) return;
 			let realUrl = input;
 			if (!/^https?:\/\//i.test(realUrl)) realUrl = 'https://' + realUrl;
-			_browserFakeUrl = S.tabUrl.trim() || FAKE_URLS[Math.floor(Math.random() * FAKE_URLS.length)];
-			document.getElementById('browser-url').value = _browserFakeUrl;
+			document.getElementById('browser-url').value = realUrl;
 			document.getElementById('browser-frame').src = realUrl;
 			document.getElementById('browser-nav-popup').style.display = 'none';
 			document.getElementById('browser-real-input').value = '';
@@ -1559,8 +1480,6 @@
 			document.getElementById('gap-slider').value          = S.cardGap;
 			document.getElementById('topbar-color-picker').value = S.topbarColor;
 			document.getElementById('tab-title-input').value     = S.tabTitle;
-			document.getElementById('tab-url-input').value       = S.tabUrl;
-			updateUrlPreview(S.tabUrl);
 
 			applyBrightness(S.bgBrightness); applyOpacity(S.cardOpacity);
 			applyFontSize(S.fontSize); applyCardRadius(S.cardRadius);
@@ -1594,10 +1513,8 @@
 				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 			});
 
-			// Browser controls — URL bar always shows fake URL, popup handles real navigation
-			const urlBar = document.getElementById('browser-url');
-			// Set initial fake URL
-			urlBar.value = S.tabUrl.trim() || FAKE_URLS[Math.floor(Math.random() * FAKE_URLS.length)];
+			// Browser controls
+			document.getElementById('browser-url').value = '';
 			document.getElementById('browser-go').addEventListener('click', toggleNavPopup);
 			document.getElementById('browser-url').addEventListener('click', toggleNavPopup);
 			document.getElementById('browser-nav-go').addEventListener('click', () => {
@@ -1610,7 +1527,6 @@
 					if (v) navigateBrowser(v);
 				}
 			});
-			// Close popup on outside click
 			document.addEventListener('click', e => {
 				const popup = document.getElementById('browser-nav-popup');
 				if (!popup.contains(e.target) && e.target.id !== 'browser-go' && e.target.id !== 'browser-url') {
@@ -1689,22 +1605,10 @@
 			document.getElementById('autoload-toggle').addEventListener('click',  function() { S.autoload  = this.classList.toggle('active'); lss('autoload',  S.autoload); });
 			document.getElementById('playcount-toggle').addEventListener('click', function() { S.playcount = this.classList.toggle('active'); lss('playcount', S.playcount); renderGameList(); });
 
-			// Tab Title & URL
-			document.getElementById('tab-url-input').addEventListener('input', e => updateUrlPreview(e.target.value));
-
-			document.querySelectorAll('.url-preset').forEach(btn => {
-				btn.addEventListener('click', () => {
-					const urlInput = document.getElementById('tab-url-input');
-					urlInput.value = btn.dataset.url;
-					updateUrlPreview(btn.dataset.url);
-				});
-			});
-
+			// Tab Title
 			document.getElementById('save-tab-settings').addEventListener('click', () => {
 				S.tabTitle = document.getElementById('tab-title-input').value.trim();
-				S.tabUrl   = document.getElementById('tab-url-input').value.trim();
 				lss('tabTitle', S.tabTitle);
-				lss('tabUrl',   S.tabUrl);
 				const btn = document.getElementById('save-tab-settings');
 				const orig = btn.textContent;
 				btn.textContent = 'Saved!';

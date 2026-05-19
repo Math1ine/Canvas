@@ -30,9 +30,6 @@
 			overflow: hidden;
 		}
 
-		/* ═══════════════════════════════════════════
-		   NEON BACKGROUND LAYER
-		═══════════════════════════════════════════ */
 		#bg-layer {
 			position: fixed;
 			inset: 0;
@@ -41,7 +38,6 @@
 			opacity: var(--bg-brightness);
 		}
 
-		/* STARS — Neon multicolor twinkling stars */
 		#bg-layer.stars {
 			background-image:
 				radial-gradient(2px 2px at 15px 25px,  #ff00ff, transparent),
@@ -68,7 +64,6 @@
 			animation: neonTwinkle 3s ease-in-out infinite;
 		}
 
-		/* GRID — Neon cyan/purple grid */
 		#bg-layer.grid {
 			background-image:
 				linear-gradient(rgba(0,255,255,.35) 1px, transparent 1px),
@@ -79,7 +74,6 @@
 			animation: gridPulse 4s ease-in-out infinite;
 		}
 
-		/* DOTS — Rainbow neon dots */
 		#bg-layer.dots {
 			background-image:
 				radial-gradient(circle, #ff00ff 1.5px, transparent 1.5px),
@@ -91,23 +85,16 @@
 			animation: dotPulse 5s ease-in-out infinite;
 		}
 
-		/* LINES — Neon rainbow horizontal lines */
+		/* LINES — single color (white), clean horizontal lines */
 		#bg-layer.lines {
 			background-image:
 				repeating-linear-gradient(0deg,
 					transparent 0px, transparent 36px,
-					rgba(255,0,200,.5) 36px, rgba(255,0,200,.5) 37px,
-					transparent 37px, transparent 72px,
-					rgba(0,255,255,.5) 72px, rgba(0,255,255,.5) 73px,
-					transparent 73px, transparent 108px,
-					rgba(255,255,0,.4) 108px, rgba(255,255,0,.4) 109px,
-					transparent 109px, transparent 144px,
-					rgba(0,255,100,.5) 144px, rgba(0,255,100,.5) 145px
+					rgba(255,255,255,.18) 36px, rgba(255,255,255,.18) 37px
 				);
 			animation: lineShift 6s linear infinite;
 		}
 
-		/* WAVES — Neon diagonal crossing waves */
 		#bg-layer.waves {
 			background-image:
 				repeating-linear-gradient(-45deg,
@@ -122,7 +109,6 @@
 			animation: wavemove 3s linear infinite;
 		}
 
-		/* AURORA — new! Sweeping neon aurora bands */
 		#bg-layer.aurora {
 			background: linear-gradient(
 				180deg,
@@ -136,7 +122,6 @@
 			animation: auroraShift 8s ease-in-out infinite;
 		}
 
-		/* PULSE — new! Radial neon pulse rings */
 		#bg-layer.pulse {
 			background-image:
 				radial-gradient(ellipse at 50% 50%, rgba(255,0,255,.12) 0%, transparent 60%),
@@ -147,7 +132,6 @@
 			animation: pulseAnim 4s ease-in-out infinite;
 		}
 
-		/* MATRIX — new! Falling green-to-cyan columns */
 		#bg-layer.matrix {
 			background-image:
 				repeating-linear-gradient(90deg,
@@ -170,7 +154,6 @@
 			display: none;
 		}
 
-		/* ═══ ANIMATIONS ═══ */
 		@keyframes neonTwinkle {
 			0%, 100% { opacity: calc(var(--bg-brightness) * 0.5); filter: blur(0px); }
 			50%       { opacity: var(--bg-brightness); filter: blur(0.3px); }
@@ -185,7 +168,7 @@
 		}
 		@keyframes lineShift {
 			0%   { background-position: 0 0; }
-			100% { background-position: 0 144px; }
+			100% { background-position: 0 37px; }
 		}
 		@keyframes wavemove {
 			0%   { background-position: 0 0; }
@@ -210,7 +193,6 @@
 			to   { transform: scale(1);  opacity: 1; }
 		}
 
-		/* ═══ TOPBAR ═══ */
 		#topbar {
 			position: fixed;
 			top: 0; left: 0; right: 0;
@@ -291,7 +273,6 @@
 		}
 		#settings-btn:hover, #info-btn:hover, #disclaimer-btn:hover { background: rgba(255,255,255,.15); }
 
-		/* ═══ MAIN ═══ */
 		#main {
 			position: fixed;
 			top: var(--top-h); left: 0; right: 0; bottom: 0;
@@ -338,7 +319,6 @@
 		#browser-container.active { display: flex; flex-direction: column; }
 		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
 
-		/* ═══ CARDS ═══ */
 		.card {
 			background: var(--card-bg);
 			backdrop-filter: blur(10px);
@@ -423,7 +403,6 @@
 		}
 		.request-card:hover .request-plus { color: rgba(255,255,255,.8); transform: scale(1.15); }
 
-		/* ═══ MODALS ═══ */
 		.modal {
 			display: none;
 			position: fixed; z-index: 55; inset: 0;
@@ -471,7 +450,6 @@
 		.mbclose { background: rgba(255,255,255,.1); color: var(--text); border: 1px solid rgba(255,255,255,.2); }
 		.mbclose:hover { background: rgba(255,255,255,.18); }
 
-		/* ═══ SETTINGS DRAWER ═══ */
 		#settings-drawer {
 			position: fixed;
 			right: -420px; top: 0; bottom: 0;
@@ -579,7 +557,6 @@
 		.range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 0 6px rgba(255,255,255,.4); }
 		.range-slider::-moz-range-thumb    { width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; border: none; }
 
-		/* ═══ BG OPTIONS — neon preview swatches ═══ */
 		.bg-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
 
 		.bg-option {
@@ -595,7 +572,6 @@
 		.bg-option:hover  { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.09); }
 		.bg-option.active { border-color: #fff; background: rgba(255,255,255,.14); }
 
-		/* Neon accent per option */
 		.bg-option[data-bg="stars"].active  { border-color: #ff00ff; box-shadow: 0 0 8px rgba(255,0,255,.4); }
 		.bg-option[data-bg="rain"].active   { border-color: #00ffff; box-shadow: 0 0 8px rgba(0,255,255,.4); }
 		.bg-option[data-bg="grid"].active   { border-color: #00ffcc; box-shadow: 0 0 8px rgba(0,255,200,.4); }
@@ -629,7 +605,21 @@
 			background: rgba(255,255,255,.05);
 		}
 
-		/* ═══ DISCLAIMER MODAL ═══ */
+		/* Tab title text input */
+		.settings-text-input {
+			width: 100%;
+			padding: 10px;
+			background: rgba(255,255,255,.1);
+			border: 1px solid rgba(255,255,255,.2);
+			border-radius: 6px;
+			color: #fff;
+			font-size: 14px;
+			margin-bottom: 8px;
+			transition: border-color .2s;
+		}
+		.settings-text-input::placeholder { color: rgba(255,255,255,.35); }
+		.settings-text-input:focus { outline: none; border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.13); }
+
 		#disclaimer-modal {
 			display: none;
 			position: fixed; inset: 0; z-index: 200;
@@ -654,7 +644,6 @@
 		#disclaimer-ok { padding: 10px 28px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
 		#disclaimer-ok:hover { filter: brightness(.88); }
 
-		/* ═══ WHAT'S NEW MODAL ═══ */
 		#whatsnew-modal {
 			display: none;
 			position: fixed; inset: 0; z-index: 200;
@@ -689,7 +678,6 @@
 		#whatsnew-close { display: block; width: 100%; margin-top: 8px; padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
 		#whatsnew-close:hover { background: rgba(255,255,255,.18); }
 
-		/* ═══ PREMIUM ═══ */
 		#premium-password {
 			width: 100%; padding: 10px;
 			background: rgba(255,255,255,.1);
@@ -858,16 +846,16 @@
 				<div class="settings-group">
 					<span class="settings-group-title">Neon Effect Style</span>
 					<div class="bg-grid-options">
-						<button class="bg-option active" data-bg="stars">✨ Stars</button>
-						<button class="bg-option" data-bg="rain">🌧 Rain</button>
-						<button class="bg-option" data-bg="grid">🔲 Grid</button>
-						<button class="bg-option" data-bg="dots">🟣 Dots</button>
-						<button class="bg-option" data-bg="lines">〰 Lines</button>
-						<button class="bg-option" data-bg="waves">🌊 Waves</button>
-						<button class="bg-option" data-bg="aurora">🌌 Aurora</button>
-						<button class="bg-option" data-bg="pulse">💜 Pulse</button>
-						<button class="bg-option" data-bg="matrix">💚 Matrix</button>
-						<button class="bg-option" data-bg="none">⬛ None</button>
+						<button class="bg-option active" data-bg="stars">Stars</button>
+						<button class="bg-option" data-bg="rain">Rain</button>
+						<button class="bg-option" data-bg="grid">Grid</button>
+						<button class="bg-option" data-bg="dots">Dots</button>
+						<button class="bg-option" data-bg="lines">Lines</button>
+						<button class="bg-option" data-bg="waves">Waves</button>
+						<button class="bg-option" data-bg="aurora">Aurora</button>
+						<button class="bg-option" data-bg="pulse">Pulse</button>
+						<button class="bg-option" data-bg="matrix">Matrix</button>
+						<button class="bg-option" data-bg="none">None</button>
 					</div>
 				</div>
 				<div class="settings-group">
@@ -955,6 +943,12 @@
 						<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
 						<div class="settings-description">Enable smooth scroll behavior</div>
 					</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Game Tab Title</span>
+					<input type="text" id="tab-title-input" class="settings-text-input" placeholder="e.g. Google Docs, Canvas, Math HW…" maxlength="60" />
+					<div class="settings-buttons"><button class="settings-btn" id="save-tab-title">Save Tab Title</button></div>
+					<div class="settings-description">When you open a game, its tab will show this name instead of the game title. Great for making it look like schoolwork. Leave blank to use the game's real name.</div>
 				</div>
 				<div class="settings-group">
 					<span class="settings-group-title">Topbar Color</span>
@@ -1086,7 +1080,6 @@
 			{n:'Brotato',u:'BroT.html'},
 			{n:'Conncetions',u:'Conn.html'},
 			{n:'Case clicker 2',u:'CsGo-clicker.html'},
-
 		];
 
 		const ls  = k     => localStorage.getItem(SK + k);
@@ -1116,6 +1109,7 @@
 			cardGap:      parseInt(ls('cardGap')      || '20'),
 			topbarColor:  ls('topbarColor')  || '#0a0e14',
 			rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
+			tabTitle:     ls('tabTitle')     || '',
 		};
 
 		function getPopularGames() {
@@ -1312,11 +1306,25 @@
 			document.getElementById('game-modal').classList.add('on');
 		}
 
-		function loadGame(url) {
+		function loadGame(url, gameName) {
 			document.getElementById('game-modal').classList.remove('on');
+			const customTitle = S.tabTitle.trim();
+			const titleToUse = customTitle || gameName;
 			const tab = window.open('about:blank', '_blank');
-			if (tab) { tab.location.href = url; }
-			else     { window.open(url, '_blank'); }
+			if (tab) {
+				// Write a redirect page that sets the tab title before navigating
+				tab.document.open();
+				tab.document.write(
+					'<!DOCTYPE html><html><head><title>' + titleToUse + '</title></head>' +
+					'<body style="margin:0;background:#000"><script>' +
+					'document.title=' + JSON.stringify(titleToUse) + ';' +
+					'window.location.replace(' + JSON.stringify(url) + ');' +
+					'<\/script></body></html>'
+				);
+				tab.document.close();
+			} else {
+				window.open(url, '_blank');
+			}
 		}
 
 		function renderLinks() {
@@ -1366,6 +1374,7 @@
 			document.getElementById('radius-slider').value       = S.cardRadius;
 			document.getElementById('gap-slider').value          = S.cardGap;
 			document.getElementById('topbar-color-picker').value = S.topbarColor;
+			document.getElementById('tab-title-input').value     = S.tabTitle;
 
 			applyBrightness(S.bgBrightness); applyOpacity(S.cardOpacity);
 			applyFontSize(S.fontSize); applyCardRadius(S.cardRadius);
@@ -1457,6 +1466,18 @@
 			document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
 			document.getElementById('reset-settings').addEventListener('click', () => { if (confirm('Reset all settings to defaults?')) { localStorage.clear(); location.reload(); } });
 
+			// Tab title
+			document.getElementById('save-tab-title').addEventListener('click', () => {
+				const val = document.getElementById('tab-title-input').value.trim();
+				S.tabTitle = val;
+				lss('tabTitle', val);
+				const btn = document.getElementById('save-tab-title');
+				const orig = btn.textContent;
+				btn.textContent = val ? 'Saved!' : 'Cleared!';
+				btn.style.background = 'rgba(0,255,100,.2)';
+				setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 1800);
+			});
+
 			document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
 			document.getElementById('premium-password').addEventListener('keypress', e => { if (e.key === 'Enter') unlockPremium(); });
 
@@ -1470,7 +1491,7 @@
 				if (!currentGame) return;
 				playCounts[currentGame.u] = (playCounts[currentGame.u] || 0) + 1;
 				lss('playCounts', JSON.stringify(playCounts));
-				loadGame(currentGame.u);
+				loadGame(currentGame.u, currentGame.n);
 			});
 			document.getElementById('close-game-modal').addEventListener('click', () => document.getElementById('game-modal').classList.remove('on'));
 			document.getElementById('game-modal').addEventListener('click', e => {

@@ -804,6 +804,7 @@
 			<button class="settings-tab" data-tab="background">Background</button>
 			<button class="settings-tab" data-tab="cards">Cards</button>
 			<button class="settings-tab" data-tab="gameplay">Gameplay</button>
+			<button class="settings-tab" data-tab="tabtitle">Tab Title</button>
 			<button class="settings-tab" data-tab="advanced">Advanced</button>
 		</div>
 		<div class="settings-content">
@@ -934,6 +935,15 @@
 				</div>
 			</div>
 
+			<div class="settings-panel" data-panel="tabtitle">
+				<div class="settings-group">
+					<span class="settings-group-title">Custom Tab Title</span>
+					<input type="text" id="tab-title-input" class="settings-text-input" placeholder="e.g. Google Docs, Canvas, Math HW…" maxlength="60" />
+					<div class="settings-buttons"><button class="settings-btn" id="save-tab-title">Save Tab Title</button></div>
+					<div class="settings-description">When you open a game, its tab will show this name instead of the game title. Great for making it look like schoolwork. Leave blank to use the game's real name.</div>
+				</div>
+			</div>
+
 			<div class="settings-panel" data-panel="advanced">
 				<div class="settings-group">
 					<span class="settings-group-title">Performance</span>
@@ -941,12 +951,6 @@
 						<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
 						<div class="settings-description">Enable smooth scroll behavior</div>
 					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Game Tab Title</span>
-					<input type="text" id="tab-title-input" class="settings-text-input" placeholder="e.g. Google Docs, Canvas, Math HW…" maxlength="60" />
-					<div class="settings-buttons"><button class="settings-btn" id="save-tab-title">Save Tab Title</button></div>
-					<div class="settings-description">When you open a game, its tab will show this name instead of the game title. Great for making it look like schoolwork. Leave blank to use the game's real name.</div>
 				</div>
 				<div class="settings-group">
 					<span class="settings-group-title">Topbar Color</span>

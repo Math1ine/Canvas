@@ -815,8 +815,15 @@
 				<button id="browser-back" title="Back">&#8592;</button>
 				<button id="browser-forward" title="Forward">&#8594;</button>
 				<button id="browser-refresh" title="Refresh">&#8635;</button>
-				<input id="browser-url" type="text" placeholder="Enter a URL… e.g. https://google.com" />
+				<input id="browser-url" type="text" readonly style="cursor:default;" placeholder="https://docs.google.com/…" />
 				<button id="browser-go">Go</button>
+			</div>
+			<div id="browser-nav-popup" style="display:none;position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(10,14,20,0.98);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:12px;width:420px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.6);">
+				<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;">Enter real URL to navigate (stays hidden from address bar)</div>
+				<div style="display:flex;gap:8px;">
+					<input id="browser-real-input" type="text" placeholder="https://example.com" style="flex:1;padding:8px 12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#fff;font-size:13px;outline:none;" />
+					<button id="browser-nav-go" style="padding:8px 14px;background:rgba(255,255,255,.15);border:none;border-radius:6px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;">Go</button>
+				</div>
 			</div>
 			<iframe id="browser-frame" src="about:blank" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
 		</div>
@@ -1513,12 +1520,22 @@
 		}
 
 		/* ═══ BROWSER TAB ═══ */
-		function navigateBrowser(url) {
-			if (!url) return;
-			// Add https:// if no protocol given
-			if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-			document.getElementById('browser-url').value = url;
-			document.getElementById('browser-frame').src = url;
+		let _browserFakeUrl = S.tabUrl || FAKE_URLS[0];
+		function navigateBrowser(input) {
+			if (!input) return;
+			let realUrl = input;
+			if (!/^https?:\/\//i.test(realUrl)) realUrl = 'https://' + realUrl;
+			_browserFakeUrl = S.tabUrl.trim() || FAKE_URLS[Math.floor(Math.random() * FAKE_URLS.length)];
+			document.getElementById('browser-url').value = _browserFakeUrl;
+			document.getElementById('browser-frame').src = realUrl;
+			document.getElementById('browser-nav-popup').style.display = 'none';
+			document.getElementById('browser-real-input').value = '';
+		}
+		function toggleNavPopup() {
+			const p = document.getElementById('browser-nav-popup');
+			const showing = p.style.display !== 'none';
+			p.style.display = showing ? 'none' : 'block';
+			if (!showing) setTimeout(() => document.getElementById('browser-real-input').focus(), 50);
 		}
 
 		function switchTab(tab) {
@@ -1577,12 +1594,28 @@
 				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 			});
 
-			// Browser controls
-			document.getElementById('browser-go').addEventListener('click', () => {
-				navigateBrowser(document.getElementById('browser-url').value.trim());
+			// Browser controls — URL bar always shows fake URL, popup handles real navigation
+			const urlBar = document.getElementById('browser-url');
+			// Set initial fake URL
+			urlBar.value = S.tabUrl.trim() || FAKE_URLS[Math.floor(Math.random() * FAKE_URLS.length)];
+			document.getElementById('browser-go').addEventListener('click', toggleNavPopup);
+			document.getElementById('browser-url').addEventListener('click', toggleNavPopup);
+			document.getElementById('browser-nav-go').addEventListener('click', () => {
+				const v = document.getElementById('browser-real-input').value.trim();
+				if (v) navigateBrowser(v);
 			});
-			document.getElementById('browser-url').addEventListener('keypress', e => {
-				if (e.key === 'Enter') navigateBrowser(e.target.value.trim());
+			document.getElementById('browser-real-input').addEventListener('keypress', e => {
+				if (e.key === 'Enter') {
+					const v = e.target.value.trim();
+					if (v) navigateBrowser(v);
+				}
+			});
+			// Close popup on outside click
+			document.addEventListener('click', e => {
+				const popup = document.getElementById('browser-nav-popup');
+				if (!popup.contains(e.target) && e.target.id !== 'browser-go' && e.target.id !== 'browser-url') {
+					popup.style.display = 'none';
+				}
 			});
 			document.getElementById('browser-back').addEventListener('click', () => {
 				try { document.getElementById('browser-frame').contentWindow.history.back(); } catch(e) {}

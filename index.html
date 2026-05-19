@@ -699,6 +699,28 @@
 		.link-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
 		.link-title { font-weight: 600; color: #fff; margin-bottom: 4px; }
 		.link-url   { font-size: 12px; color: rgba(255,255,255,.5); word-break: break-all; }
+
+		/* URL preview badge */
+		.url-preview {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			background: rgba(255,255,255,.06);
+			border: 1px solid rgba(255,255,255,.12);
+			border-radius: 6px;
+			padding: 8px 10px;
+			margin-top: 8px;
+			font-size: 11px;
+			color: rgba(255,255,255,.4);
+			word-break: break-all;
+			line-height: 1.4;
+		}
+		.url-preview-dot {
+			width: 8px; height: 8px;
+			border-radius: 50%;
+			background: #22c55e;
+			flex-shrink: 0;
+		}
 	</style>
 </head>
 
@@ -761,6 +783,7 @@
 				<div class="wn-version">Latest Update</div>
 				<div class="wn-item">MAKE SURE YOU ALWAYS REFRESH YOUR TAB OR TABS</div>
 				<div class="wn-item">EVEN IF THE GAMES SAYS ITS BLOCKED ATLEAST REFRESH ONCE BEFORE PUTTING IN A FORM</div>
+				<div class="wn-item">NEW: Custom Tab URL — set your own fake address bar URL in Tab Title settings!</div>
 				<div class="wn-item">NEW: 3 extra neon background styles — Aurora, Pulse, Matrix!</div>
 			</div>
 			<div class="wn-entry">
@@ -808,6 +831,8 @@
 			<button class="settings-tab" data-tab="advanced">Advanced</button>
 		</div>
 		<div class="settings-content">
+
+			<!-- VISUAL -->
 			<div class="settings-panel active" data-panel="appearance">
 				<div class="settings-group">
 					<span class="settings-group-title">Effects</span>
@@ -841,6 +866,7 @@
 				</div>
 			</div>
 
+			<!-- BACKGROUND -->
 			<div class="settings-panel" data-panel="background">
 				<div class="settings-group">
 					<span class="settings-group-title">Neon Effect Style</span>
@@ -887,6 +913,7 @@
 				</div>
 			</div>
 
+			<!-- CARDS -->
 			<div class="settings-panel" data-panel="cards">
 				<div class="settings-group">
 					<span class="settings-group-title">Card Size</span>
@@ -921,6 +948,7 @@
 				</div>
 			</div>
 
+			<!-- GAMEPLAY -->
 			<div class="settings-panel" data-panel="gameplay">
 				<div class="settings-group">
 					<span class="settings-group-title">Game Behavior</span>
@@ -935,15 +963,42 @@
 				</div>
 			</div>
 
+			<!-- TAB TITLE -->
 			<div class="settings-panel" data-panel="tabtitle">
 				<div class="settings-group">
 					<span class="settings-group-title">Custom Tab Title</span>
 					<input type="text" id="tab-title-input" class="settings-text-input" placeholder="e.g. Google Docs, Canvas, Math HW…" maxlength="60" />
-					<div class="settings-buttons"><button class="settings-btn" id="save-tab-title">Save Tab Title</button></div>
-					<div class="settings-description">When you open a game, its tab will show this name instead of the game title. Great for making it look like schoolwork. Leave blank to use the game's real name.</div>
+					<div class="settings-description">The text shown on the browser tab when a game is open. Leave blank to use the game's real name.</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Custom Tab URL <span style="color:rgba(255,255,255,.25);font-weight:400;font-size:9px;letter-spacing:0;">(Visual Only)</span></span>
+					<input type="text" id="tab-url-input" class="settings-text-input" placeholder="e.g. https://docs.google.com/document/d/..." maxlength="300" />
+					<div class="settings-description">The URL shown in the address bar when a game opens. Visual only — the game still runs perfectly. Leave blank to pick a random school-looking URL automatically.</div>
+					<div id="url-preview-box" class="url-preview" style="display:none;">
+						<div class="url-preview-dot"></div>
+						<span id="url-preview-text"></span>
+					</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Quick URL Presets</span>
+					<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+						<button class="settings-btn url-preset" data-url="https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit">📄 Google Docs</button>
+						<button class="settings-btn url-preset" data-url="https://classroom.google.com/u/0/c/math-period3">🏫 Classroom</button>
+						<button class="settings-btn url-preset" data-url="https://canvas.instructure.com/courses/4821033/assignments">🎨 Canvas</button>
+						<button class="settings-btn url-preset" data-url="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:linear-equations">📐 Khan Academy</button>
+						<button class="settings-btn url-preset" data-url="https://quizlet.com/study-guides/chapter-7-review-notes">📚 Quizlet</button>
+						<button class="settings-btn url-preset" data-url="https://outlook.office.com/mail/inbox">📧 Outlook</button>
+						<button class="settings-btn url-preset" data-url="https://app.schoology.com/course/3948271/materials">🏛 Schoology</button>
+						<button class="settings-btn url-preset" data-url="https://drive.google.com/drive/folders/homework-q4">💾 Google Drive</button>
+					</div>
+					<div class="settings-description">Click a preset to fill the URL field above, or type your own.</div>
+				</div>
+				<div class="settings-buttons" style="margin-top:4px;">
+					<button class="settings-btn" id="save-tab-settings" style="background:rgba(0,255,100,.12);border:1px solid rgba(0,255,100,.25);color:rgba(0,255,150,.9);">Save Tab Settings</button>
 				</div>
 			</div>
 
+			<!-- ADVANCED -->
 			<div class="settings-panel" data-panel="advanced">
 				<div class="settings-group">
 					<span class="settings-group-title">Performance</span>
@@ -971,13 +1026,14 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 
 	<script>
 		const SK = 'mathline.';
 		const PREMIUM_PASSWORD = '4557';
-		const WHATSNEW_VERSION = 'v11-neon-backgrounds';
+		const WHATSNEW_VERSION = 'v12-custom-url';
 
 		const POPULAR_GAMES = [
 			'Ship.html','Hn.html','Crossy.html','BroT.html','Shapez.html','CsGo-clicker.html','eggy.html',
@@ -987,6 +1043,21 @@
 			{ title: 'New link soon', url: '' },
 			{ title: 'New link soon', url: '' },
 			{ title: 'New link soon', url: '' },
+		];
+
+		const FAKE_URLS = [
+			'https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit',
+			'https://classroom.google.com/u/0/c/math-period3/a/assignments',
+			'https://canvas.instructure.com/courses/4821033/assignments/overview',
+			'https://drive.google.com/drive/folders/homework-q4-final',
+			'https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:linear-equations',
+			'https://outlook.office.com/mail/inbox/id/AAMkADExMjM',
+			'https://app.schoology.com/course/3948271/materials/gp/6112048',
+			'https://quizlet.com/study-guides/chapter-7-review-notes-flash',
+			'https://docs.google.com/spreadsheets/d/1A2B3C4D5E6F7G8H/edit#gid=0',
+			'https://classroom.google.com/u/0/c/science-period2/a/due-today',
+			'https://www.khanacademy.org/science/biology/cellular-molecular-biology',
+			'https://app.schoology.com/course/3948271/materials/discussion/8823421',
 		];
 
 		const GAMES = [
@@ -1112,6 +1183,7 @@
 			topbarColor:  ls('topbarColor')  || '#0a0e14',
 			rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
 			tabTitle:     ls('tabTitle')     || '',
+			tabUrl:       ls('tabUrl')       || '',
 		};
 
 		function getPopularGames() {
@@ -1232,6 +1304,17 @@
 		}
 		function syncToggle(id, on) { document.getElementById(id).classList.toggle('active', on); }
 
+		function updateUrlPreview(val) {
+			const box  = document.getElementById('url-preview-box');
+			const text = document.getElementById('url-preview-text');
+			if (val.trim()) {
+				box.style.display = 'flex';
+				text.textContent  = val.trim();
+			} else {
+				box.style.display = 'none';
+			}
+		}
+
 		function buildCard(game, showPopularBadge) {
 			const isFav = favorites.has(game.u);
 			const plays = playCounts[game.u] || 0;
@@ -1308,13 +1391,13 @@
 			document.getElementById('game-modal').classList.add('on');
 		}
 
-		/* ═══ FIXED loadGame — blob iframe keeps title locked ═══ */
 		function loadGame(url, gameName) {
 			document.getElementById('game-modal').classList.remove('on');
 			const titleToUse = S.tabTitle.trim() || gameName;
-
-			// Build absolute URL so the iframe can resolve all relative assets correctly
 			const absoluteUrl = new URL(url, window.location.href).href;
+
+			// Use custom URL if set, otherwise pick a random school-looking one
+			const fakeUrl = S.tabUrl.trim() || FAKE_URLS[Math.floor(Math.random() * FAKE_URLS.length)];
 
 			const html = `<!DOCTYPE html>
 <html>
@@ -1331,7 +1414,9 @@
 	<script>
 		(function() {
 			var t = ${JSON.stringify(titleToUse)};
+			var u = ${JSON.stringify(fakeUrl)};
 			document.title = t;
+			try { history.replaceState({}, '', u); } catch(e) {}
 			setInterval(function() {
 				if (document.title !== t) document.title = t;
 			}, 100);
@@ -1393,6 +1478,8 @@
 			document.getElementById('gap-slider').value          = S.cardGap;
 			document.getElementById('topbar-color-picker').value = S.topbarColor;
 			document.getElementById('tab-title-input').value     = S.tabTitle;
+			document.getElementById('tab-url-input').value       = S.tabUrl;
+			updateUrlPreview(S.tabUrl);
 
 			applyBrightness(S.bgBrightness); applyOpacity(S.cardOpacity);
 			applyFontSize(S.fontSize); applyCardRadius(S.cardRadius);
@@ -1421,10 +1508,12 @@
 
 			renderGameList();
 
+			// Tab switching
 			document.querySelectorAll('.tab-btn').forEach(btn => {
 				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 			});
 
+			// Modals
 			document.getElementById('disclaimer-ok').addEventListener('click',  () => document.getElementById('disclaimer-modal').classList.remove('on'));
 			document.getElementById('disclaimer-btn').addEventListener('click', () => document.getElementById('disclaimer-modal').classList.add('on'));
 			document.getElementById('info-btn').addEventListener('click',       () => document.getElementById('whatsnew-modal').classList.add('on'));
@@ -1434,6 +1523,7 @@
 					document.getElementById('whatsnew-modal').classList.remove('on');
 			});
 
+			// Settings tabs
 			document.querySelectorAll('.settings-tab').forEach(tab => {
 				tab.addEventListener('click', () => {
 					document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
@@ -1445,6 +1535,7 @@
 			document.getElementById('settings-btn').addEventListener('click',       () => document.getElementById('settings-drawer').classList.toggle('open'));
 			document.getElementById('settings-close-btn').addEventListener('click', () => document.getElementById('settings-drawer').classList.remove('open'));
 
+			// Appearance toggles
 			document.getElementById('animation-toggle').addEventListener('click', function() { S.animations = this.classList.toggle('active'); lss('animations', S.animations); document.body.classList.toggle('hover-off', !S.animations); });
 			document.getElementById('glow-toggle').addEventListener('click',      function() { S.glow = this.classList.toggle('active');       lss('glow', S.glow);             document.body.classList.toggle('glow-on', S.glow); });
 			document.getElementById('blur-toggle').addEventListener('click',      function() { S.blur = this.classList.toggle('active');       lss('blur', S.blur);             document.body.classList.toggle('blur-off', !S.blur); });
@@ -1452,6 +1543,7 @@
 			document.getElementById('radius-slider').addEventListener('input',   e => applyCardRadius(e.target.value));
 			document.getElementById('gap-slider').addEventListener('input',      e => applyCardGap(e.target.value));
 
+			// Background
 			document.querySelectorAll('.bg-option').forEach(btn => btn.addEventListener('click', () => applyBgEffect(btn.dataset.bg)));
 			document.getElementById('brightness-slider').addEventListener('input', e => applyBrightness(e.target.value));
 			document.getElementById('rain-speed-slider').addEventListener('input', e => {
@@ -1472,32 +1564,49 @@
 				applyBgColor(`${r},${g},${b}`);
 			});
 
+			// Cards
 			document.getElementById('grid-size').addEventListener('change', e => { S.gridSize = e.target.value; lss('gridSize', S.gridSize); updateGridSize(); });
 			document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
 			document.getElementById('clear-favorites').addEventListener('click',  () => { if (confirm('Clear all favorites?'))  { favorites.clear(); lss('favorites', '[]');   renderGameList(); } });
 			document.getElementById('clear-playcounts').addEventListener('click', () => { if (confirm('Clear play counts?'))    { playCounts = {};    lss('playCounts', '{}'); renderGameList(); } });
 
+			// Gameplay
 			document.getElementById('autoload-toggle').addEventListener('click',  function() { S.autoload  = this.classList.toggle('active'); lss('autoload',  S.autoload); });
 			document.getElementById('playcount-toggle').addEventListener('click', function() { S.playcount = this.classList.toggle('active'); lss('playcount', S.playcount); renderGameList(); });
 
+			// Tab Title & URL
+			document.getElementById('tab-url-input').addEventListener('input', e => updateUrlPreview(e.target.value));
+
+			document.querySelectorAll('.url-preset').forEach(btn => {
+				btn.addEventListener('click', () => {
+					const urlInput = document.getElementById('tab-url-input');
+					urlInput.value = btn.dataset.url;
+					updateUrlPreview(btn.dataset.url);
+				});
+			});
+
+			document.getElementById('save-tab-settings').addEventListener('click', () => {
+				S.tabTitle = document.getElementById('tab-title-input').value.trim();
+				S.tabUrl   = document.getElementById('tab-url-input').value.trim();
+				lss('tabTitle', S.tabTitle);
+				lss('tabUrl',   S.tabUrl);
+				const btn = document.getElementById('save-tab-settings');
+				const orig = btn.textContent;
+				btn.textContent = 'Saved!';
+				btn.style.background = 'rgba(0,255,100,.25)';
+				setTimeout(() => { btn.textContent = orig; btn.style.background = 'rgba(0,255,100,.12)'; }, 1800);
+			});
+
+			// Advanced
 			document.getElementById('smooth-scroll').addEventListener('click', function() { S.smoothScroll = this.classList.toggle('active'); lss('smoothScroll', S.smoothScroll); document.documentElement.style.scrollBehavior = S.smoothScroll ? 'smooth' : 'auto'; });
 			document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
 			document.getElementById('reset-settings').addEventListener('click', () => { if (confirm('Reset all settings to defaults?')) { localStorage.clear(); location.reload(); } });
 
-			document.getElementById('save-tab-title').addEventListener('click', () => {
-				const val = document.getElementById('tab-title-input').value.trim();
-				S.tabTitle = val;
-				lss('tabTitle', val);
-				const btn = document.getElementById('save-tab-title');
-				const orig = btn.textContent;
-				btn.textContent = val ? 'Saved!' : 'Cleared!';
-				btn.style.background = 'rgba(0,255,100,.2)';
-				setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 1800);
-			});
-
+			// Premium
 			document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
 			document.getElementById('premium-password').addEventListener('keypress', e => { if (e.key === 'Enter') unlockPremium(); });
 
+			// Game modal
 			document.getElementById('modal-fav').addEventListener('click', () => {
 				if (!currentGame) return;
 				favorites.has(currentGame.u) ? favorites.delete(currentGame.u) : favorites.add(currentGame.u);

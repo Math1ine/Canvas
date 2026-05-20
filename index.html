@@ -38,40 +38,106 @@
 			opacity: var(--bg-brightness);
 		}
 
+		#space-objects {
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+		}
+
+		.star {
+			position: absolute;
+			width: 2px;
+			height: 2px;
+			background: #fff;
+			border-radius: 50%;
+			animation: twinkle 3s infinite;
+		}
+
+		.planet {
+			position: absolute;
+			border-radius: 50%;
+		}
+
+		.planet.earth {
+			width: 60px;
+			height: 60px;
+			background: radial-gradient(circle at 30% 30%, #4da6ff, #003d99);
+			box-shadow: inset -3px -3px 10px rgba(0,0,0,0.4), 
+						0 0 20px rgba(0,150,255,0.3);
+		}
+
+		.planet.mars {
+			width: 45px;
+			height: 45px;
+			background: radial-gradient(circle at 35% 35%, #ff6b4a, #8b3a2c);
+			box-shadow: inset -2px -2px 8px rgba(0,0,0,0.3),
+						0 0 15px rgba(255,100,50,0.2);
+		}
+
+		.planet.jupiter {
+			width: 100px;
+			height: 100px;
+			background: repeating-linear-gradient(90deg,
+				#d4a574 0px, #d4a574 4px,
+				#c48c51 4px, #c48c51 8px,
+				#b37636 8px, #b37636 12px);
+			box-shadow: inset -4px -4px 15px rgba(0,0,0,0.4),
+						0 0 25px rgba(212,165,116,0.2);
+		}
+
+		.planet.saturn {
+			width: 75px;
+			height: 75px;
+			background: radial-gradient(circle at 40% 40%, #f4a460, #cd7f32);
+			box-shadow: inset -3px -3px 12px rgba(0,0,0,0.3),
+						0 0 20px rgba(244,164,96,0.2);
+		}
+
+		.saturn-ring {
+			position: absolute;
+			border: 3px solid rgba(210,180,140,0.4);
+			border-radius: 50%;
+			transform: rotateX(75deg);
+		}
+
+		.planet.neptune {
+			width: 50px;
+			height: 50px;
+			background: radial-gradient(circle at 35% 35%, #4166f5, #0047ab);
+			box-shadow: inset -2px -2px 8px rgba(0,0,0,0.3),
+						0 0 18px rgba(65,102,245,0.25);
+		}
+
+		.nebula {
+			position: absolute;
+			border-radius: 50%;
+			opacity: 0.15;
+			filter: blur(40px);
+			animation: nebulaPulse 8s ease-in-out infinite;
+		}
+
+		.nebula.purple {
+			background: radial-gradient(circle, #9d00ff, transparent);
+		}
+
+		.nebula.blue {
+			background: radial-gradient(circle, #0099ff, transparent);
+		}
+
+		@keyframes twinkle {
+			0%, 100% { opacity: 0.3; }
+			50% { opacity: 1; }
+		}
+
+		@keyframes nebulaPulse {
+			0%, 100% { opacity: 0.1; transform: scale(1); }
+			50% { opacity: 0.25; transform: scale(1.1); }
+		}
+
 		#bg-layer.stars {
-			background-image: 
-				radial-gradient(1px 1px at 5% 10%, #fff, transparent),
-				radial-gradient(1px 1px at 12% 22%, #fff, transparent),
-				radial-gradient(1px 1px at 18% 8%, #fff, transparent),
-				radial-gradient(1px 1px at 25% 35%, #fff, transparent),
-				radial-gradient(1px 1px at 32% 18%, #fff, transparent),
-				radial-gradient(1px 1px at 42% 28%, #fff, transparent),
-				radial-gradient(1px 1px at 55% 12%, #fff, transparent),
-				radial-gradient(1px 1px at 68% 25%, #fff, transparent),
-				radial-gradient(1px 1px at 78% 18%, #fff, transparent),
-				radial-gradient(1px 1px at 88% 30%, #fff, transparent),
-				radial-gradient(1px 1px at 95% 12%, #fff, transparent),
-				radial-gradient(1px 1px at 8% 50%, #fff, transparent),
-				radial-gradient(1px 1px at 20% 65%, #fff, transparent),
-				radial-gradient(1px 1px at 35% 55%, #fff, transparent),
-				radial-gradient(1px 1px at 48% 72%, #fff, transparent),
-				radial-gradient(1px 1px at 60% 68%, #fff, transparent),
-				radial-gradient(1px 1px at 75% 80%, #fff, transparent),
-				radial-gradient(1px 1px at 85% 65%, #fff, transparent),
-				radial-gradient(1px 1px at 15% 88%, #fff, transparent),
-				radial-gradient(1px 1px at 72% 92%, #fff, transparent),
-				radial-gradient(1px 1px at 92% 88%, #fff, transparent),
-				radial-gradient(1px 1px at 40% 42%, #fff, transparent),
-				radial-gradient(1px 1px at 82% 52%, #fff, transparent),
-				radial-gradient(1px 1px at 28% 78%, #fff, transparent),
-				radial-gradient(1px 1px at 3% 65%, #fff, transparent),
-				radial-gradient(1px 1px at 45% 5%, #fff, transparent),
-				radial-gradient(1px 1px at 98% 75%, #fff, transparent),
-				radial-gradient(1px 1px at 60% 45%, #fff, transparent),
-				radial-gradient(1px 1px at 22% 42%, #fff, transparent),
-				radial-gradient(1px 1px at 77% 38%, #fff, transparent);
-			background-size: 200% 200%;
-			animation: neonTwinkle 3s ease-in-out infinite;
+			background: linear-gradient(180deg, #000814 0%, #001d3d 25%, #003566 50%, #001d3d 75%, #000814 100%);
+			position: relative;
+			overflow: hidden;
 		}
 
 		#bg-layer.grid {
@@ -673,7 +739,7 @@
 		.bg-option:hover { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.09); }
 		.bg-option.active { border-color: #fff; background: rgba(255,255,255,.14); }
 
-		.bg-option[data-bg="stars"].active { border-color: #ff00ff; box-shadow: 0 0 8px rgba(255,0,255,.4); }
+		.bg-option[data-bg="stars"].active { border-color: #4166f5; box-shadow: 0 0 8px rgba(65,102,245,.4); }
 		.bg-option[data-bg="rain"].active { border-color: #00ffff; box-shadow: 0 0 8px rgba(0,255,255,.4); }
 		.bg-option[data-bg="grid"].active { border-color: #00ffcc; box-shadow: 0 0 8px rgba(0,255,200,.4); }
 		.bg-option[data-bg="dots"].active { border-color: #ff6600; box-shadow: 0 0 8px rgba(255,102,0,.4); }
@@ -848,7 +914,8 @@
 </head>
 
 <body>
-	<div id="bg-layer" class="stars"></div>
+	<div id="bg-layer" class="space"></div>
+	<div id="space-objects"></div>
 	<canvas id="rain-canvas"></canvas>
 
 	<div id="topbar">
@@ -1136,6 +1203,7 @@
 		const SK = 'mathline.';
 		const PREMIUM_PASSWORD = '4557';
 		const WHATSNEW_VERSION = 'v15-update';
+		const DEFAULT_BG = 'stars';
 
 		const POPULAR_GAMES = [
 			'Ship.html', 'Crossy.html', 'BroT.html', 'Shapez.html', 'CsGo-clicker.html', 'eggy.html',
@@ -1241,7 +1309,7 @@
 			blur:         ls('blur')         !== 'false',
 			autoload:     ls('autoload')     !== 'false',
 			playcount:    ls('playcount')    !== 'false',
-			bgEffect:     ls('bgEffect')     || 'stars',
+			bgEffect:     ls('bgEffect')     || DEFAULT_BG,
 			smoothScroll: ls('smoothScroll') !== 'false',
 			gridSize:     ls('gridSize')     || 'xlarge',
 			bgBrightness: parseInt(ls('bgBrightness') || '100'),
@@ -1254,6 +1322,74 @@
 			rainSpeed:    parseInt(ls('rainSpeed')    || '3'),
 			tabTitle:     ls('tabTitle')     || '',
 		};
+
+		// ═══ SPACE BACKGROUND FUNCTION ═══
+		function generateSpaceScene() {
+			const container = document.getElementById('space-objects');
+			container.innerHTML = '';
+
+			// Generate random stars
+			for (let i = 0; i < 80; i++) {
+				const star = document.createElement('div');
+				star.className = 'star';
+				star.style.left = Math.random() * 100 + '%';
+				star.style.top = Math.random() * 100 + '%';
+				star.style.animationDelay = Math.random() * 3 + 's';
+				star.style.opacity = Math.random() * 0.7 + 0.3;
+				container.appendChild(star);
+			}
+
+			// Add nebulas
+			const nebulas = [
+				{ x: 15, y: 20, size: 200, color: 'purple' },
+				{ x: 85, y: 80, size: 250, color: 'blue' },
+				{ x: 50, y: 50, size: 300, color: 'blue' }
+			];
+			nebulas.forEach(neb => {
+				const nebula = document.createElement('div');
+				nebula.className = `nebula ${neb.color}`;
+				nebula.style.left = neb.x + '%';
+				nebula.style.top = neb.y + '%';
+				nebula.style.width = neb.size + 'px';
+				nebula.style.height = neb.size + 'px';
+				nebula.style.marginLeft = -(neb.size / 2) + 'px';
+				nebula.style.marginTop = -(neb.size / 2) + 'px';
+				nebula.style.animationDelay = Math.random() * 4 + 's';
+				container.appendChild(nebula);
+			});
+
+			// Add planets
+			const planets = [
+				{ name: 'earth', x: 20, y: 30, size: 60 },
+				{ name: 'mars', x: 75, y: 25, size: 45 },
+				{ name: 'jupiter', x: 65, y: 70, size: 100 },
+				{ name: 'saturn', x: 25, y: 75, size: 75 },
+				{ name: 'neptune', x: 85, y: 45, size: 50 }
+			];
+
+			planets.forEach(p => {
+				const planet = document.createElement('div');
+				planet.className = `planet ${p.name}`;
+				planet.style.left = p.x + '%';
+				planet.style.top = p.y + '%';
+				planet.style.marginLeft = -(p.size / 2) + 'px';
+				planet.style.marginTop = -(p.size / 2) + 'px';
+				container.appendChild(planet);
+
+				// Add Saturn's rings
+				if (p.name === 'saturn') {
+					const ring = document.createElement('div');
+					ring.className = 'saturn-ring';
+					ring.style.width = (p.size * 1.6) + 'px';
+					ring.style.height = (p.size * 0.5) + 'px';
+					ring.style.left = (p.x - 50) + '%';
+					ring.style.top = (p.y - 50) + '%';
+					ring.style.marginLeft = -(p.size * 0.8) + 'px';
+					ring.style.marginTop = -(p.size * 0.25) + 'px';
+					container.appendChild(ring);
+				}
+			});
+		}
 
 		// ═══ BACKGROUND EFFECTS ═══
 		function startRain() {
@@ -1319,11 +1455,19 @@
 			const layer = document.getElementById('bg-layer');
 			if (effect === 'rain') {
 				layer.style.display = 'none';
+				document.getElementById('space-objects').style.display = 'none';
 				startRain();
+			} else if (effect === 'stars') {
+				stopRain();
+				layer.style.display = '';
+				layer.className = 'stars';
+				document.getElementById('space-objects').style.display = 'block';
+				generateSpaceScene();
 			} else {
 				stopRain();
 				layer.style.display = '';
 				layer.className = '';
+				document.getElementById('space-objects').style.display = 'none';
 				if (effect !== 'none') layer.classList.add(effect);
 				else layer.classList.add('none');
 			}

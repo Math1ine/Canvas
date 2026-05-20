@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>MathLine</title>
-	<link rel="icon" type="image/svg+xml"
-		href="https://www.clipartmax.com/png/middle/191-1913494_adding-faculty-evaluators-tutors-si-leaders-and-canvas-instructure-logo.png" />
+	<link rel="icon" type="image/png"
+		href="https://cdn.worldvectorlogo.com/logos/canvas-1.svg" />
 	<style>
 		:root {
 			--text: #fff;
@@ -30,6 +29,7 @@
 			overflow: hidden;
 		}
 
+		/* ═══ BACKGROUNDS ═══ */
 		#bg-layer {
 			position: fixed;
 			inset: 0;
@@ -39,34 +39,43 @@
 		}
 
 		#bg-layer.stars {
-			background-image:
-				radial-gradient(2px 2px at 15px 25px,  #ff00ff, transparent),
-				radial-gradient(1px 1px at 55px 65px,  #00ffff, transparent),
-				radial-gradient(2px 2px at 90px 15px,  #ff0080, transparent),
-				radial-gradient(1px 1px at 130px 80px, #7fff00, transparent),
-				radial-gradient(2px 2px at 170px 40px, #00ffcc, transparent),
-				radial-gradient(1px 1px at 45px 110px, #ff6600, transparent),
-				radial-gradient(2px 2px at 195px 95px, #ff00aa, transparent),
-				radial-gradient(1px 1px at 75px 140px, #00eeff, transparent),
-				radial-gradient(2px 2px at 155px 155px,#ffee00, transparent),
-				radial-gradient(1px 1px at 20px 170px, #aa00ff, transparent),
-				radial-gradient(2px 2px at 100px 50px, #00ff88, transparent),
-				radial-gradient(1px 1px at 180px 130px,#ff4444, transparent),
-				radial-gradient(1.5px 1.5px at 30px 90px, #ff00ff, transparent),
-				radial-gradient(1px 1px at 145px 10px,  #00ffff, transparent),
-				radial-gradient(2px 2px at 60px 175px,  #ff8800, transparent),
-				radial-gradient(1px 1px at 185px 55px,  #44ff00, transparent),
-				radial-gradient(2px 2px at 5px 50px,    #cc00ff, transparent),
-				radial-gradient(1px 1px at 110px 120px, #ff0066, transparent),
-				radial-gradient(1.5px 1.5px at 165px 180px, #00ffaa, transparent),
-				radial-gradient(1px 1px at 80px 5px,    #ffcc00, transparent);
-			background-size: 200px 200px;
+			background-image: 
+				radial-gradient(1px 1px at 5% 10%, #fff, transparent),
+				radial-gradient(1px 1px at 12% 22%, #fff, transparent),
+				radial-gradient(1px 1px at 18% 8%, #fff, transparent),
+				radial-gradient(1px 1px at 25% 35%, #fff, transparent),
+				radial-gradient(1px 1px at 32% 18%, #fff, transparent),
+				radial-gradient(1px 1px at 42% 28%, #fff, transparent),
+				radial-gradient(1px 1px at 55% 12%, #fff, transparent),
+				radial-gradient(1px 1px at 68% 25%, #fff, transparent),
+				radial-gradient(1px 1px at 78% 18%, #fff, transparent),
+				radial-gradient(1px 1px at 88% 30%, #fff, transparent),
+				radial-gradient(1px 1px at 95% 12%, #fff, transparent),
+				radial-gradient(1px 1px at 8% 50%, #fff, transparent),
+				radial-gradient(1px 1px at 20% 65%, #fff, transparent),
+				radial-gradient(1px 1px at 35% 55%, #fff, transparent),
+				radial-gradient(1px 1px at 48% 72%, #fff, transparent),
+				radial-gradient(1px 1px at 60% 68%, #fff, transparent),
+				radial-gradient(1px 1px at 75% 80%, #fff, transparent),
+				radial-gradient(1px 1px at 85% 65%, #fff, transparent),
+				radial-gradient(1px 1px at 15% 88%, #fff, transparent),
+				radial-gradient(1px 1px at 72% 92%, #fff, transparent),
+				radial-gradient(1px 1px at 92% 88%, #fff, transparent),
+				radial-gradient(1px 1px at 40% 42%, #fff, transparent),
+				radial-gradient(1px 1px at 82% 52%, #fff, transparent),
+				radial-gradient(1px 1px at 28% 78%, #fff, transparent),
+				radial-gradient(1px 1px at 3% 65%, #fff, transparent),
+				radial-gradient(1px 1px at 45% 5%, #fff, transparent),
+				radial-gradient(1px 1px at 98% 75%, #fff, transparent),
+				radial-gradient(1px 1px at 60% 45%, #fff, transparent),
+				radial-gradient(1px 1px at 22% 42%, #fff, transparent),
+				radial-gradient(1px 1px at 77% 38%, #fff, transparent);
+			background-size: 200% 200%;
 			animation: neonTwinkle 3s ease-in-out infinite;
 		}
 
 		#bg-layer.grid {
-			background-image:
-				linear-gradient(rgba(0,255,255,.35) 1px, transparent 1px),
+			background-image: linear-gradient(rgba(0,255,255,.35) 1px, transparent 1px),
 				linear-gradient(90deg, rgba(0,255,255,.35) 1px, transparent 1px),
 				linear-gradient(rgba(180,0,255,.15) 1px, transparent 1px),
 				linear-gradient(90deg, rgba(180,0,255,.15) 1px, transparent 1px);
@@ -75,8 +84,7 @@
 		}
 
 		#bg-layer.dots {
-			background-image:
-				radial-gradient(circle, #ff00ff 1.5px, transparent 1.5px),
+			background-image: radial-gradient(circle, #ff00ff 1.5px, transparent 1.5px),
 				radial-gradient(circle, #00ffff 1.5px, transparent 1.5px),
 				radial-gradient(circle, #ffff00 1.5px, transparent 1.5px),
 				radial-gradient(circle, #00ff88 1.5px, transparent 1.5px);
@@ -86,59 +94,53 @@
 		}
 
 		#bg-layer.lines {
-			background-image:
-				repeating-linear-gradient(0deg,
-					transparent 0px, transparent 36px,
-					rgba(255,255,255,.18) 36px, rgba(255,255,255,.18) 37px
-				);
+			background-image: repeating-linear-gradient(0deg,
+				transparent 0px, transparent 36px,
+				rgba(255,255,255,.18) 36px, rgba(255,255,255,.18) 37px);
 			animation: lineShift 6s linear infinite;
 		}
 
 		#bg-layer.waves {
-			background-image:
-				repeating-linear-gradient(-45deg,
-					transparent, transparent 18px,
-					rgba(255,0,255,.3) 18px, rgba(255,0,255,.3) 19px),
+			background-image: repeating-linear-gradient(-45deg,
+				transparent, transparent 18px,
+				rgba(255,0,255,.3) 18px, rgba(255,0,255,.3) 19px),
 				repeating-linear-gradient(45deg,
-					transparent, transparent 18px,
-					rgba(0,255,255,.2) 18px, rgba(0,255,255,.2) 19px),
+				transparent, transparent 18px,
+				rgba(0,255,255,.2) 18px, rgba(0,255,255,.2) 19px),
 				repeating-linear-gradient(-45deg,
-					transparent, transparent 36px,
-					rgba(255,255,0,.15) 36px, rgba(255,255,0,.15) 37px);
+				transparent, transparent 36px,
+				rgba(255,255,0,.15) 36px, rgba(255,255,0,.15) 37px);
 			animation: wavemove 3s linear infinite;
 		}
 
 		#bg-layer.aurora {
-			background: linear-gradient(
-				180deg,
+			background: linear-gradient(180deg,
 				rgba(0,0,0,0) 0%,
 				rgba(0,255,200,.06) 20%,
 				rgba(120,0,255,.08) 40%,
 				rgba(255,0,150,.07) 60%,
 				rgba(0,200,255,.06) 80%,
-				rgba(0,0,0,0) 100%
-			);
+				rgba(0,0,0,0) 100%);
 			animation: auroraShift 8s ease-in-out infinite;
 		}
 
 		#bg-layer.pulse {
-			background-image:
-				radial-gradient(ellipse at 50% 50%, rgba(255,0,255,.12) 0%, transparent 60%),
-				radial-gradient(ellipse at 20% 20%, rgba(0,255,255,.1) 0%, transparent 50%),
-				radial-gradient(ellipse at 80% 80%, rgba(255,255,0,.08) 0%, transparent 50%),
-				radial-gradient(ellipse at 80% 20%, rgba(0,255,100,.1) 0%, transparent 50%),
-				radial-gradient(ellipse at 20% 80%, rgba(255,100,0,.08) 0%, transparent 50%);
+			background: 
+				radial-gradient(circle at 15% 20%, rgba(255,200,100,.4) 0%, transparent 8%),
+				radial-gradient(circle at 85% 30%, rgba(200,150,255,.3) 0%, transparent 12%),
+				radial-gradient(circle at 25% 75%, rgba(150,200,255,.35) 0%, transparent 10%),
+				radial-gradient(circle at 70% 85%, rgba(255,150,150,.3) 0%, transparent 9%),
+				radial-gradient(circle at 50% 50%, rgba(100,200,255,.15) 0%, transparent 40%);
 			animation: pulseAnim 4s ease-in-out infinite;
 		}
 
 		#bg-layer.matrix {
-			background-image:
-				repeating-linear-gradient(90deg,
-					transparent, transparent 19px,
-					rgba(0,255,80,.18) 19px, rgba(0,255,80,.18) 20px),
+			background-image: repeating-linear-gradient(90deg,
+				transparent, transparent 19px,
+				rgba(0,255,80,.18) 19px, rgba(0,255,80,.18) 20px),
 				repeating-linear-gradient(180deg,
-					rgba(0,255,80,.06) 0px, rgba(0,255,80,.06) 4px,
-					transparent 4px, transparent 24px);
+				rgba(0,255,80,.06) 0px, rgba(0,255,80,.06) 4px,
+				transparent 4px, transparent 24px);
 			background-size: 20px 24px;
 			animation: matrixFall 2s linear infinite;
 		}
@@ -153,45 +155,47 @@
 			display: none;
 		}
 
+		/* ═══ ANIMATIONS ═══ */
 		@keyframes neonTwinkle {
 			0%, 100% { opacity: calc(var(--bg-brightness) * 0.5); filter: blur(0px); }
-			50%       { opacity: var(--bg-brightness); filter: blur(0.3px); }
+			50% { opacity: var(--bg-brightness); filter: blur(0.3px); }
 		}
 		@keyframes gridPulse {
 			0%, 100% { opacity: calc(var(--bg-brightness) * 0.6); }
-			50%       { opacity: var(--bg-brightness); }
+			50% { opacity: var(--bg-brightness); }
 		}
 		@keyframes dotPulse {
 			0%, 100% { opacity: calc(var(--bg-brightness) * 0.5); }
-			50%       { opacity: var(--bg-brightness); }
+			50% { opacity: var(--bg-brightness); }
 		}
 		@keyframes lineShift {
-			0%   { background-position: 0 0; }
+			0% { background-position: 0 0; }
 			100% { background-position: 0 37px; }
 		}
 		@keyframes wavemove {
-			0%   { background-position: 0 0; }
+			0% { background-position: 0 0; }
 			100% { background-position: 40px 40px; }
 		}
 		@keyframes auroraShift {
-			0%   { transform: translateY(0%)   scaleX(1); }
-			33%  { transform: translateY(-5%)  scaleX(1.05); }
-			66%  { transform: translateY(5%)   scaleX(0.97); }
-			100% { transform: translateY(0%)   scaleX(1); }
+			0% { transform: translateY(0%) scaleX(1); }
+			33% { transform: translateY(-5%) scaleX(1.05); }
+			66% { transform: translateY(5%) scaleX(0.97); }
+			100% { transform: translateY(0%) scaleX(1); }
 		}
 		@keyframes pulseAnim {
-			0%, 100% { transform: scale(1);    opacity: calc(var(--bg-brightness) * 0.7); }
-			50%       { transform: scale(1.08); opacity: var(--bg-brightness); }
+			0%, 100% { transform: scale(1); opacity: calc(var(--bg-brightness) * 0.7); }
+			50% { transform: scale(1.08); opacity: var(--bg-brightness); }
 		}
 		@keyframes matrixFall {
-			0%   { background-position: 0 0; }
+			0% { background-position: 0 0; }
 			100% { background-position: 0 24px; }
 		}
 		@keyframes modal-pop {
 			from { transform: scale(.88); opacity: 0; }
-			to   { transform: scale(1);  opacity: 1; }
+			to { transform: scale(1); opacity: 1; }
 		}
 
+		/* ═══ TOPBAR ═══ */
 		#topbar {
 			position: fixed;
 			top: 0; left: 0; right: 0;
@@ -235,7 +239,6 @@
 			color: rgba(255,255,255,.38);
 			font-style: italic;
 			white-space: nowrap;
-			letter-spacing: .01em;
 			flex-shrink: 1;
 			min-width: 0;
 			overflow: hidden;
@@ -243,6 +246,7 @@
 		}
 
 		#tab-buttons { display: flex; gap: 8px; }
+
 		.tab-btn {
 			background: rgba(255,255,255,.08);
 			border: none;
@@ -254,10 +258,15 @@
 			cursor: pointer;
 			transition: background .2s, color .2s;
 		}
-		.tab-btn:hover  { background: rgba(255,255,255,.15); color: rgba(255,255,255,.8); }
-		.tab-btn.active { background: rgba(255,255,255,.2);  color: #fff; }
+		.tab-btn:hover { background: rgba(255,255,255,.15); color: rgba(255,255,255,.8); }
+		.tab-btn.active { background: rgba(255,255,255,.2); color: #fff; }
 
-		#top-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+		#top-right {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-left: auto;
+		}
 
 		#settings-btn, #info-btn, #disclaimer-btn {
 			width: 36px; height: 36px;
@@ -272,6 +281,7 @@
 		}
 		#settings-btn:hover, #info-btn:hover, #disclaimer-btn:hover { background: rgba(255,255,255,.15); }
 
+		/* ═══ MAIN CONTENT ═══ */
 		#main {
 			position: fixed;
 			top: var(--top-h); left: 0; right: 0; bottom: 0;
@@ -285,9 +295,26 @@
 		#content { padding: 20px 20px 40px; display: block; }
 		#content.hidden { display: none; }
 
-		.section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; margin-top: 0; }
-		.section-title  { font-size: 1rem; font-weight: 700; color: #fff; }
-		.section-count  { font-size: 12px; color: rgba(255,255,255,.4); font-weight: 400; }
+		.section-header {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 10px;
+			margin-top: 0;
+		}
+
+		.section-title {
+			font-size: 1rem;
+			font-weight: 700;
+			color: #fff;
+		}
+
+		.section-count {
+			font-size: 12px;
+			color: rgba(255,255,255,.4);
+			font-weight: 400;
+		}
+
 		#all-games-section { margin-top: 36px; }
 
 		.card-popular-badge {
@@ -305,7 +332,11 @@
 			box-shadow: 0 1px 4px rgba(0,0,0,.4);
 		}
 
-		.section-title-popular { display: flex; align-items: center; gap: 6px; }
+		.section-title-popular {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
 		.section-title-popular::before { content: '🔥'; font-size: .9rem; }
 
 		#game-list, #popular-list {
@@ -314,59 +345,7 @@
 			gap: 20px;
 		}
 
-		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
-		#browser-container.active { display: flex; flex-direction: column; }
-
-		#browser-bar {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			padding: 8px 12px;
-			background: rgba(10,14,20,0.95);
-			border-bottom: 1px solid rgba(255,255,255,.1);
-			flex-shrink: 0;
-		}
-		#browser-back, #browser-forward, #browser-refresh {
-			width: 28px; height: 28px;
-			border-radius: 6px;
-			border: none;
-			background: rgba(255,255,255,.08);
-			color: rgba(255,255,255,.7);
-			font-size: 14px;
-			cursor: pointer;
-			display: flex; align-items: center; justify-content: center;
-			transition: background .2s;
-			flex-shrink: 0;
-		}
-		#browser-back:hover, #browser-forward:hover, #browser-refresh:hover { background: rgba(255,255,255,.18); color: #fff; }
-		#browser-url {
-			flex: 1;
-			background: rgba(255,255,255,.07);
-			border: 1px solid rgba(255,255,255,.12);
-			border-radius: 6px;
-			color: rgba(255,255,255,.85);
-			padding: 5px 12px;
-			font-size: 13px;
-			outline: none;
-			transition: border-color .2s, background .2s;
-		}
-		#browser-url:focus { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
-		#browser-go {
-			padding: 5px 14px;
-			border: none;
-			border-radius: 6px;
-			background: rgba(255,255,255,.15);
-			color: #fff;
-			font-size: 13px;
-			font-weight: 600;
-			cursor: pointer;
-			transition: background .2s;
-			flex-shrink: 0;
-		}
-		#browser-go:hover { background: rgba(255,255,255,.25); }
-
-		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; height: 100%; }
-
+		/* ═══ CARDS ═══ */
 		.card {
 			background: var(--card-bg);
 			backdrop-filter: blur(10px);
@@ -385,7 +364,7 @@
 			box-shadow: 0 6px 20px rgba(0,0,0,.35);
 		}
 
-		body.glow-on .card:hover  { box-shadow: 0 0 20px rgba(255,255,255,.22); }
+		body.glow-on .card:hover { box-shadow: 0 0 20px rgba(255,255,255,.22); }
 		body.hover-off .card:hover { transform: none !important; }
 		body.blur-off .card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
@@ -409,6 +388,7 @@
 		}
 
 		.card-info { padding: 8px 10px 10px; }
+
 		.card-name {
 			font-size: 13px;
 			font-weight: 600;
@@ -418,6 +398,7 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
+
 		.card-plays { font-size: 10px; color: rgba(255,255,255,.35); margin-top: 2px; }
 
 		.card-fav {
@@ -435,7 +416,7 @@
 			box-shadow: 0 2px 4px rgba(0,0,0,.3);
 		}
 		.card:hover .card-fav { opacity: 1; }
-		.card-fav.on  { opacity: 1 !important; color: #ffd700 !important; }
+		.card-fav.on { opacity: 1 !important; color: #ffd700 !important; }
 		.card-fav:hover { color: #ffd700; }
 
 		.request-card { border-style: dashed; border-color: rgba(255,255,255,.25); }
@@ -451,6 +432,7 @@
 		}
 		.request-card:hover .request-plus { color: rgba(255,255,255,.8); transform: scale(1.15); }
 
+		/* ═══ MODALS ═══ */
 		.modal {
 			display: none;
 			position: fixed; z-index: 55; inset: 0;
@@ -498,6 +480,59 @@
 		.mbclose { background: rgba(255,255,255,.1); color: var(--text); border: 1px solid rgba(255,255,255,.2); }
 		.mbclose:hover { background: rgba(255,255,255,.18); }
 
+		/* ═══ DISCLAIMER & WHATSNEW ═══ */
+		#disclaimer-modal, #whatsnew-modal {
+			display: none;
+			position: fixed; inset: 0; z-index: 200;
+			background: rgba(0,0,0,.7);
+			backdrop-filter: blur(8px);
+			align-items: center; justify-content: center;
+		}
+		#disclaimer-modal.on, #whatsnew-modal.on { display: flex; }
+
+		#disclaimer-box {
+			background: rgba(13,17,23,0.97);
+			border: 1px solid rgba(255,255,255,.18);
+			border-radius: 16px;
+			padding: 32px 28px 24px;
+			max-width: 400px; width: 90%;
+			text-align: center;
+			box-shadow: 0 20px 60px rgba(0,0,0,.6);
+			animation: modal-pop .25s cubic-bezier(.34,1.56,.64,1);
+		}
+		#disclaimer-box .disc-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+		#disclaimer-box h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+		#disclaimer-box p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 22px; }
+		#disclaimer-ok { padding: 10px 28px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
+		#disclaimer-ok:hover { filter: brightness(.88); }
+
+		#whatsnew-box {
+			background: rgba(13,17,23,0.97);
+			border: 1px solid rgba(255,255,255,.18);
+			border-radius: 16px;
+			padding: 28px;
+			max-width: 420px; width: 90%;
+			box-shadow: 0 20px 60px rgba(0,0,0,.6);
+			animation: modal-pop .25s cubic-bezier(.34,1.56,.64,1);
+			max-height: 80vh; overflow-y: auto;
+		}
+		#whatsnew-box h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+		.wn-entry { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,.08); }
+		.wn-entry:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+		.wn-version { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.35); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+		.wn-item { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; padding-left: 14px; position: relative; }
+		.wn-item::before { content: '•'; position: absolute; left: 0; color: rgba(255,255,255,.3); }
+		#survey-btn {
+			display: block; width: 100%; margin-top: 12px; padding: 11px;
+			border: none; border-radius: 8px; background: #22c55e; color: #fff;
+			font-weight: 700; font-size: 14px; cursor: pointer; text-align: center;
+			text-decoration: none; box-sizing: border-box; transition: background .2s;
+		}
+		#survey-btn:hover { background: #16a34a; transform: translateY(-1px); }
+		#whatsnew-close { display: block; width: 100%; margin-top: 8px; padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
+		#whatsnew-close:hover { background: rgba(255,255,255,.18); }
+
+		/* ═══ SETTINGS DRAWER ═══ */
 		#settings-drawer {
 			position: fixed;
 			right: -420px; top: 0; bottom: 0;
@@ -537,7 +572,12 @@
 		.settings-tab:hover { background: rgba(255,255,255,.09); }
 		.settings-tab.active { background: rgba(255,255,255,.07); color: #fff; border-bottom-color: #fff; }
 
-		.settings-content { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.1) transparent; }
+		.settings-content {
+			flex: 1;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: rgba(255,255,255,.1) transparent;
+		}
 		.settings-panel { display: none; padding: 16px 18px; }
 		.settings-panel.active { display: block; }
 
@@ -602,8 +642,21 @@
 			margin: 10px 0 4px;
 			cursor: pointer;
 		}
-		.range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 0 6px rgba(255,255,255,.4); }
-		.range-slider::-moz-range-thumb    { width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; border: none; }
+		.range-slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 16px; height: 16px;
+			border-radius: 50%;
+			background: #fff;
+			cursor: pointer;
+			box-shadow: 0 0 6px rgba(255,255,255,.4);
+		}
+		.range-slider::-moz-range-thumb {
+			width: 16px; height: 16px;
+			border-radius: 50%;
+			background: #fff;
+			cursor: pointer;
+			border: none;
+		}
 
 		.bg-grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
 
@@ -617,19 +670,19 @@
 			text-align: center;
 			transition: border-color .2s, background .2s;
 		}
-		.bg-option:hover  { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.09); }
+		.bg-option:hover { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.09); }
 		.bg-option.active { border-color: #fff; background: rgba(255,255,255,.14); }
 
-		.bg-option[data-bg="stars"].active  { border-color: #ff00ff; box-shadow: 0 0 8px rgba(255,0,255,.4); }
-		.bg-option[data-bg="rain"].active   { border-color: #00ffff; box-shadow: 0 0 8px rgba(0,255,255,.4); }
-		.bg-option[data-bg="grid"].active   { border-color: #00ffcc; box-shadow: 0 0 8px rgba(0,255,200,.4); }
-		.bg-option[data-bg="dots"].active   { border-color: #ff6600; box-shadow: 0 0 8px rgba(255,102,0,.4); }
-		.bg-option[data-bg="lines"].active  { border-color: #ff0080; box-shadow: 0 0 8px rgba(255,0,128,.4); }
-		.bg-option[data-bg="waves"].active  { border-color: #aa00ff; box-shadow: 0 0 8px rgba(170,0,255,.4); }
+		.bg-option[data-bg="stars"].active { border-color: #ff00ff; box-shadow: 0 0 8px rgba(255,0,255,.4); }
+		.bg-option[data-bg="rain"].active { border-color: #00ffff; box-shadow: 0 0 8px rgba(0,255,255,.4); }
+		.bg-option[data-bg="grid"].active { border-color: #00ffcc; box-shadow: 0 0 8px rgba(0,255,200,.4); }
+		.bg-option[data-bg="dots"].active { border-color: #ff6600; box-shadow: 0 0 8px rgba(255,102,0,.4); }
+		.bg-option[data-bg="lines"].active { border-color: #ff0080; box-shadow: 0 0 8px rgba(255,0,128,.4); }
+		.bg-option[data-bg="waves"].active { border-color: #aa00ff; box-shadow: 0 0 8px rgba(170,0,255,.4); }
 		.bg-option[data-bg="aurora"].active { border-color: #00ff88; box-shadow: 0 0 8px rgba(0,255,136,.4); }
-		.bg-option[data-bg="pulse"].active  { border-color: #ffee00; box-shadow: 0 0 8px rgba(255,238,0,.4); }
+		.bg-option[data-bg="pulse"].active { border-color: #ffee00; box-shadow: 0 0 8px rgba(255,238,0,.4); }
 		.bg-option[data-bg="matrix"].active { border-color: #00ff44; box-shadow: 0 0 8px rgba(0,255,68,.4); }
-		.bg-option[data-bg="none"].active   { border-color: rgba(255,255,255,.5); }
+		.bg-option[data-bg="none"].active { border-color: rgba(255,255,255,.5); }
 
 		.color-swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
 		.color-swatch {
@@ -667,63 +720,105 @@
 		.settings-text-input::placeholder { color: rgba(255,255,255,.35); }
 		.settings-text-input:focus { outline: none; border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.13); }
 
-		#disclaimer-modal {
-			display: none;
-			position: fixed; inset: 0; z-index: 200;
-			background: rgba(0,0,0,.7);
-			backdrop-filter: blur(8px);
-			align-items: center; justify-content: center;
-		}
-		#disclaimer-modal.on { display: flex; }
-		#disclaimer-box {
-			background: rgba(13,17,23,0.97);
-			border: 1px solid rgba(255,255,255,.18);
-			border-radius: 16px;
-			padding: 32px 28px 24px;
-			max-width: 400px; width: 90%;
-			text-align: center;
-			box-shadow: 0 20px 60px rgba(0,0,0,.6);
-			animation: modal-pop .25s cubic-bezier(.34,1.56,.64,1);
-		}
-		#disclaimer-box .disc-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
-		#disclaimer-box h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
-		#disclaimer-box p  { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 22px; }
-		#disclaimer-ok { padding: 10px 28px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
-		#disclaimer-ok:hover { filter: brightness(.88); }
+		/* ═══ BROWSER ═══ */
+		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); }
+		#browser-container.active { display: flex; flex-direction: column; }
 
-		#whatsnew-modal {
+		#browser-bar {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 12px;
+			background: rgba(10,14,20,0.95);
+			border-bottom: 1px solid rgba(255,255,255,.1);
+			flex-shrink: 0;
+		}
+		#browser-back, #browser-forward, #browser-refresh {
+			width: 28px; height: 28px;
+			border-radius: 6px;
+			border: none;
+			background: rgba(255,255,255,.08);
+			color: rgba(255,255,255,.7);
+			font-size: 14px;
+			cursor: pointer;
+			display: flex; align-items: center; justify-content: center;
+			transition: background .2s;
+			flex-shrink: 0;
+		}
+		#browser-back:hover, #browser-forward:hover, #browser-refresh:hover { background: rgba(255,255,255,.18); color: #fff; }
+		#browser-url {
+			flex: 1;
+			background: rgba(255,255,255,.07);
+			border: 1px solid rgba(255,255,255,.12);
+			border-radius: 6px;
+			color: rgba(255,255,255,.85);
+			padding: 5px 12px;
+			font-size: 13px;
+			outline: none;
+			transition: border-color .2s, background .2s;
+			cursor: default;
+		}
+		#browser-url:focus { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
+		#browser-go {
+			padding: 5px 14px;
+			border: none;
+			border-radius: 6px;
+			background: rgba(255,255,255,.15);
+			color: #fff;
+			font-size: 13px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .2s;
+			flex-shrink: 0;
+		}
+		#browser-go:hover { background: rgba(255,255,255,.25); }
+
+		#browser-nav-popup {
 			display: none;
-			position: fixed; inset: 0; z-index: 200;
-			background: rgba(0,0,0,.7);
-			backdrop-filter: blur(8px);
-			align-items: center; justify-content: center;
+			position: absolute;
+			top: 52px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 50;
+			background: rgba(10,14,20,0.98);
+			border: 1px solid rgba(255,255,255,.2);
+			border-radius: 8px;
+			padding: 12px;
+			width: 420px;
+			max-width: 90vw;
+			box-shadow: 0 8px 32px rgba(0,0,0,.6);
 		}
-		#whatsnew-modal.on { display: flex; }
-		#whatsnew-box {
-			background: rgba(13,17,23,0.97);
-			border: 1px solid rgba(255,255,255,.18);
-			border-radius: 16px;
-			padding: 28px;
-			max-width: 420px; width: 90%;
-			box-shadow: 0 20px 60px rgba(0,0,0,.6);
-			animation: modal-pop .25s cubic-bezier(.34,1.56,.64,1);
-			max-height: 80vh; overflow-y: auto;
+
+		#browser-nav-popup > div:first-child {
+			font-size: 11px;
+			color: rgba(255,255,255,.4);
+			margin-bottom: 8px;
 		}
-		#whatsnew-box h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
-		.wn-entry { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,.08); }
-		.wn-entry:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
-		.wn-version { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.35); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
-		.wn-item { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; padding-left: 14px; position: relative; }
-		.wn-item::before { content: '•'; position: absolute; left: 0; color: rgba(255,255,255,.3); }
-		#survey-btn {
-			display: block; width: 100%; margin-top: 12px; padding: 11px;
-			border: none; border-radius: 8px; background: #22c55e; color: #fff;
-			font-weight: 700; font-size: 14px; cursor: pointer; text-align: center;
-			text-decoration: none; box-sizing: border-box; transition: background .2s, transform .1s;
+
+		#browser-nav-popup input {
+			flex: 1;
+			padding: 8px 12px;
+			background: rgba(255,255,255,.1);
+			border: 1px solid rgba(255,255,255,.2);
+			border-radius: 6px;
+			color: #fff;
+			font-size: 13px;
+			outline: none;
 		}
-		#survey-btn:hover { background: #16a34a; transform: translateY(-1px); }
-		#whatsnew-close { display: block; width: 100%; margin-top: 8px; padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; }
-		#whatsnew-close:hover { background: rgba(255,255,255,.18); }
+
+		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; }
+
+		#links-container { display: grid; grid-template-columns: 1fr; gap: 12px; }
+		.link-card {
+			background: rgba(255,255,255,.05);
+			border: 1px solid rgba(255,255,255,.15);
+			border-radius: 8px; padding: 14px;
+			display: flex; align-items: center; justify-content: space-between;
+			transition: all .2s; cursor: pointer;
+		}
+		.link-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
+		.link-title { font-weight: 600; color: #fff; margin-bottom: 4px; }
+		.link-url { font-size: 12px; color: rgba(255,255,255,.5); word-break: break-all; }
 
 		#premium-password {
 			width: 100%; padding: 10px;
@@ -737,17 +832,7 @@
 		#unlock-premium-btn { background: rgba(100,200,255,.2) !important; border: 1px solid rgba(100,200,255,.4) !important; color: rgba(100,200,255,.9); }
 		#unlock-premium-btn:hover { background: rgba(100,200,255,.3) !important; }
 
-		#links-container { display: grid; grid-template-columns: 1fr; gap: 12px; }
-		.link-card {
-			background: rgba(255,255,255,.05);
-			border: 1px solid rgba(255,255,255,.15);
-			border-radius: 8px; padding: 14px;
-			display: flex; align-items: center; justify-content: space-between;
-			transition: all .2s; cursor: pointer;
-		}
-		.link-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
-		.link-title { font-weight: 600; color: #fff; margin-bottom: 4px; }
-		.link-url   { font-size: 12px; color: rgba(255,255,255,.5); word-break: break-all; }
+		#premium-content { display: none; margin-top: 16px; }
 
 		.decoy-page {
 			display: none;
@@ -776,8 +861,8 @@
 				<button class="tab-btn" data-tab="browser">Browser</button>
 			</div>
 			<button id="disclaimer-btn" title="Disclaimer">⚠️</button>
-			<button id="info-btn"       title="What's New">🔔</button>
-			<button id="settings-btn"   title="Settings">⚙</button>
+			<button id="info-btn" title="What's New">🔔</button>
+			<button id="settings-btn" title="Settings">⚙</button>
 		</div>
 	</div>
 
@@ -803,21 +888,20 @@
 				<button id="browser-back" title="Back">&#8592;</button>
 				<button id="browser-forward" title="Forward">&#8594;</button>
 				<button id="browser-refresh" title="Refresh">&#8635;</button>
-				<input id="browser-url" type="text" readonly style="cursor:default;" placeholder="https://docs.google.com/…" />
+				<input id="browser-url" type="text" readonly placeholder="https://docs.google.com/…" />
 				<button id="browser-go">Go</button>
 			</div>
-			<div id="browser-nav-popup" style="display:none;position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(10,14,20,0.98);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:12px;width:420px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.6);">
-				<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;">Enter real URL to navigate (stays hidden from address bar)</div>
+			<div id="browser-nav-popup">
+				<div>Enter real URL to navigate (stays hidden from address bar)</div>
 				<div style="display:flex;gap:8px;">
-					<input id="browser-real-input" type="text" placeholder="https://example.com" style="flex:1;padding:8px 12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#fff;font-size:13px;outline:none;" />
+					<input id="browser-real-input" type="text" placeholder="https://example.com" />
 					<button id="browser-nav-go" style="padding:8px 14px;background:rgba(255,255,255,.15);border:none;border-radius:6px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;">Go</button>
 				</div>
 			</div>
-			<iframe id="browser-frame" src="about:blank" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
+			<iframe id="browser-frame"></iframe>
 		</div>
 	</div>
 
-	<!-- Disclaimer modal -->
 	<div id="disclaimer-modal">
 		<div id="disclaimer-box">
 			<span class="disc-icon">⚠️</span>
@@ -827,7 +911,6 @@
 		</div>
 	</div>
 
-	<!-- What's New modal -->
 	<div id="whatsnew-modal">
 		<div id="whatsnew-box">
 			<h3>🔔 What's New</h3>
@@ -836,21 +919,18 @@
 				<div class="wn-item">PANIC KEY FEATURE ADDED - Set any key to instantly hide games</div>
 				<div class="wn-item">GO INTO SETTINGS THEN PANIC KEY TO CONFIGURE YOUR KEYBIND</div>
 				<div class="wn-item">Press the same key again to return to games from decoy</div>
-				<div class="wn-item"></div>
 			</div>
 			<div class="wn-entry">
 				<div class="wn-version">Previous</div>
-				<div class="wn-item">NEW UPD YOU CAN CHANGE THE NAME OF TABS </div>
+				<div class="wn-item">NEW UPD YOU CAN CHANGE THE NAME OF TABS</div>
 				<div class="wn-item">GO INTO SETTINGS THEN GO TO TAB TITLE TO CHANGE THE NAME TO ANYTHING</div>
 				<div class="wn-item">Browser tab currently is not working will be fixed soon</div>
-				<div class="wn-item"></div>
 			</div>
 			<a id="survey-btn" href="https://forms.gle/R3iL5mpB8RLpVLTaA" target="_blank">Old Take Survey</a>
 			<button id="whatsnew-close">Close</button>
 		</div>
 	</div>
 
-	<!-- Game info modal -->
 	<div class="modal" id="game-modal">
 		<div class="modal-box">
 			<div class="modal-thumb">
@@ -868,7 +948,6 @@
 		</div>
 	</div>
 
-	<!-- Settings drawer -->
 	<div id="settings-drawer">
 		<div class="settings-header">
 			<h2>⚙ Settings</h2>
@@ -882,7 +961,6 @@
 			<button class="settings-tab" data-tab="advanced">Advanced</button>
 		</div>
 		<div class="settings-content">
-
 			<!-- VISUAL -->
 			<div class="settings-panel active" data-panel="appearance">
 				<div class="settings-group">
@@ -939,7 +1017,7 @@
 					<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">100%</span></div>
 					<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="100">
 				</div>
-				<div class="settings-group" id="rain-speed-group" style="display:none;">
+				<div class="settings-group" id="rain-speed-group">
 					<span class="settings-group-title">Rain Speed</span>
 					<div class="slider-row"><span>Drop speed</span><span class="slider-val" id="rain-speed-value">Medium</span></div>
 					<input type="range" id="rain-speed-slider" class="range-slider" min="1" max="5" value="3">
@@ -948,14 +1026,14 @@
 				<div class="settings-group">
 					<span class="settings-group-title">Rain Color</span>
 					<div class="color-swatches">
-						<div class="color-swatch active" data-rgb="255,255,255" style="background:#fff"    title="White"></div>
-						<div class="color-swatch"        data-rgb="0,255,255"   style="background:#00ffff" title="Cyan"></div>
-						<div class="color-swatch"        data-rgb="255,0,255"   style="background:#ff00ff" title="Magenta"></div>
-						<div class="color-swatch"        data-rgb="0,255,100"   style="background:#00ff64" title="Green"></div>
-						<div class="color-swatch"        data-rgb="255,100,0"   style="background:#ff6400" title="Orange"></div>
-						<div class="color-swatch"        data-rgb="255,50,120"  style="background:#ff3278" title="Pink"></div>
-						<div class="color-swatch"        data-rgb="170,0,255"   style="background:#aa00ff" title="Purple"></div>
-						<div class="color-swatch"        data-rgb="255,240,0"   style="background:#fff000" title="Yellow"></div>
+						<div class="color-swatch active" data-rgb="255,255,255" style="background:#fff" title="White"></div>
+						<div class="color-swatch" data-rgb="0,255,255" style="background:#00ffff" title="Cyan"></div>
+						<div class="color-swatch" data-rgb="255,0,255" style="background:#ff00ff" title="Magenta"></div>
+						<div class="color-swatch" data-rgb="0,255,100" style="background:#00ff64" title="Green"></div>
+						<div class="color-swatch" data-rgb="255,100,0" style="background:#ff6400" title="Orange"></div>
+						<div class="color-swatch" data-rgb="255,50,120" style="background:#ff3278" title="Pink"></div>
+						<div class="color-swatch" data-rgb="170,0,255" style="background:#aa00ff" title="Purple"></div>
+						<div class="color-swatch" data-rgb="255,240,0" style="background:#fff000" title="Yellow"></div>
 					</div>
 					<div class="color-picker-row">
 						<label for="custom-color">Custom:</label>
@@ -1045,22 +1123,22 @@
 					<span class="settings-group-title">Premium</span>
 					<input type="password" id="premium-password" placeholder="Enter password…" />
 					<button id="unlock-premium-btn" class="settings-btn">Unlock</button>
-					<div id="premium-content" style="display:none;margin-top:16px;">
+					<div id="premium-content">
 						<div id="links-container"></div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
 	<script>
+		// ═══ CONSTANTS ═══
 		const SK = 'mathline.';
 		const PREMIUM_PASSWORD = '4557';
 		const WHATSNEW_VERSION = 'v15-update';
 
 		const POPULAR_GAMES = [
-			'Ship.html','Crossy.html','BroT.html','Shapez.html','CsGo-clicker.html','eggy.html',
+			'Ship.html', 'Crossy.html', 'BroT.html', 'Shapez.html', 'CsGo-clicker.html', 'eggy.html',
 		];
 
 		const DEFAULT_LINKS = [
@@ -1143,12 +1221,16 @@
 			{n:'Level Devil',u:'Leveld.html'},
 		];
 
-		const ls  = k     => localStorage.getItem(SK + k);
-		const lss = (k,v) => localStorage.setItem(SK + k, v);
+		// ═══ STORAGE HELPERS ═══
+		const ls = k => localStorage.getItem(SK + k);
+		const lss = (k, v) => localStorage.setItem(SK + k, v);
 
-		let favorites       = new Set(JSON.parse(ls('favorites')  || '[]'));
-		let playCounts      = JSON.parse(ls('playCounts') || '{}');
+		// ═══ STATE ═══
+		let favorites = new Set(JSON.parse(ls('favorites') || '[]'));
+		let playCounts = JSON.parse(ls('playCounts') || '{}');
 		let premiumUnlocked = ls('premiumUnlocked') === 'true';
+		let currentGame = null;
+		let rainAnim = null;
 
 		const GAME_MAP = {};
 		GAMES.forEach(g => { GAME_MAP[g.u] = g; });
@@ -1173,33 +1255,30 @@
 			tabTitle:     ls('tabTitle')     || '',
 		};
 
-		function getPopularGames() {
-			return POPULAR_GAMES.map(u => GAME_MAP[u]).filter(Boolean);
-		}
-
-		/* ═══ RAIN ═══ */
-		let rainAnim = null;
+		// ═══ BACKGROUND EFFECTS ═══
 		function startRain() {
 			const canvas = document.getElementById('rain-canvas');
 			canvas.style.display = 'block';
 			const ctx = canvas.getContext('2d');
 			let drops = [];
+
 			function resize() {
-				canvas.width  = window.innerWidth;
+				canvas.width = window.innerWidth;
 				canvas.height = window.innerHeight;
-				drops = Array.from({length:120}, () => ({
+				drops = Array.from({length: 120}, () => ({
 					x: Math.random() * canvas.width,
 					y: Math.random() * canvas.height,
-					len:   10 + Math.random() * 20,
+					len: 10 + Math.random() * 20,
 					speed: (1 + Math.random() * 3) * (S.rainSpeed / 3),
 					opacity: 0.3 + Math.random() * 0.6,
 				}));
 			}
 			resize();
 			window.addEventListener('resize', resize);
+
 			function draw() {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				const [r,g,b] = S.bgColor.split(',');
+				const [r, g, b] = S.bgColor.split(',');
 				drops.forEach(d => {
 					ctx.beginPath();
 					ctx.strokeStyle = `rgba(${r},${g},${b},${d.opacity * S.bgBrightness / 100})`;
@@ -1211,26 +1290,36 @@
 					ctx.stroke();
 					ctx.shadowBlur = 0;
 					d.y += d.speed;
-					if (d.y > canvas.height) { d.y = -d.len; d.x = Math.random() * canvas.width; }
+					if (d.y > canvas.height) {
+						d.y = -d.len;
+						d.x = Math.random() * canvas.width;
+					}
 				});
 				rainAnim = requestAnimationFrame(draw);
 			}
 			draw();
 		}
+
 		function stopRain() {
-			if (rainAnim) { cancelAnimationFrame(rainAnim); rainAnim = null; }
+			if (rainAnim) {
+				cancelAnimationFrame(rainAnim);
+				rainAnim = null;
+			}
 			const canvas = document.getElementById('rain-canvas');
 			canvas.style.display = 'none';
 			canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 		}
 
-		/* ═══ BG EFFECT ═══ */
 		function applyBgEffect(effect) {
-			S.bgEffect = effect; lss('bgEffect', effect);
-			document.querySelectorAll('.bg-option').forEach(b => b.classList.toggle('active', b.dataset.bg === effect));
+			S.bgEffect = effect;
+			lss('bgEffect', effect);
+			document.querySelectorAll('.bg-option').forEach(b => 
+				b.classList.toggle('active', b.dataset.bg === effect));
+			
 			const layer = document.getElementById('bg-layer');
 			if (effect === 'rain') {
-				layer.style.display = 'none'; startRain();
+				layer.style.display = 'none';
+				startRain();
 			} else {
 				stopRain();
 				layer.style.display = '';
@@ -1238,46 +1327,62 @@
 				if (effect !== 'none') layer.classList.add(effect);
 				else layer.classList.add('none');
 			}
-			const rg = document.getElementById('rain-speed-group');
-			if (rg) rg.style.display = effect === 'rain' ? 'block' : 'none';
+			
+			document.getElementById('rain-speed-group').style.display = 
+				effect === 'rain' ? 'block' : 'none';
 		}
 
+		// ═══ SETTINGS FUNCTIONS ═══
 		function applyBrightness(v) {
-			S.bgBrightness = +v; lss('bgBrightness', v);
+			S.bgBrightness = +v;
+			lss('bgBrightness', v);
 			document.documentElement.style.setProperty('--bg-brightness', v / 100);
 			document.getElementById('brightness-value').textContent = v + '%';
 		}
+
 		function applyOpacity(v) {
-			S.cardOpacity = +v; lss('cardOpacity', v);
+			S.cardOpacity = +v;
+			lss('cardOpacity', v);
 			const o = v / 100;
-			document.documentElement.style.setProperty('--card-bg',    `rgba(22,27,34,${o})`);
+			document.documentElement.style.setProperty('--card-bg', `rgba(22,27,34,${o})`);
 			document.documentElement.style.setProperty('--card-hover', `rgba(30,36,44,${Math.min(o + .2, 1)})`);
 			document.getElementById('opacity-value').textContent = v + '%';
 		}
+
 		function applyFontSize(v) {
-			S.fontSize = +v; lss('fontSize', v);
+			S.fontSize = +v;
+			lss('fontSize', v);
 			document.getElementById('fontsize-value').textContent = v + 'px';
 			document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = v + 'px');
 		}
+
 		function applyCardRadius(v) {
-			S.cardRadius = +v; lss('cardRadius', v);
+			S.cardRadius = +v;
+			lss('cardRadius', v);
 			document.getElementById('radius-value').textContent = v + 'px';
 			document.querySelectorAll('.card').forEach(el => el.style.borderRadius = v + 'px');
 		}
+
 		function applyCardGap(v) {
-			S.cardGap = +v; lss('cardGap', v);
+			S.cardGap = +v;
+			lss('cardGap', v);
 			document.getElementById('gap-value').textContent = v + 'px';
-			document.getElementById('game-list').style.gap    = v + 'px';
+			document.getElementById('game-list').style.gap = v + 'px';
 			document.getElementById('popular-list').style.gap = v + 'px';
 		}
+
 		function applyTopbarColor(c) {
-			S.topbarColor = c; lss('topbarColor', c);
+			S.topbarColor = c;
+			lss('topbarColor', c);
 			document.getElementById('topbar').style.background = c;
 		}
+
 		function applyBgColor(rgb) {
-			S.bgColor = rgb; lss('bgColor', rgb);
+			S.bgColor = rgb;
+			lss('bgColor', rgb);
 			document.documentElement.style.setProperty('--bg-color', rgb);
 		}
+
 		function updateGridSize() {
 			const map = {
 				small:  'repeat(auto-fill,minmax(120px,1fr))',
@@ -1286,15 +1391,23 @@
 				xlarge: 'repeat(6,1fr)',
 			};
 			const cols = map[S.gridSize] || map.xlarge;
-			document.getElementById('game-list').style.gridTemplateColumns    = cols;
+			document.getElementById('game-list').style.gridTemplateColumns = cols;
 			document.getElementById('popular-list').style.gridTemplateColumns = cols;
 		}
-		function syncToggle(id, on) { document.getElementById(id).classList.toggle('active', on); }
+
+		function syncToggle(id, on) {
+			document.getElementById(id).classList.toggle('active', on);
+		}
+
+		// ═══ GAME FUNCTIONS ═══
+		function getPopularGames() {
+			return POPULAR_GAMES.map(u => GAME_MAP[u]).filter(Boolean);
+		}
 
 		function buildCard(game, showPopularBadge) {
 			const isFav = favorites.has(game.u);
 			const plays = playCounts[game.u] || 0;
-			const card  = document.createElement('div');
+			const card = document.createElement('div');
 			card.className = 'card';
 			card.style.borderRadius = S.cardRadius + 'px';
 			card.innerHTML = `
@@ -1305,6 +1418,7 @@
 					<div class="card-plays" style="display:${S.playcount ? 'block' : 'none'}">${plays} play${plays === 1 ? '' : 's'}</div>
 				</div>
 				<button class="card-fav${isFav ? ' on' : ''}">★</button>`;
+			
 			card.addEventListener('click', () => openGameModal(game));
 			card.querySelector('.card-fav').addEventListener('click', e => {
 				e.stopPropagation();
@@ -1317,9 +1431,8 @@
 
 		function renderGameList() {
 			const query = document.getElementById('search').value.toLowerCase().trim();
-
 			const popularContainer = document.getElementById('popular-list');
-			const popularSection   = document.getElementById('popular-section');
+			const popularSection = document.getElementById('popular-section');
 			popularContainer.innerHTML = '';
 
 			if (!query) {
@@ -1353,10 +1466,9 @@
 			document.getElementById('game-count').textContent = filtered.length + ' games';
 		}
 
-		let currentGame = null;
 		function openGameModal(game) {
 			currentGame = game;
-			document.getElementById('modal-game-name').textContent   = game.n;
+			document.getElementById('modal-game-name').textContent = game.n;
 			document.getElementById('modal-thumb-title').textContent = game.n[0];
 			const isFav = favorites.has(game.u);
 			const fb = document.getElementById('modal-fav');
@@ -1378,25 +1490,16 @@
 	<title>${titleToUse}</title>
 </head>
 <body style="margin:0;padding:0;background:#000;overflow:hidden;">
-	<iframe
-		src="${absoluteUrl}"
-		style="width:100vw;height:100vh;border:none;display:block;"
-		allowfullscreen
-		allow="fullscreen *; autoplay *; gamepad *"
-	></iframe>
+	<iframe src="${absoluteUrl}" style="width:100vw;height:100vh;border:none;display:block;" allowfullscreen allow="fullscreen *; autoplay *; gamepad *"></iframe>
 	<script>
-		(function() {
-			var t = ${JSON.stringify(titleToUse)};
-			document.title = t;
-			setInterval(function() {
-				if (document.title !== t) document.title = t;
-			}, 100);
-		})();
+		var t = ${JSON.stringify(titleToUse)};
+		document.title = t;
+		setInterval(() => { if (document.title !== t) document.title = t; }, 100);
 	<\/script>
 </body>
 </html>`;
 
-			const blob    = new Blob([html], { type: 'text/html' });
+			const blob = new Blob([html], { type: 'text/html' });
 			const blobUrl = URL.createObjectURL(blob);
 			window.open(blobUrl, '_blank');
 		}
@@ -1416,18 +1519,21 @@
 		function unlockPremium() {
 			const inp = document.getElementById('premium-password');
 			if (inp.value === PREMIUM_PASSWORD) {
-				premiumUnlocked = true; lss('premiumUnlocked', 'true');
+				premiumUnlocked = true;
+				lss('premiumUnlocked', 'true');
 				document.getElementById('premium-content').style.display = 'block';
-				inp.value = ''; inp.style.borderColor = 'rgba(0,255,100,.8)';
+				inp.value = '';
+				inp.style.borderColor = 'rgba(0,255,100,.8)';
 				renderLinks();
 				setTimeout(() => inp.style.borderColor = 'rgba(255,255,255,.2)', 2000);
 			} else {
-				inp.style.borderColor = 'rgba(255,0,0,.8)'; inp.value = '';
+				inp.style.borderColor = 'rgba(255,0,0,.8)';
+				inp.value = '';
 				setTimeout(() => inp.style.borderColor = 'rgba(255,255,255,.2)', 1500);
 			}
 		}
 
-		/* ═══ BROWSER TAB ═══ */
+		// ═══ BROWSER FUNCTIONS ═══
 		function navigateBrowser(input) {
 			if (!input) return;
 			let realUrl = input;
@@ -1437,6 +1543,7 @@
 			document.getElementById('browser-nav-popup').style.display = 'none';
 			document.getElementById('browser-real-input').value = '';
 		}
+
 		function toggleNavPopup() {
 			const p = document.getElementById('browser-nav-popup');
 			const showing = p.style.display !== 'none';
@@ -1451,36 +1558,39 @@
 			document.getElementById('browser-container').classList.toggle('active', tab === 'browser');
 		}
 
+		// ═══ INITIALIZATION ═══
 		document.addEventListener('DOMContentLoaded', () => {
+			// Apply saved settings
 			if (!S.animations) document.body.classList.add('hover-off');
-			if (S.glow)        document.body.classList.add('glow-on');
-			if (!S.blur)       document.body.classList.add('blur-off');
+			if (S.glow) document.body.classList.add('glow-on');
+			if (!S.blur) document.body.classList.add('blur-off');
 			if (S.smoothScroll) document.documentElement.style.scrollBehavior = 'smooth';
 
-			document.getElementById('grid-size').value           = S.gridSize;
-			document.getElementById('brightness-slider').value   = S.bgBrightness;
-			document.getElementById('opacity-slider').value      = S.cardOpacity;
-			document.getElementById('fontsize-slider').value     = S.fontSize;
-			document.getElementById('radius-slider').value       = S.cardRadius;
-			document.getElementById('gap-slider').value          = S.cardGap;
+			// Sync UI with saved settings
+			document.getElementById('grid-size').value = S.gridSize;
+			document.getElementById('brightness-slider').value = S.bgBrightness;
+			document.getElementById('opacity-slider').value = S.cardOpacity;
+			document.getElementById('fontsize-slider').value = S.fontSize;
+			document.getElementById('radius-slider').value = S.cardRadius;
+			document.getElementById('gap-slider').value = S.cardGap;
 			document.getElementById('topbar-color-picker').value = S.topbarColor;
-			document.getElementById('tab-title-input').value     = S.tabTitle;
+			document.getElementById('tab-title-input').value = S.tabTitle;
 
-			applyBrightness(S.bgBrightness); applyOpacity(S.cardOpacity);
-			applyFontSize(S.fontSize); applyCardRadius(S.cardRadius);
-			applyCardGap(S.cardGap); applyTopbarColor(S.topbarColor);
-			applyBgColor(S.bgColor); updateGridSize();
-
-			document.getElementById('fontsize-value').textContent = S.fontSize   + 'px';
-			document.getElementById('radius-value').textContent   = S.cardRadius + 'px';
-			document.getElementById('gap-value').textContent      = S.cardGap    + 'px';
+			applyBrightness(S.bgBrightness);
+			applyOpacity(S.cardOpacity);
+			applyFontSize(S.fontSize);
+			applyCardRadius(S.cardRadius);
+			applyCardGap(S.cardGap);
+			applyTopbarColor(S.topbarColor);
+			applyBgColor(S.bgColor);
+			updateGridSize();
 
 			syncToggle('animation-toggle', S.animations);
-			syncToggle('glow-toggle',      S.glow);
-			syncToggle('blur-toggle',      S.blur);
-			syncToggle('autoload-toggle',  S.autoload);
+			syncToggle('glow-toggle', S.glow);
+			syncToggle('blur-toggle', S.blur);
+			syncToggle('autoload-toggle', S.autoload);
 			syncToggle('playcount-toggle', S.playcount);
-			syncToggle('smooth-scroll',    S.smoothScroll);
+			syncToggle('smooth-scroll', S.smoothScroll);
 
 			applyBgEffect(S.bgEffect);
 			document.querySelectorAll('.color-swatch').forEach(sw =>
@@ -1493,13 +1603,12 @@
 
 			renderGameList();
 
-			// Tab switching
-			document.querySelectorAll('.tab-btn').forEach(btn => {
-				btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-			});
+			// ═══ EVENT LISTENERS ═══
+			// Tabs
+			document.querySelectorAll('.tab-btn').forEach(btn =>
+				btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
 
-			// Browser controls
-			document.getElementById('browser-url').value = '';
+			// Browser
 			document.getElementById('browser-go').addEventListener('click', toggleNavPopup);
 			document.getElementById('browser-url').addEventListener('click', toggleNavPopup);
 			document.getElementById('browser-nav-go').addEventListener('click', () => {
@@ -1530,10 +1639,14 @@
 			});
 
 			// Modals
-			document.getElementById('disclaimer-ok').addEventListener('click',  () => document.getElementById('disclaimer-modal').classList.remove('on'));
-			document.getElementById('disclaimer-btn').addEventListener('click', () => document.getElementById('disclaimer-modal').classList.add('on'));
-			document.getElementById('info-btn').addEventListener('click',       () => document.getElementById('whatsnew-modal').classList.add('on'));
-			document.getElementById('whatsnew-close').addEventListener('click', () => document.getElementById('whatsnew-modal').classList.remove('on'));
+			document.getElementById('disclaimer-ok').addEventListener('click', () =>
+				document.getElementById('disclaimer-modal').classList.remove('on'));
+			document.getElementById('disclaimer-btn').addEventListener('click', () =>
+				document.getElementById('disclaimer-modal').classList.add('on'));
+			document.getElementById('info-btn').addEventListener('click', () =>
+				document.getElementById('whatsnew-modal').classList.add('on'));
+			document.getElementById('whatsnew-close').addEventListener('click', () =>
+				document.getElementById('whatsnew-modal').classList.remove('on'));
 			document.getElementById('whatsnew-modal').addEventListener('click', e => {
 				if (e.target === document.getElementById('whatsnew-modal'))
 					document.getElementById('whatsnew-modal').classList.remove('on');
@@ -1548,29 +1661,46 @@
 					document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
 				});
 			});
-			document.getElementById('settings-btn').addEventListener('click',       () => document.getElementById('settings-drawer').classList.toggle('open'));
-			document.getElementById('settings-close-btn').addEventListener('click', () => document.getElementById('settings-drawer').classList.remove('open'));
+			document.getElementById('settings-btn').addEventListener('click', () =>
+				document.getElementById('settings-drawer').classList.toggle('open'));
+			document.getElementById('settings-close-btn').addEventListener('click', () =>
+				document.getElementById('settings-drawer').classList.remove('open'));
 
 			// Appearance toggles
-			document.getElementById('animation-toggle').addEventListener('click', function() { S.animations = this.classList.toggle('active'); lss('animations', S.animations); document.body.classList.toggle('hover-off', !S.animations); });
-			document.getElementById('glow-toggle').addEventListener('click',      function() { S.glow = this.classList.toggle('active');       lss('glow', S.glow);             document.body.classList.toggle('glow-on', S.glow); });
-			document.getElementById('blur-toggle').addEventListener('click',      function() { S.blur = this.classList.toggle('active');       lss('blur', S.blur);             document.body.classList.toggle('blur-off', !S.blur); });
+			document.getElementById('animation-toggle').addEventListener('click', function() {
+				S.animations = this.classList.toggle('active');
+				lss('animations', S.animations);
+				document.body.classList.toggle('hover-off', !S.animations);
+			});
+			document.getElementById('glow-toggle').addEventListener('click', function() {
+				S.glow = this.classList.toggle('active');
+				lss('glow', S.glow);
+				document.body.classList.toggle('glow-on', S.glow);
+			});
+			document.getElementById('blur-toggle').addEventListener('click', function() {
+				S.blur = this.classList.toggle('active');
+				lss('blur', S.blur);
+				document.body.classList.toggle('blur-off', !S.blur);
+			});
 			document.getElementById('fontsize-slider').addEventListener('input', e => applyFontSize(e.target.value));
-			document.getElementById('radius-slider').addEventListener('input',   e => applyCardRadius(e.target.value));
-			document.getElementById('gap-slider').addEventListener('input',      e => applyCardGap(e.target.value));
+			document.getElementById('radius-slider').addEventListener('input', e => applyCardRadius(e.target.value));
+			document.getElementById('gap-slider').addEventListener('input', e => applyCardGap(e.target.value));
 
 			// Background
-			document.querySelectorAll('.bg-option').forEach(btn => btn.addEventListener('click', () => applyBgEffect(btn.dataset.bg)));
+			document.querySelectorAll('.bg-option').forEach(btn =>
+				btn.addEventListener('click', () => applyBgEffect(btn.dataset.bg)));
 			document.getElementById('brightness-slider').addEventListener('input', e => applyBrightness(e.target.value));
 			document.getElementById('rain-speed-slider').addEventListener('input', e => {
-				S.rainSpeed = +e.target.value; lss('rainSpeed', S.rainSpeed);
+				S.rainSpeed = +e.target.value;
+				lss('rainSpeed', S.rainSpeed);
 				const labels = ['', 'Slow', 'Medium-Slow', 'Medium', 'Medium-Fast', 'Fast'];
 				document.getElementById('rain-speed-value').textContent = labels[S.rainSpeed];
 			});
 			document.querySelectorAll('.color-swatch').forEach(sw => {
 				sw.addEventListener('click', () => {
 					document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-					sw.classList.add('active'); applyBgColor(sw.dataset.rgb);
+					sw.classList.add('active');
+					applyBgColor(sw.dataset.rgb);
 				});
 			});
 			document.getElementById('custom-color').addEventListener('input', e => {
@@ -1580,15 +1710,36 @@
 				applyBgColor(`${r},${g},${b}`);
 			});
 
-			// Cards
-			document.getElementById('grid-size').addEventListener('change', e => { S.gridSize = e.target.value; lss('gridSize', S.gridSize); updateGridSize(); });
-			document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
-			document.getElementById('clear-favorites').addEventListener('click',  () => { if (confirm('Clear all favorites?'))  { favorites.clear(); lss('favorites', '[]');   renderGameList(); } });
-			document.getElementById('clear-playcounts').addEventListener('click', () => { if (confirm('Clear play counts?'))    { playCounts = {};    lss('playCounts', '{}'); renderGameList(); } });
-
 			// Gameplay
-			document.getElementById('autoload-toggle').addEventListener('click',  function() { S.autoload  = this.classList.toggle('active'); lss('autoload',  S.autoload); });
-			document.getElementById('playcount-toggle').addEventListener('click', function() { S.playcount = this.classList.toggle('active'); lss('playcount', S.playcount); renderGameList(); });
+			document.getElementById('grid-size').addEventListener('change', e => {
+				S.gridSize = e.target.value;
+				lss('gridSize', S.gridSize);
+				updateGridSize();
+			});
+			document.getElementById('opacity-slider').addEventListener('input', e => applyOpacity(e.target.value));
+			document.getElementById('clear-favorites').addEventListener('click', () => {
+				if (confirm('Clear all favorites?')) {
+					favorites.clear();
+					lss('favorites', '[]');
+					renderGameList();
+				}
+			});
+			document.getElementById('clear-playcounts').addEventListener('click', () => {
+				if (confirm('Clear play counts?')) {
+					playCounts = {};
+					lss('playCounts', '{}');
+					renderGameList();
+				}
+			});
+			document.getElementById('autoload-toggle').addEventListener('click', function() {
+				S.autoload = this.classList.toggle('active');
+				lss('autoload', S.autoload);
+			});
+			document.getElementById('playcount-toggle').addEventListener('click', function() {
+				S.playcount = this.classList.toggle('active');
+				lss('playcount', S.playcount);
+				renderGameList();
+			});
 
 			// Tab Title
 			document.getElementById('save-tab-settings').addEventListener('click', () => {
@@ -1598,25 +1749,39 @@
 				const orig = btn.textContent;
 				btn.textContent = 'Saved!';
 				btn.style.background = 'rgba(0,255,100,.25)';
-				setTimeout(() => { btn.textContent = orig; btn.style.background = 'rgba(0,255,100,.12)'; }, 1800);
+				setTimeout(() => {
+					btn.textContent = orig;
+					btn.style.background = 'rgba(0,255,100,.12)';
+				}, 1800);
 			});
 
-
 			// Advanced
-			document.getElementById('smooth-scroll').addEventListener('click', function() { S.smoothScroll = this.classList.toggle('active'); lss('smoothScroll', S.smoothScroll); document.documentElement.style.scrollBehavior = S.smoothScroll ? 'smooth' : 'auto'; });
+			document.getElementById('smooth-scroll').addEventListener('click', function() {
+				S.smoothScroll = this.classList.toggle('active');
+				lss('smoothScroll', S.smoothScroll);
+				document.documentElement.style.scrollBehavior = S.smoothScroll ? 'smooth' : 'auto';
+			});
 			document.getElementById('topbar-color-picker').addEventListener('input', e => applyTopbarColor(e.target.value));
-			document.getElementById('reset-settings').addEventListener('click', () => { if (confirm('Reset all settings to defaults?')) { localStorage.clear(); location.reload(); } });
+			document.getElementById('reset-settings').addEventListener('click', () => {
+				if (confirm('Reset all settings to defaults?')) {
+					localStorage.clear();
+					location.reload();
+				}
+			});
 
 			// Premium
 			document.getElementById('unlock-premium-btn').addEventListener('click', unlockPremium);
-			document.getElementById('premium-password').addEventListener('keypress', e => { if (e.key === 'Enter') unlockPremium(); });
+			document.getElementById('premium-password').addEventListener('keypress', e => {
+				if (e.key === 'Enter') unlockPremium();
+			});
 
 			// Game modal
 			document.getElementById('modal-fav').addEventListener('click', () => {
 				if (!currentGame) return;
 				favorites.has(currentGame.u) ? favorites.delete(currentGame.u) : favorites.add(currentGame.u);
 				lss('favorites', JSON.stringify([...favorites]));
-				openGameModal(currentGame); renderGameList();
+				openGameModal(currentGame);
+				renderGameList();
 			});
 			document.getElementById('play-game-btn').addEventListener('click', () => {
 				if (!currentGame) return;
@@ -1624,7 +1789,8 @@
 				lss('playCounts', JSON.stringify(playCounts));
 				loadGame(currentGame.u, currentGame.n);
 			});
-			document.getElementById('close-game-modal').addEventListener('click', () => document.getElementById('game-modal').classList.remove('on'));
+			document.getElementById('close-game-modal').addEventListener('click', () =>
+				document.getElementById('game-modal').classList.remove('on'));
 			document.getElementById('game-modal').addEventListener('click', e => {
 				if (e.target === document.getElementById('game-modal'))
 					document.getElementById('game-modal').classList.remove('on');
@@ -1632,6 +1798,7 @@
 
 			document.getElementById('search').addEventListener('input', renderGameList);
 
+			// Show what's new on first load
 			if (localStorage.getItem('mathline.whatsnew') !== WHATSNEW_VERSION) {
 				setTimeout(() => document.getElementById('whatsnew-modal').classList.add('on'), 700);
 				localStorage.setItem('mathline.whatsnew', WHATSNEW_VERSION);

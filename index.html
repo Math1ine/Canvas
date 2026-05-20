@@ -748,6 +748,17 @@
 		.link-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
 		.link-title { font-weight: 600; color: #fff; margin-bottom: 4px; }
 		.link-url   { font-size: 12px; color: rgba(255,255,255,.5); word-break: break-all; }
+
+		.decoy-page {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 999;
+			background: #fff;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			overflow: auto;
+		}
+		.decoy-page.active { display: block; }
 	</style>
 </head>
 
@@ -822,17 +833,17 @@
 			<h3>🔔 What's New</h3>
 			<div class="wn-entry">
 				<div class="wn-version">Latest Update</div>
-				<div class="wn-item">NEW UPD YOU CAN CHANGE THE NAME OF TABS </div>
-				<div class="wn-item">GO INTO SETTINGS THEN GO TO TAB TITLE TO CHANGE THE NAME TO ANYTHING</div>
-				<div class="wn-item">Browser tab currently is not working will be fixed soon</div>
+				<div class="wn-item">PANIC KEY FEATURE ADDED - Set any key to instantly hide games</div>
+				<div class="wn-item">GO INTO SETTINGS THEN PANIC KEY TO CONFIGURE YOUR KEYBIND</div>
+				<div class="wn-item">Press the same key again to return to games from decoy</div>
 				<div class="wn-item"></div>
 			</div>
 			<div class="wn-entry">
 				<div class="wn-version">Previous</div>
-				<div class="wn-item">MAKE SURE YOU ALWAYS REFRESH YOUR TAB OR TABS</div>
-				<div class="wn-item">EVEN IF THE GAMES SAYS ITS BLOCKED ATLEAST REFRESH ONCE BEFORE PUTTING IN A FORM</div>
-				<div class="wn-item">Added rain background with speed control</div>
-				<div class="wn-item">Play count tracking and favorites saved locally</div>
+				<div class="wn-item">NEW UPD YOU CAN CHANGE THE NAME OF TABS </div>
+				<div class="wn-item">GO INTO SETTINGS THEN GO TO TAB TITLE TO CHANGE THE NAME TO ANYTHING</div>
+				<div class="wn-item">Browser tab currently is not working will be fixed soon</div>
+				<div class="wn-item"></div>
 			</div>
 			<a id="survey-btn" href="https://forms.gle/R3iL5mpB8RLpVLTaA" target="_blank">Old Take Survey</a>
 			<button id="whatsnew-close">Close</button>
@@ -866,7 +877,6 @@
 		<div class="settings-tabs">
 			<button class="settings-tab active" data-tab="appearance">Visual</button>
 			<button class="settings-tab" data-tab="background">Background</button>
-			<button class="settings-tab" data-tab="cards">Cards</button>
 			<button class="settings-tab" data-tab="gameplay">Gameplay</button>
 			<button class="settings-tab" data-tab="tabtitle">Tab Title</button>
 			<button class="settings-tab" data-tab="advanced">Advanced</button>
@@ -954,10 +964,10 @@
 				</div>
 			</div>
 
-			<!-- CARDS -->
-			<div class="settings-panel" data-panel="cards">
+			<!-- GAMEPLAY -->
+			<div class="settings-panel" data-panel="gameplay">
 				<div class="settings-group">
-					<span class="settings-group-title">Card Size</span>
+					<span class="settings-group-title">Card Display</span>
 					<div class="settings-option">
 						<label>
 							<span>Grid Size</span>
@@ -978,20 +988,6 @@
 					<div class="settings-description">How solid or transparent the card background appears</div>
 				</div>
 				<div class="settings-group">
-					<span class="settings-group-title">Favorites</span>
-					<div class="settings-buttons"><button class="settings-btn" id="clear-favorites">Clear All Favorites</button></div>
-					<div class="settings-description">Remove all saved favorite games</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Play History</span>
-					<div class="settings-buttons"><button class="settings-btn" id="clear-playcounts">Clear Play Counts</button></div>
-					<div class="settings-description">Reset all play count data</div>
-				</div>
-			</div>
-
-			<!-- GAMEPLAY -->
-			<div class="settings-panel" data-panel="gameplay">
-				<div class="settings-group">
 					<span class="settings-group-title">Game Behavior</span>
 					<div class="settings-option">
 						<label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
@@ -1001,6 +997,16 @@
 						<label><span>Show Play Count</span><button class="settings-toggle active" id="playcount-toggle"></button></label>
 						<div class="settings-description">Show how many times each game has been played</div>
 					</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Favorites</span>
+					<div class="settings-buttons"><button class="settings-btn" id="clear-favorites">Clear All Favorites</button></div>
+					<div class="settings-description">Remove all saved favorite games</div>
+				</div>
+				<div class="settings-group">
+					<span class="settings-group-title">Play History</span>
+					<div class="settings-buttons"><button class="settings-btn" id="clear-playcounts">Clear Play Counts</button></div>
+					<div class="settings-description">Reset all play count data</div>
 				</div>
 			</div>
 
@@ -1135,8 +1141,6 @@
 			{n:'Case clicker 2',u:'CsGo-clicker.html'},
 			{n:'Bit life',u:'Bit-life.html'},
 			{n:'Level Devil',u:'Leveld.html'},
-
-		
 		];
 
 		const ls  = k     => localStorage.getItem(SK + k);
@@ -1596,6 +1600,7 @@
 				btn.style.background = 'rgba(0,255,100,.25)';
 				setTimeout(() => { btn.textContent = orig; btn.style.background = 'rgba(0,255,100,.12)'; }, 1800);
 			});
+
 
 			// Advanced
 			document.getElementById('smooth-scroll').addEventListener('click', function() { S.smoothScroll = this.classList.toggle('active'); lss('smoothScroll', S.smoothScroll); document.documentElement.style.scrollBehavior = S.smoothScroll ? 'smooth' : 'auto'; });

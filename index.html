@@ -803,12 +803,12 @@
 				<button id="browser-forward" title="Forward">&#8594;</button>
 				<button id="browser-refresh" title="Refresh">&#8635;</button>
 				<button id="browser-home" title="Home">&#8962;</button>
-				<input id="browser-url" type="text" placeholder="Search Google or type a URL" value="https://www.google.com" />
+				<input id="browser-url" type="text" placeholder="Search DuckDuckGo or type a URL" value="https://duckduckgo.com/" />
 				<button id="browser-go">Go</button>
 				<button id="browser-newtab" title="Open in new tab">&#8599;</button>
 			</div>
-			<div id="browser-note">Some sites (e.g. TikTok, Instagram) block being shown inside another page — use "Open in new tab" for those.</div>
-			<iframe id="browser-frame" src="https://www.google.com" allow="fullscreen *; autoplay *; encrypted-media *"></iframe>
+			<div id="browser-note">Search runs on DuckDuckGo since it allows embedding. Some sites (Google, TikTok, Instagram, banks, etc.) block embedding entirely — use "Open in new tab" for those.</div>
+			<iframe id="browser-frame" src="https://duckduckgo.com/" allow="fullscreen *; autoplay *; encrypted-media *"></iframe>
 		</div>
 	</div>
 
@@ -1484,7 +1484,7 @@
 			if (looksLikeUrl) {
 				return /^https?:\/\//i.test(trimmed) ? trimmed : 'https://' + trimmed;
 			}
-			return 'https://www.google.com/search?q=' + encodeURIComponent(trimmed);
+			return 'https://duckduckgo.com/?q=' + encodeURIComponent(trimmed);
 		}
 
 		function navigateBrowser(input) {
@@ -1567,7 +1567,7 @@
 				try { f.contentWindow.location.reload(); } catch(e) { f.src = f.src; }
 			});
 			document.getElementById('browser-home').addEventListener('click', () => {
-				navigateBrowser('https://www.google.com');
+				navigateBrowser('https://duckduckgo.com/');
 			});
 			document.getElementById('browser-newtab').addEventListener('click', () => {
 				const v = document.getElementById('browser-url').value.trim();

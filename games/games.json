@@ -16,173 +16,13 @@
       "popular": true
     },
     {
-      "name": "Idle Breakout",
-      "file": "../Idle-breakout.html",
+      "name": "Ragdoll Archers",
+      "file": "../Ragdoll-Archers.html",
       "popular": false
     },
     {
-      "name": "Monkey Mart",
-      "file": "../Monkey-mart.html",
-      "popular": false
-    },
-    {
-      "name": "Basket Random",
-      "file": "../Basket-random.html",
-      "popular": false
-    },
-    {
-      "name": "Poly Track",
-      "file": "../Poly-track.html",
-      "popular": false
-    },
-    {
-      "name": "ChoppyO",
-      "file": "../ChoppyO.html",
-      "popular": false
-    },
-    {
-      "name": "Doge Miner",
-      "file": "../Doge-miner.html",
-      "popular": false
-    },
-    {
-      "name": "Granny Online",
-      "file": "../Granny-online.html",
-      "popular": false
-    },
-    {
-      "name": "Granny 2",
-      "file": "../Granny2.html",
-      "popular": false
-    },
-    {
-      "name": "Granny 3",
-      "file": "../Granny3.html",
-      "popular": false
-    },
-    {
-      "name": "Mr Mine",
-      "file": "../Mr-mine.html",
-      "popular": false
-    },
-    {
-      "name": "Minecraft",
-      "file": "../minecraft.html",
-      "popular": false
-    },
-    {
-      "name": "Melon Playground",
-      "file": "../Melon-playground.html",
-      "popular": false
-    },
-    {
-      "name": "Tall Man Run",
-      "file": "../tall-man-run.html",
-      "popular": false
-    },
-    {
-      "name": "Mine Craft",
-      "file": "../mine-craft.html",
-      "popular": false
-    },
-    {
-      "name": "Miner",
-      "file": "../miner.html",
-      "popular": false
-    },
-    {
-      "name": "Tag",
-      "file": "../tag.html",
-      "popular": false
-    },
-    {
-      "name": "Tiny Fishing",
-      "file": "../Tiny-fishing.html",
-      "popular": false
-    },
-    {
-      "name": "Wordle",
-      "file": "../Wordle.html",
-      "popular": false
-    },
-    {
-      "name": "Geometry Dash",
-      "file": "../Geometry-Dash.html",
-      "popular": false
-    },
-    {
-      "name": "1v1 LOL",
-      "file": "../1v1-lol.html",
-      "popular": false
-    },
-    {
-      "name": "Slope 3",
-      "file": "../Slope-3.html",
-      "popular": false
-    },
-    {
-      "name": "Tunnel Rush",
-      "file": "../Tunnel-rush.html",
-      "popular": false
-    },
-    {
-      "name": "Drive Mad",
-      "file": "../Drive-mad.html",
-      "popular": false
-    },
-    {
-      "name": "Eggy Car",
-      "file": "../Eggy-car.html",
-      "popular": false
-    },
-    {
-      "name": "Crossy Road",
-      "file": "../Crossy.html",
-      "popular": false
-    },
-    {
-      "name": "Duck Life 4",
-      "file": "../Duck-life-4.html",
-      "popular": false
-    },
-    {
-      "name": "Duck Life 5",
-      "file": "../Duck-life-5.html",
-      "popular": false
-    },
-    {
-      "name": "Happy Wheels",
-      "file": "../Happy-wheels.html",
-      "popular": false
-    },
-    {
-      "name": "Plants vs Zombies",
-      "file": "../Plants-vs-zombies.html",
-      "popular": false
-    },
-    {
-      "name": "Retro Bowl",
-      "file": "../Retro-bowl.html",
-      "popular": false
-    },
-    {
-      "name": "QWOP",
-      "file": "../QWOP.html",
-      "popular": false
-    },
-    {
-      "name": "Sugar Sugar",
-      "file": "../Sugar-sugar.html",
-      "popular": false
-    },
-    {
-      "name": "Worlds Hardest Game",
-      "file": "../Worlds-hardest-game.html",
-      "popular": false
-    },
-    {
-      "name": "Infinite Craft",
-      "file": "../Infinte-craft.html",
+      "name": "Ragdoll Hit",
+      "file": "../Ragdoll-hit.html",
       "popular": false
     },
     {
@@ -191,13 +31,343 @@
       "popular": false
     },
     {
-      "name": "Hole IO",
+      "name": "Retro Bowl",
+      "file": "../Retro-bowl.html",
+      "popular": false
+    },
+    {
+      "name": "Snow Rider",
+      "file": "../Snow-Rider.html",
+      "popular": false
+    },
+    {
+      "name": "Swords And Sandals",
+      "file": "../Swords-and-sandlas.html",
+      "popular": false
+    },
+    {
+      "name": "Crazy Cattle",
+      "file": "../Crazy-cattle.html",
+      "popular": false
+    },
+    {
+      "name": "Bit Planes",
+      "file": "../Bit-planes.html",
+      "popular": false
+    },
+    {
+      "name": "Cluster Rush",
+      "file": "../Cluster-rush.html",
+      "popular": false
+    },
+    {
+      "name": "Push Your Luck",
+      "file": "../Push-your-luck.html",
+      "popular": false
+    },
+    {
+      "name": "Poly Track",
+      "file": "../Poly-track.html",
+      "popular": false
+    },
+    {
+      "name": "Ragdoll Soccer",
+      "file": "../Ragdoll-soccer.html",
+      "popular": false
+    },
+    {
+      "name": "Learn To Fly 3",
+      "file": "../Learn-to-fly-3.html",
+      "popular": false
+    },
+    {
+      "name": "Malidin Stun Cars",
+      "file": "../Malidin-stun-cars.html",
+      "popular": false
+    },
+    {
+      "name": "Gun Spin",
+      "file": "../Gun-spin.html",
+      "popular": false
+    },
+    {
+      "name": "Moto X3M 2",
+      "file": "../Moto-x3m-2.html",
+      "popular": false
+    },
+    {
+      "name": "Moto X3M Winter",
+      "file": "../Moto-x3m-winter.html",
+      "popular": false
+    },
+    {
+      "name": "Basketball Stars",
+      "file": "../Basketball-stars.html",
+      "popular": false
+    },
+    {
+      "name": "Idle Breakout",
+      "file": "../-breakout.html",
+      "popular": false
+    },
+    {
+      "name": "Vex 8",
+      "file": "../Vex-8.html",
+      "popular": false
+    },
+    {
+      "name": "Tiny Fishing",
+      "file": "../Tiny-fishing.html",
+      "popular": false
+    },
+    {
+      "name": "Drive Mad",
+      "file": "../Drive-mad.html",
+      "popular": false
+    },
+    {
+      "name": "Stick Man Hook",
+      "file": "../Stick-man-hook.html",
+      "popular": false
+    },
+    {
+      "name": "Basket Random",
+      "file": "../Basket-random.html",
+      "popular": false
+    },
+    {
+      "name": "1v1 Lol",
+      "file": "../1v1-lol.html",
+      "popular": false
+    },
+    {
+      "name": "Tunnel Rush",
+      "file": "../Tunnel-rush.html",
+      "popular": false
+    },
+    {
+      "name": "A Small World Cup",
+      "file": "../A-small-world-cup.html",
+      "popular": false
+    },
+    {
+      "name": "Indian Truck Simulator",
+      "file": "../Indian-truck-simulator.html",
+      "popular": false
+    },
+    {
+      "name": "Doge Miner",
+      "file": "../Doge-miner.html",
+      "popular": false
+    },
+    {
+      "name": "Slope 3",
+      "file": "../Slope-3.html",
+      "popular": false
+    },
+    {
+      "name": "House of Hazards",
+      "file": "../house-of-hazards.html",
+      "popular": false
+    },
+    {
+      "name": "Ultimate Car Simulator 3",
+      "file": "../ultimate-car-simulator.html",
+      "popular": false
+    },
+    {
+      "name": "Wordle",
+      "file": "../Wordle.html",
+      "popular": false
+    },
+    {
+      "name": "Plants vs Zombies",
+      "file": "../Plants-vs-zombies.html",
+      "popular": false
+    },
+    {
+      "name": "Tall Man Run",
+      "file": "../tall-man-run.html",
+      "popular": false
+    },
+    {
+      "name": "Tag",
+      "file": "../tag.html",
+      "popular": false
+    },
+    {
+      "name": "Subway Surfers Winter",
+      "file": "../Subway-Winter.html",
+      "popular": false
+    },
+    {
+      "name": "Subway Surfers Miami",
+      "file": "../Subway-miami.html",
+      "popular": false
+    },
+    {
+      "name": "Hole.io",
       "file": "../Hole-io.html",
       "popular": false
     },
     {
-      "name": "Draw Climber",
-      "file": "../Draw-climber.html",
+      "name": "Space Waves",
+      "file": "../Space-waves.html",
+      "popular": false
+    },
+    {
+      "name": "Rooftop Snipers",
+      "file": "../RF.html",
+      "popular": false
+    },
+    {
+      "name": "Ultimate Car Simulator",
+      "file": "../Ucarsim.html",
+      "popular": false
+    },
+    {
+      "name": "Papa's Freezeria",
+      "file": "../Pf.html",
+      "popular": false
+    },
+    {
+      "name": "Papa's Pastaria",
+      "file": "../Pp.html",
+      "popular": false
+    },
+    {
+      "name": "Papa's Sushiria",
+      "file": "../Ps.html",
+      "popular": false
+    },
+    {
+      "name": "Ballz",
+      "file": "../Ballz.html",
+      "popular": false
+    },
+    {
+      "name": "10 Minutes Till Dawn",
+      "file": "../10min.html",
+      "popular": false
+    },
+    {
+      "name": "Rocket League",
+      "file": "../goal.html",
+      "popular": false
+    },
+    {
+      "name": "Eggy Car",
+      "file": "../eggy.html",
+      "popular": false
+    },
+    {
+      "name": "Mr. Mine",
+      "file": "../miner.html",
+      "popular": false
+    },
+    {
+      "name": "Moto X3M Spooky Land",
+      "file": "../motosp.html",
+      "popular": false
+    },
+    {
+      "name": "Moto X3M Pool Party",
+      "file": "../motobp.html",
+      "popular": false
+    },
+    {
+      "name": "Shred Sauce",
+      "file": "../ShredS.html",
+      "popular": false
+    },
+    {
+      "name": "Choppy Orc",
+      "file": "../ChoppyO.html",
+      "popular": false
+    },
+    {
+      "name": "Territorialio",
+      "file": "../Ter.html",
+      "popular": false
+    },
+    {
+      "name": "12 Mini Battles",
+      "file": "../12m.html",
+      "popular": false
+    },
+    {
+      "name": "Crossy Road",
+      "file": "../Crossy.html",
+      "popular": false
+    },
+    {
+      "name": "Shapez.io",
+      "file": "../Shapez.html",
+      "popular": false
+    },
+    {
+      "name": "Skribble.io",
+      "file": "../Skribble.html",
+      "popular": false
+    },
+    {
+      "name": "Mk48",
+      "file": "../Mk.html",
+      "popular": false
+    },
+    {
+      "name": "Hello neighbor",
+      "file": "../Hn.html",
+      "popular": false
+    },
+    {
+      "name": "Ships 3D",
+      "file": "../Ship.html",
+      "popular": false
+    },
+    {
+      "name": "Universal Paperclips",
+      "file": "../Pclip.html",
+      "popular": false
+    },
+    {
+      "name": "Brotato",
+      "file": "../BroT.html",
+      "popular": false
+    },
+    {
+      "name": "Conncetions",
+      "file": "../Conn.html",
+      "popular": false
+    },
+    {
+      "name": "Case clicker 2",
+      "file": "../CsGo-clicker.html",
+      "popular": false
+    },
+    {
+      "name": "Bit life",
+      "file": "../Bit-life.html",
+      "popular": false
+    },
+    {
+      "name": "Level Devil",
+      "file": "../Leveld.html",
+      "popular": false
+    },
+    {
+      "name": "LeafBlower Rev",
+      "file": "../Leafb.html",
+      "popular": false
+    },
+    {
+      "name": "Lol Beans",
+      "file": "../lolb.html",
+      "popular": false
+    },
+    {
+      "name": "Idle Dice",
+      "file": "../Idle-dice.html",
       "popular": false
     }
   ]

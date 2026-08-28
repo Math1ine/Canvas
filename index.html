@@ -419,33 +419,76 @@
 
 		/* ═══ CARDS ═══ */
 		.card {
-			background: var(--card-bg);
-			backdrop-filter: blur(10px);
-			-webkit-backdrop-filter: blur(10px);
+			background:
+				linear-gradient(135deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.02) 35%, rgba(255,255,255,.06) 100%),
+				var(--card-bg);
+			backdrop-filter: blur(18px) saturate(160%);
+			-webkit-backdrop-filter: blur(18px) saturate(160%);
 			border-radius: 10px;
 			cursor: pointer;
 			overflow: hidden;
-			border: 1px solid var(--border);
-			transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+			border: 1px solid rgba(255,255,255,.16);
+			box-shadow:
+				inset 0 1px 0 rgba(255,255,255,.3),
+				inset 0 -14px 22px -14px rgba(0,0,0,.4),
+				0 4px 14px rgba(0,0,0,.3);
 			position: relative;
 		}
-		.card:hover {
-			transform: translateY(-3px) scale(1.02);
-			border-color: rgba(220,225,232,.5);
-			background: var(--card-hover);
-			box-shadow: 0 6px 20px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08) inset;
+
+		/* diagonal glossy sheen that sweeps across on hover */
+		.card::before {
+			content: '';
+			position: absolute;
+			top: 0; left: -75%;
+			width: 45%; height: 100%;
+			background: linear-gradient(75deg, transparent, rgba(255,255,255,.14) 45%, rgba(255,255,255,.32) 50%, rgba(255,255,255,.14) 55%, transparent);
+			transform: skewX(-18deg);
+			pointer-events: none;
+			z-index: 3;
+		}
+		.card:hover::before { left: 130%; transition: left .65s ease; }
+
+		/* thin gradient edge to sell a glass rim */
+		.card::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			padding: 1px;
+			background: linear-gradient(160deg, rgba(255,255,255,.4), rgba(255,255,255,0) 28%, rgba(255,255,255,0) 72%, rgba(255,255,255,.14));
+			-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			pointer-events: none;
+			z-index: 2;
 		}
 
-		body.glow-on .card:hover { box-shadow: 0 0 20px rgba(220,225,232,.35); }
+		.card:hover {
+			transform: translateY(-3px) scale(1.02);
+			border-color: rgba(220,225,232,.55);
+			background:
+				linear-gradient(135deg, rgba(255,255,255,.17) 0%, rgba(255,255,255,.04) 35%, rgba(255,255,255,.1) 100%),
+				var(--card-hover);
+			box-shadow:
+				inset 0 1px 0 rgba(255,255,255,.42),
+				inset 0 -14px 22px -14px rgba(0,0,0,.45),
+				0 10px 28px rgba(0,0,0,.4);
+			transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+		}
+
+		body.glow-on .card:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 0 20px rgba(220,225,232,.35); }
 		body.hover-off .card:hover { transform: none !important; }
 		body.blur-off .card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+		body.blur-off .card::before,
+		body.blur-off .card::after { display: none; }
 
 		.card-thumb {
 			width: 100%;
 			aspect-ratio: 16/9;
 			position: relative;
 			overflow: hidden;
-			background: rgba(255,255,255,.05);
+			background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+			border-bottom: 1px solid rgba(255,255,255,.08);
 			display: flex; align-items: center; justify-content: center;
 		}
 
@@ -873,17 +916,7 @@
 	<div id="whatsnew-modal">
 		<div id="whatsnew-box">
 			<h3>🔔 What's New</h3>
-			<div class="wn-entry">
-				<div class="wn-version">Latest Update</div>
-				<div class="wn-item">Removed the premium/password section entirely</div>
-				<div class="wn-item">Cleaned up and simplified the background styles</div>
-				<div class="wn-item">New metallic/chrome look for the topbar, buttons, and titles</div>
-				<div class="wn-item">Browser tab now has an "open in new tab" option for sites that block embedding</div>
-			</div>
-			<div class="wn-entry wn-disclaimer">
-				<div class="wn-version">Disclaimer</div>
-				<p>All of these games are not mine. I do not claim to own them. Credit goes to their respective owners.</p>
-			</div>
+			<div id="whatsnew-entries"></div>
 			<button id="whatsnew-close">Close</button>
 		</div>
 	</div>
@@ -957,8 +990,8 @@
 				<div class="settings-group">
 					<span class="settings-group-title">Background Style</span>
 					<div class="bg-grid-options">
-						<button class="bg-option active" data-bg="stars">Stars</button>
-						<button class="bg-option" data-bg="rain">Rain</button>
+						<button class="bg-option" data-bg="stars">Stars</button>
+						<button class="bg-option active" data-bg="rain">Rain</button>
 						<button class="bg-option" data-bg="grid">Grid</button>
 						<button class="bg-option" data-bg="aurora">Aurora</button>
 						<button class="bg-option" data-bg="chrome">Chrome</button>
@@ -967,8 +1000,8 @@
 				</div>
 				<div class="settings-group">
 					<span class="settings-group-title">Brightness</span>
-					<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">100%</span></div>
-					<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="100">
+					<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">21%</span></div>
+					<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="21">
 				</div>
 				<div class="settings-group" id="rain-speed-group">
 					<span class="settings-group-title">Rain Speed</span>
@@ -1070,8 +1103,24 @@
 	<script>
 		// ═══ CONSTANTS ═══
 		const SK = 'site.';
-		const WHATSNEW_VERSION = 'v20-loading';
-		const DEFAULT_BG = 'stars';
+		// ═══ WHAT'S NEW POPUP ═══
+		// To announce a new update to players:
+		//   1. Edit WHATSNEW_ITEMS below with your new bullet points.
+		//   2. Change WHATSNEW_VERSION to any new string (e.g. 'v22', 'v22-newgames').
+		// Changing the version is what makes the popup show again — even for
+		// people who already saw a previous version. It can only be closed
+		// with the Close button (clicking outside it does nothing), so it's
+		// guaranteed to actually be read before it goes away.
+		const WHATSNEW_VERSION = 'v21-forced-popup';
+		const WHATSNEW_ITEMS = [
+			'Removed the premium/password section entirely',
+			'Cleaned up and simplified the background styles',
+			'New metallic/chrome look for the topbar, buttons, and titles',
+			'Browser tab now has an "open in new tab" option for sites that block embedding',
+			'This popup now has to be closed with the Close button — no more clicking past it',
+		];
+		const WHATSNEW_DISCLAIMER = "All of these games are not mine. I do not claim to own them. Credit goes to their respective owners.";
+		const DEFAULT_BG = 'rain';
 
 		const POPULAR_GAMES = [
 			'Ship.html', 'Crossy.html', 'BroT.html', 'Leafb.html', 'CsGo-clicker.html', 'eggy.html',
@@ -1175,7 +1224,7 @@
 			bgEffect:     ls('bgEffect')     || DEFAULT_BG,
 			smoothScroll: ls('smoothScroll') !== 'false',
 			gridSize:     ls('gridSize')     || 'xlarge',
-			bgBrightness: parseInt(ls('bgBrightness') || '100'),
+			bgBrightness: parseInt(ls('bgBrightness') || '21'),
 			bgColor:      ls('bgColor')      || '255,255,255',
 			cardOpacity:  parseInt(ls('cardOpacity')  || '55'),
 			fontSize:     parseInt(ls('fontSize')     || '13'),
@@ -1428,6 +1477,19 @@
 			document.getElementById(id).classList.toggle('active', on);
 		}
 
+		function renderWhatsNew() {
+			const itemsHtml = WHATSNEW_ITEMS.map(i => `<div class="wn-item">${i}</div>`).join('');
+			document.getElementById('whatsnew-entries').innerHTML = `
+				<div class="wn-entry">
+					<div class="wn-version">Latest Update</div>
+					${itemsHtml}
+				</div>
+				<div class="wn-entry wn-disclaimer">
+					<div class="wn-version">Disclaimer</div>
+					<p>${WHATSNEW_DISCLAIMER}</p>
+				</div>`;
+		}
+
 		// ═══ GAME FUNCTIONS ═══
 		function getPopularGames() {
 			return POPULAR_GAMES.map(u => GAME_MAP[u]).filter(Boolean);
@@ -1578,6 +1640,7 @@
 				sw.classList.toggle('active', sw.dataset.rgb === S.bgColor));
 
 			renderGameList();
+			renderWhatsNew();
 
 			// ═══ EVENT LISTENERS ═══
 			// Tabs
@@ -1589,10 +1652,8 @@
 				document.getElementById('whatsnew-modal').classList.add('on'));
 			document.getElementById('whatsnew-close').addEventListener('click', () =>
 				document.getElementById('whatsnew-modal').classList.remove('on'));
-			document.getElementById('whatsnew-modal').addEventListener('click', e => {
-				if (e.target === document.getElementById('whatsnew-modal'))
-					document.getElementById('whatsnew-modal').classList.remove('on');
-			});
+			// Note: intentionally no click-outside-to-close here — the popup
+			// can only be dismissed via the Close button above.
 
 			// Settings tabs
 			document.querySelectorAll('.settings-tab').forEach(tab => {

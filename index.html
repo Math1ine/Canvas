@@ -803,7 +803,7 @@
 </head>
 
 <body>
-	<div id="loading-screen">
+	<div id="loading-screen" class="done">
 		<div id="loading-center">
 			<div id="loading-title">Loading games…</div>
 			<div id="loading-percent">0%</div>
@@ -1509,7 +1509,6 @@
 		}
 
 		function loadGame(url, gameName) {
-			document.getElementById('game-modal').classList.remove('on');
 			const titleToUse = S.tabTitle.trim() || gameName;
 			const absoluteUrl = new URL(url, window.location.href).href;
 
@@ -1710,7 +1709,9 @@
 			});
 			document.getElementById('play-game-btn').addEventListener('click', () => {
 				if (!currentGame) return;
-				loadGame(currentGame.u, currentGame.n);
+				const game = currentGame;
+				document.getElementById('game-modal').classList.remove('on');
+				runLoadingScreen(`Loading ${game.n}…`, () => loadGame(game.u, game.n));
 			});
 			document.getElementById('close-game-modal').addEventListener('click', () =>
 				document.getElementById('game-modal').classList.remove('on'));
@@ -1726,20 +1727,25 @@
 				setTimeout(() => document.getElementById('whatsnew-modal').classList.add('on'), 700);
 				localStorage.setItem('site.whatsnew', WHATSNEW_VERSION);
 			}
-
-			runLoadingScreen();
 		});
 
 		// ═══ LOADING SCREEN ═══
-		// Simulates the games library loading, independent of the page's own
-		// network/load timing — always takes exactly LOAD_DURATION ms.
-		function runLoadingScreen() {
+		// Plays whenever a game is launched — always takes exactly LOAD_DURATION ms,
+		// then calls onComplete (which actually opens the game).
+		function runLoadingScreen(label, onComplete) {
 			const screen = document.getElementById('loading-screen');
 			const fill = document.getElementById('loading-bar-fill');
 			const walker = document.getElementById('loading-walker');
 			const pct = document.getElementById('loading-percent');
+			const title = document.getElementById('loading-title');
 
-			const LOAD_DURATION = 3500; // ms — simulated "games loading" time
+			title.textContent = label || 'Loading games…';
+			fill.style.width = '0%';
+			walker.style.left = '0%';
+			pct.textContent = '0%';
+			screen.classList.remove('done');
+
+			const LOAD_DURATION = 3500; // ms — simulated game loading time
 			const start = performance.now();
 
 			function frame(now) {
@@ -1753,7 +1759,10 @@
 				if (elapsed < LOAD_DURATION) {
 					requestAnimationFrame(frame);
 				} else {
-					setTimeout(() => screen.classList.add('done'), 350);
+					setTimeout(() => {
+						screen.classList.add('done');
+						if (onComplete) onComplete();
+					}, 350);
 				}
 			}
 			requestAnimationFrame(frame);

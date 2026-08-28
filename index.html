@@ -30,6 +30,71 @@
 			overflow: hidden;
 		}
 
+		/* ═══ LOADING SCREEN ═══ */
+		#loading-screen {
+			position: fixed;
+			inset: 0;
+			z-index: 500;
+			background: #0a0d13;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: opacity .5s ease, visibility .5s ease;
+		}
+		#loading-screen.done { opacity: 0; visibility: hidden; pointer-events: none; }
+
+		#loading-center { text-align: center; }
+		#loading-title {
+			font-size: 1.1rem;
+			font-weight: 800;
+			letter-spacing: .02em;
+			background: var(--metal);
+			background-size: 200% auto;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			animation: metalShift 3s linear infinite;
+			margin-bottom: 8px;
+		}
+		#loading-percent {
+			font-size: 12px;
+			color: rgba(255,255,255,.35);
+			font-variant-numeric: tabular-nums;
+		}
+
+		#loading-bar-track {
+			position: fixed;
+			left: 0; right: 0; bottom: 0;
+			height: 10px;
+			background: rgba(255,255,255,.06);
+			border-top: 1px solid rgba(255,255,255,.08);
+			overflow: visible;
+		}
+		#loading-bar-fill {
+			height: 100%;
+			width: 0%;
+			background: var(--metal);
+			background-size: 200% auto;
+			animation: metalShift 2s linear infinite;
+			box-shadow: 0 0 12px rgba(216,221,227,.55);
+			transition: width .15s linear;
+		}
+		#loading-walker {
+			position: absolute;
+			left: 0%;
+			bottom: 10px;
+			transform: translate(-50%, 0);
+			font-size: 20px;
+			line-height: 1;
+			animation: walkerBob .35s ease-in-out infinite alternate;
+			transition: left .15s linear;
+			filter: drop-shadow(0 2px 3px rgba(0,0,0,.5));
+		}
+		@keyframes walkerBob {
+			from { transform: translate(-50%, 0); }
+			to   { transform: translate(-50%, -5px); }
+		}
+
 		/* ═══ BACKGROUNDS ═══ */
 		#bg-layer {
 			position: fixed;
@@ -505,6 +570,7 @@
 		.wn-version { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.35); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
 		.wn-item { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; padding-left: 14px; position: relative; }
 		.wn-item::before { content: '•'; position: absolute; left: 0; color: rgba(255,255,255,.3); }
+		.wn-disclaimer p { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.6; font-style: italic; }
 		#whatsnew-close { display: block; width: 100%; margin-top: 8px; padding: 10px; border: none; border-radius: 8px; background: var(--metal-flat); color: #10131a; font-weight: 700; font-size: 14px; cursor: pointer; }
 		#whatsnew-close:hover { filter: brightness(1.05); }
 
@@ -694,67 +760,32 @@
 		.settings-text-input:focus { outline: none; border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.13); }
 
 		/* ═══ BROWSER ═══ */
-		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); flex-direction: column; }
+		#browser-container { display: none; width: 100%; height: calc(100vh - var(--top-h)); flex-direction: column; align-items: center; justify-content: center; }
 		#browser-container.active { display: flex; }
 
-		#browser-bar {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			padding: 8px 12px;
-			background: rgba(10,14,20,0.95);
-			border-bottom: 1px solid rgba(255,255,255,.1);
-			flex-shrink: 0;
-		}
-		#browser-back, #browser-forward, #browser-refresh, #browser-home, #browser-newtab {
-			width: 30px; height: 30px;
-			border-radius: 6px;
-			border: none;
-			background: rgba(255,255,255,.08);
+		#under-construction {
+			text-align: center;
 			color: rgba(255,255,255,.7);
-			font-size: 15px;
-			cursor: pointer;
-			display: flex; align-items: center; justify-content: center;
-			transition: background .2s;
-			flex-shrink: 0;
 		}
-		#browser-back:hover, #browser-forward:hover, #browser-refresh:hover, #browser-home:hover, #browser-newtab:hover { background: rgba(255,255,255,.18); color: #fff; }
-		#browser-url {
-			flex: 1;
-			background: rgba(255,255,255,.08);
-			border: 1px solid rgba(255,255,255,.14);
-			border-radius: 20px;
-			color: rgba(255,255,255,.9);
-			padding: 7px 16px;
+		#under-construction .uc-icon {
+			font-size: 3.2rem;
+			margin-bottom: 14px;
+		}
+		#under-construction h2 {
+			font-size: 1.3rem;
+			font-weight: 800;
+			margin-bottom: 8px;
+			background: var(--metal);
+			background-size: 200% auto;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			animation: metalShift 6s linear infinite;
+		}
+		#under-construction p {
 			font-size: 13px;
-			outline: none;
-			transition: border-color .2s, background .2s;
+			color: rgba(255,255,255,.4);
 		}
-		#browser-url:focus { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.13); }
-		#browser-go {
-			padding: 7px 16px;
-			border: none;
-			border-radius: 20px;
-			background: var(--metal-flat);
-			color: #10131a;
-			font-size: 13px;
-			font-weight: 700;
-			cursor: pointer;
-			transition: filter .2s;
-			flex-shrink: 0;
-		}
-		#browser-go:hover { filter: brightness(1.05); }
-
-		#browser-note {
-			font-size: 11px;
-			color: rgba(255,255,255,.35);
-			padding: 6px 14px;
-			flex-shrink: 0;
-			background: rgba(10,14,20,0.95);
-			border-bottom: 1px solid rgba(255,255,255,.06);
-		}
-
-		#browser-frame { width: 100%; flex: 1; border: none; background: #fff; }
 
 		@media (max-width: 900px) {
 			#game-list, #popular-list { grid-template-columns: repeat(3, 1fr) !important; }
@@ -764,6 +795,16 @@
 </head>
 
 <body>
+	<div id="loading-screen">
+		<div id="loading-center">
+			<div id="loading-title">Loading games…</div>
+			<div id="loading-percent">0%</div>
+		</div>
+		<div id="loading-bar-track">
+			<div id="loading-walker">🏃</div>
+			<div id="loading-bar-fill"></div>
+		</div>
+	</div>
 	<div id="bg-layer" class="stars"></div>
 	<div id="space-objects"></div>
 	<canvas id="rain-canvas"></canvas>
@@ -798,17 +839,11 @@
 			</div>
 		</div>
 		<div id="browser-container">
-			<div id="browser-bar">
-				<button id="browser-back" title="Back">&#8592;</button>
-				<button id="browser-forward" title="Forward">&#8594;</button>
-				<button id="browser-refresh" title="Refresh">&#8635;</button>
-				<button id="browser-home" title="Home">&#8962;</button>
-				<input id="browser-url" type="text" placeholder="Search DuckDuckGo or type a URL" value="https://duckduckgo.com/" />
-				<button id="browser-go">Go</button>
-				<button id="browser-newtab" title="Open in new tab">&#8599;</button>
+			<div id="under-construction">
+				<div class="uc-icon">🚧</div>
+				<h2>Browser — Under Construction</h2>
+				<p>This tab is being reworked. Check back soon.</p>
 			</div>
-			<div id="browser-note">Search runs on DuckDuckGo since it allows embedding. Some sites (Google, TikTok, Instagram, banks, etc.) block embedding entirely — use "Open in new tab" for those.</div>
-			<iframe id="browser-frame" src="https://duckduckgo.com/" allow="fullscreen *; autoplay *; encrypted-media *"></iframe>
 		</div>
 	</div>
 
@@ -822,10 +857,9 @@
 				<div class="wn-item">New metallic/chrome look for the topbar, buttons, and titles</div>
 				<div class="wn-item">Browser tab now has an "open in new tab" option for sites that block embedding</div>
 			</div>
-			<div class="wn-entry">
-				<div class="wn-version">Previous</div>
-				<div class="wn-item">Updated games etc</div>
-				<div class="wn-item">Purged a bunch of games</div>
+			<div class="wn-entry wn-disclaimer">
+				<div class="wn-version">Disclaimer</div>
+				<p>All of these games are not mine. I do not claim to own them. Credit goes to their respective owners.</p>
 			</div>
 			<button id="whatsnew-close">Close</button>
 		</div>
@@ -1013,7 +1047,7 @@
 	<script>
 		// ═══ CONSTANTS ═══
 		const SK = 'site.';
-		const WHATSNEW_VERSION = 'v19-cleanup';
+		const WHATSNEW_VERSION = 'v20-loading';
 		const DEFAULT_BG = 'stars';
 
 		const POPULAR_GAMES = [
@@ -1477,23 +1511,6 @@
 		}
 
 		// ═══ BROWSER FUNCTIONS ═══
-		function resolveBrowserInput(input) {
-			const trimmed = input.trim();
-			const looksLikeUrl = /^https?:\/\//i.test(trimmed) ||
-				/^[a-z0-9-]+(\.[a-z0-9-]+)+([\/?#].*)?$/i.test(trimmed);
-			if (looksLikeUrl) {
-				return /^https?:\/\//i.test(trimmed) ? trimmed : 'https://' + trimmed;
-			}
-			return 'https://duckduckgo.com/?q=' + encodeURIComponent(trimmed);
-		}
-
-		function navigateBrowser(input) {
-			if (!input) return;
-			const finalUrl = resolveBrowserInput(input);
-			document.getElementById('browser-url').value = finalUrl;
-			document.getElementById('browser-frame').src = finalUrl;
-		}
-
 		function switchTab(tab) {
 			document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 			document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
@@ -1544,35 +1561,6 @@
 			// Tabs
 			document.querySelectorAll('.tab-btn').forEach(btn =>
 				btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
-
-			// Browser
-			document.getElementById('browser-go').addEventListener('click', () => {
-				const v = document.getElementById('browser-url').value.trim();
-				if (v) navigateBrowser(v);
-			});
-			document.getElementById('browser-url').addEventListener('keypress', e => {
-				if (e.key === 'Enter') {
-					const v = e.target.value.trim();
-					if (v) navigateBrowser(v);
-				}
-			});
-			document.getElementById('browser-back').addEventListener('click', () => {
-				try { document.getElementById('browser-frame').contentWindow.history.back(); } catch(e) {}
-			});
-			document.getElementById('browser-forward').addEventListener('click', () => {
-				try { document.getElementById('browser-frame').contentWindow.history.forward(); } catch(e) {}
-			});
-			document.getElementById('browser-refresh').addEventListener('click', () => {
-				const f = document.getElementById('browser-frame');
-				try { f.contentWindow.location.reload(); } catch(e) { f.src = f.src; }
-			});
-			document.getElementById('browser-home').addEventListener('click', () => {
-				navigateBrowser('https://duckduckgo.com/');
-			});
-			document.getElementById('browser-newtab').addEventListener('click', () => {
-				const v = document.getElementById('browser-url').value.trim();
-				if (v) window.open(resolveBrowserInput(v), '_blank');
-			});
 
 			// Modals
 			document.getElementById('info-btn').addEventListener('click', () =>
@@ -1715,7 +1703,43 @@
 				setTimeout(() => document.getElementById('whatsnew-modal').classList.add('on'), 700);
 				localStorage.setItem('site.whatsnew', WHATSNEW_VERSION);
 			}
+
+			runLoadingScreen();
 		});
+
+		// ═══ LOADING SCREEN ═══
+		function runLoadingScreen() {
+			const screen = document.getElementById('loading-screen');
+			const fill = document.getElementById('loading-bar-fill');
+			const walker = document.getElementById('loading-walker');
+			const pct = document.getElementById('loading-percent');
+
+			let progress = 0;
+			let pageLoaded = false;
+
+			function setProgress(p) {
+				progress = Math.min(p, 100);
+				fill.style.width = progress + '%';
+				walker.style.left = progress + '%';
+				pct.textContent = Math.round(progress) + '%';
+			}
+
+			const timer = setInterval(() => {
+				// creep toward 90% while waiting, then let finish() take it to 100
+				const target = pageLoaded ? 100 : 90;
+				const step = (target - progress) * 0.12 + 0.4;
+				setProgress(progress + step);
+				if (progress >= 99.5 && pageLoaded) {
+					clearInterval(timer);
+					setProgress(100);
+					setTimeout(() => screen.classList.add('done'), 350);
+				}
+			}, 60);
+
+			const finish = () => { pageLoaded = true; };
+			if (document.readyState === 'complete') finish();
+			else window.addEventListener('load', finish);
+		}
 	</script>
 </body>
 </html>

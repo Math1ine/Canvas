@@ -47,7 +47,6 @@ function createGameCard(game) {
         </div>
         <div class="card-info">
             <div class="card-name">${game.name}</div>
-            <div class="card-plays">${game.category}</div>
         </div>
     `;
     card.onclick = () => window.location.href = game.file;

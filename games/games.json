@@ -1,0 +1,204 @@
+{
+  "games": [
+    {
+      "name": "Drift Boss",
+      "file": "../Drift-boss.html",
+      "popular": true
+    },
+    {
+      "name": "Age of War",
+      "file": "../Age-of-war.html",
+      "popular": true
+    },
+    {
+      "name": "EaglerCraft",
+      "file": "../EaglerCraft 1.12 [wasm].html",
+      "popular": true
+    },
+    {
+      "name": "Idle Breakout",
+      "file": "../Idle-breakout.html",
+      "popular": false
+    },
+    {
+      "name": "Monkey Mart",
+      "file": "../Monkey-mart.html",
+      "popular": false
+    },
+    {
+      "name": "Basket Random",
+      "file": "../Basket-random.html",
+      "popular": false
+    },
+    {
+      "name": "Poly Track",
+      "file": "../Poly-track.html",
+      "popular": false
+    },
+    {
+      "name": "ChoppyO",
+      "file": "../ChoppyO.html",
+      "popular": false
+    },
+    {
+      "name": "Doge Miner",
+      "file": "../Doge-miner.html",
+      "popular": false
+    },
+    {
+      "name": "Granny Online",
+      "file": "../Granny-online.html",
+      "popular": false
+    },
+    {
+      "name": "Granny 2",
+      "file": "../Granny2.html",
+      "popular": false
+    },
+    {
+      "name": "Granny 3",
+      "file": "../Granny3.html",
+      "popular": false
+    },
+    {
+      "name": "Mr Mine",
+      "file": "../Mr-mine.html",
+      "popular": false
+    },
+    {
+      "name": "Minecraft",
+      "file": "../minecraft.html",
+      "popular": false
+    },
+    {
+      "name": "Melon Playground",
+      "file": "../Melon-playground.html",
+      "popular": false
+    },
+    {
+      "name": "Tall Man Run",
+      "file": "../tall-man-run.html",
+      "popular": false
+    },
+    {
+      "name": "Mine Craft",
+      "file": "../mine-craft.html",
+      "popular": false
+    },
+    {
+      "name": "Miner",
+      "file": "../miner.html",
+      "popular": false
+    },
+    {
+      "name": "Tag",
+      "file": "../tag.html",
+      "popular": false
+    },
+    {
+      "name": "Tiny Fishing",
+      "file": "../Tiny-fishing.html",
+      "popular": false
+    },
+    {
+      "name": "Wordle",
+      "file": "../Wordle.html",
+      "popular": false
+    },
+    {
+      "name": "Geometry Dash",
+      "file": "../Geometry-Dash.html",
+      "popular": false
+    },
+    {
+      "name": "1v1 LOL",
+      "file": "../1v1-lol.html",
+      "popular": false
+    },
+    {
+      "name": "Slope 3",
+      "file": "../Slope-3.html",
+      "popular": false
+    },
+    {
+      "name": "Tunnel Rush",
+      "file": "../Tunnel-rush.html",
+      "popular": false
+    },
+    {
+      "name": "Drive Mad",
+      "file": "../Drive-mad.html",
+      "popular": false
+    },
+    {
+      "name": "Eggy Car",
+      "file": "../Eggy-car.html",
+      "popular": false
+    },
+    {
+      "name": "Crossy Road",
+      "file": "../Crossy.html",
+      "popular": false
+    },
+    {
+      "name": "Duck Life 4",
+      "file": "../Duck-life-4.html",
+      "popular": false
+    },
+    {
+      "name": "Duck Life 5",
+      "file": "../Duck-life-5.html",
+      "popular": false
+    },
+    {
+      "name": "Happy Wheels",
+      "file": "../Happy-wheels.html",
+      "popular": false
+    },
+    {
+      "name": "Plants vs Zombies",
+      "file": "../Plants-vs-zombies.html",
+      "popular": false
+    },
+    {
+      "name": "Retro Bowl",
+      "file": "../Retro-bowl.html",
+      "popular": false
+    },
+    {
+      "name": "QWOP",
+      "file": "../QWOP.html",
+      "popular": false
+    },
+    {
+      "name": "Sugar Sugar",
+      "file": "../Sugar-sugar.html",
+      "popular": false
+    },
+    {
+      "name": "Worlds Hardest Game",
+      "file": "../Worlds-hardest-game.html",
+      "popular": false
+    },
+    {
+      "name": "Infinite Craft",
+      "file": "../Infinte-craft.html",
+      "popular": false
+    },
+    {
+      "name": "Time Shooter",
+      "file": "../Time-shooter.html",
+      "popular": false
+    },
+    {
+      "name": "Hole IO",
+      "file": "../Hole-io.html",
+      "popular": false
+    },
+    {
+      "name": "Draw Climber",
+      "file": "../Draw-climber.html",
+      "popular": false
+    }
+  ]
+}

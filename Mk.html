@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ships 3D</title>
+    <title>Game</title>
     <style>
         body, html {
             margin: 0;
@@ -11,7 +11,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #000;
+            background: #000;
         }
         iframe {
             position: fixed;
@@ -20,37 +20,78 @@
             width: 100vw;
             height: 100vh;
             border: none;
-            margin: 0;
-            padding: 0;
             z-index: 2147483647;
+        }
+        #error {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            z-index: 2147483648;
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div id="error">
+        <h1>Connection Failed</h1>
+        <p>Your school is blocking all proxies.</p>
+        <p>Try clicking here to reload with a different method.</p>
+    </div>
+
     <!-- 
-      Note: We use a proxy to hide the URL from simple blockers like Securly.
-      If one proxy stops working, swap it for the other one in the comments.
+      METHOD 1: CLOUDFLARE WORKER (Fastest)
+      If this fails, we try Method 2.
     -->
     <iframe 
-        id="gameFrame" 
-        src="https://api.codetabs.com/v1/proxy?quest=https://www.coolmathgames.com/0-ships"
+        id="gameFrame"
+        src="https://workers.cloudflare.com/https://www.coolmathgames.com/0-ships"
         allowfullscreen 
-        allow="autoplay; encrypted-media; fullscreen; microphone">
-    </iframe>
+        allow="autoplay; encrypted-media; fullscreen; microphone; gamepad; clipboard-write; pointer-lock"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"
+    ></iframe>
 
     <script>
-        // Optional: Try to force fullscreen if the browser allows it
+        const iframe = document.getElementById('gameFrame');
+        const errorDiv = document.getElementById('error');
+        let loaded = false;
+
+        // Check if the iframe loaded successfully
+        iframe.onload = () => {
+            loaded = true;
+            document.documentElement.requestFullscreen().catch(e => {});
+        };
+
+        // If it doesn't load after 3 seconds, switch to Method 2
+        setTimeout(() => {
+            if (!loaded) {
+                iframe.src = "https://api.allorigins.win/raw?url=https://www.coolmathgames.com/0-ships";
+            }
+        }, 3000);
+
+        // If both fail, show error
+        iframe.onerror = () => {
+            errorDiv.style.display = 'block';
+        };
+
+        // Force Fullscreen
         document.addEventListener('DOMContentLoaded', () => {
-            const iframe = document.getElementById('gameFrame');
-            // Click anywhere to try and trigger fullscreen (helps bypass some UI overlays)
-            document.body.addEventListener('click', () => {
-                if (document.fullscreenElement) {
-                    document.exitFullscreen();
-                } else if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                }
-            }, { once: true });
+            setTimeout(() => {
+                try {
+                    document.documentElement.requestFullscreen().catch(e => {});
+                } catch(e) {}
+            }, 1000);
+        });
+
+        // Click to fullscreen
+        document.body.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(e => {});
+            }
         });
     </script>
 </body>
-</html>
+</html> 

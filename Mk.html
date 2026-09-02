@@ -1,10 +1,56 @@
-<!-- UNBLOCKED GAME CONTAINER (Cloudflare Wrapper) -->
-<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2147483647; background: #000;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ships 3D</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            margin: 0;
+            padding: 0;
+            z-index: 2147483647;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+      Note: We use a proxy to hide the URL from simple blockers like Securly.
+      If one proxy stops working, swap it for the other one in the comments.
+    -->
     <iframe 
-        id="gameIframe"
-        src="https://workers.cloudflare.com/?u=https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiA_bTo6M6WAxXPGTQIHTleJEoQFnoECB0QAQ&url=https%3A%2F%2Fyp3d.com%2Fships3d%2F&usg=AOvVaw1Cf5M5m48ID0b-y1YTbwLB&opi=89978449" 
-        style="width: 100%; height: 100%; border: none;" 
-        frameborder="0" 
-        allowfullscreen>
+        id="gameFrame" 
+        src="https://api.codetabs.com/v1/proxy?quest=https://www.coolmathgames.com/0-ships"
+        allowfullscreen 
+        allow="autoplay; encrypted-media; fullscreen; microphone">
     </iframe>
-</div>
+
+    <script>
+        // Optional: Try to force fullscreen if the browser allows it
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframe = document.getElementById('gameFrame');
+            // Click anywhere to try and trigger fullscreen (helps bypass some UI overlays)
+            document.body.addEventListener('click', () => {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                }
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>

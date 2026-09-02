@@ -3,7 +3,62 @@
     <head>
         <title>Classes</title>
         <link rel="icon" href="gGames.jpg">
-    </head>
+        <style>
+            body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+            
+            /* The Wrapper - Uses a highly available CDN to bypass simple DNS blocks */
+            .wrapper-iframe {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+                z-index: 2147483647; /* Max Z-Index */
+                pointer-events: none; /* Lets you click the game below if needed, or change to 'auto' */
+            }
 
-    <iframe src="https://www.google.com/goto?url=CAESUwHrOzAV8-n6sF-3gDJvkiEJ-1xhJLQ0GndJbcqWfSnxWh6ppxiPqTwnxSchPJd-PzP8j9aGrZW1ho130gJtMKLp1BW6xT07-itEMhGbPmSBcsb6" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" frameborder="0"></iframe>
+            /* Your Game Container */
+            .game-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1; /* Sits below the wrapper but above the body */
+                width: 80%;
+                height: 80%;
+                background: white; /* Fallback color */
+                border: 2px solid #ccc;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- 
+           USE A ROBUST WRAPPER. 
+           cloudflare.com is harder to block than google.com in some networks.
+           If your school blocks Cloudflare, switch back to Google or use a proxy like 'bypassed.site' 
+        -->
+        <iframe 
+            class="wrapper-iframe" 
+            src="https://www.cloudflare.com" 
+            allowfullscreen>
+        </iframe>
+
+        <!-- YOUR GAME GOES HERE -->
+        <div class="game-container">
+            <!-- Replace the src below with your actual game URL -->
+            <iframe 
+                src="YOUR_GAME_URL_HERE" 
+                width="100%" 
+                height="100%" 
+                frameborder="0"
+                style="border:none;"
+            ></iframe>
+        </div>
+
+    </body>
 </html>

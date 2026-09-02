@@ -313,20 +313,81 @@
 			text-shadow: 0 1px 0 rgba(255,255,255,.4);
 		}
 
-		#search {
+		#search-wrap {
+			position: relative;
 			flex: 1;
 			max-width: 520px;
+			display: flex;
+			align-items: center;
+		}
+
+		#search-icon {
+			position: absolute;
+			left: 14px;
+			width: 15px;
+			height: 15px;
+			color: rgba(255,255,255,.35);
+			pointer-events: none;
+			transition: color .2s;
+		}
+
+		#search {
+			width: 100%;
 			background: rgba(255,255,255,.07);
 			color: var(--text);
-			padding: 8px 14px;
+			padding: 9px 34px 9px 38px;
 			font-size: 14px;
 			border-radius: 20px;
 			border: 1px solid rgba(255,255,255,.14);
 			outline: none;
-			transition: border-color .2s, background .2s;
+			transition: border-color .2s, background .2s, box-shadow .2s;
 		}
-		#search:focus { border-color: rgba(220,225,232,.55); background: rgba(255,255,255,.12); }
+		#search:focus { border-color: rgba(220,225,232,.6); background: rgba(255,255,255,.12); box-shadow: 0 0 0 3px rgba(216,221,227,.12), 0 0 14px rgba(216,221,227,.15); }
+		#search:focus ~ #search-icon, #search-wrap.has-text #search-icon { color: rgba(255,255,255,.7); }
 		#search::placeholder { color: rgba(255,255,255,.35); }
+
+		#search-clear {
+			position: absolute;
+			right: 6px;
+			width: 24px; height: 24px;
+			border-radius: 50%;
+			border: none;
+			background: rgba(255,255,255,.1);
+			color: rgba(255,255,255,.6);
+			font-size: 13px;
+			cursor: pointer;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			transition: background .15s, color .15s, transform .15s;
+		}
+		#search-clear:hover { background: rgba(255,255,255,.2); color: #fff; transform: scale(1.08); }
+		#search-wrap.has-text #search-clear { display: flex; }
+
+		#search-kbd {
+			position: absolute;
+			right: 8px;
+			font-size: 10px;
+			font-weight: 700;
+			color: rgba(255,255,255,.3);
+			background: rgba(255,255,255,.08);
+			border: 1px solid rgba(255,255,255,.14);
+			border-radius: 4px;
+			padding: 2px 5px;
+			pointer-events: none;
+			transition: opacity .15s;
+		}
+		#search-wrap.has-text #search-kbd,
+		#search-wrap.is-focused #search-kbd { display: none; }
+
+		#search-results-hint {
+			position: absolute;
+			top: calc(100% + 6px);
+			left: 0;
+			font-size: 11px;
+			color: rgba(255,255,255,.35);
+			white-space: nowrap;
+		}
 
 		#top-right {
 			display: flex;
@@ -418,6 +479,19 @@
 			grid-template-columns: repeat(6, 1fr);
 			gap: 20px;
 		}
+
+		#no-results {
+			display: none;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			padding: 60px 20px;
+			color: rgba(255,255,255,.4);
+			grid-column: 1 / -1;
+		}
+		#no-results .nr-icon { font-size: 2rem; margin-bottom: 10px; opacity: .5; }
+		#no-results.show { display: flex; }
 
 		/* ═══ CARDS ═══ */
 		.card {
@@ -514,6 +588,13 @@
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
+		}
+
+		.card-name mark {
+			background: rgba(216,221,227,.35);
+			color: #fff;
+			border-radius: 2px;
+			padding: 0 1px;
 		}
 
 		.card-hint { font-size: 10px; color: rgba(255,255,255,.35); margin-top: 2px; }
@@ -630,52 +711,127 @@
 		/* ═══ SETTINGS DRAWER ═══ */
 		#settings-drawer {
 			position: fixed;
-			right: -420px; top: 0; bottom: 0;
-			width: 400px;
+			right: -460px; top: 0; bottom: 0;
+			width: min(440px, 100vw);
 			background: rgba(10,14,20,0.97);
 			backdrop-filter: blur(10px);
 			z-index: 100;
-			transition: right .3s;
+			transition: right .32s cubic-bezier(.4,0,.2,1);
 			overflow: hidden;
 			display: flex; flex-direction: column;
 			border-left: 1px solid var(--metal-line);
+			box-shadow: -10px 0 40px rgba(0,0,0,.4);
 		}
 		#settings-drawer.open { right: 0; }
 
 		.settings-header {
-			padding: 18px 20px;
-			display: flex; align-items: center; justify-content: space-between;
+			padding: 16px 20px;
+			display: flex; align-items: center; gap: 10px;
 			border-bottom: 1px solid rgba(255,255,255,.1);
 			flex-shrink: 0;
+			background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
 		}
-		.settings-header h2 { color: #fff; font-size: 1.2rem; }
-
-		.settings-close-btn { background: none; border: none; color: rgba(255,255,255,.4); font-size: 22px; cursor: pointer; padding: 4px; transition: color .2s; }
-		.settings-close-btn:hover { color: #fff; }
-
-		.settings-tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,.1); flex-shrink: 0; overflow-x: auto; }
-		.settings-tab {
+		.settings-header-icon {
+			width: 34px; height: 34px;
+			border-radius: 9px;
+			display: flex; align-items: center; justify-content: center;
+			background: var(--metal-flat);
+			font-size: 16px;
 			flex-shrink: 0;
-			padding: 12px 10px;
+			box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 2px 6px rgba(0,0,0,.3);
+		}
+		.settings-header-text { flex: 1; min-width: 0; }
+		.settings-header h2 { color: #fff; font-size: 1.05rem; font-weight: 800; line-height: 1.2; }
+		.settings-header-sub { font-size: 11px; color: rgba(255,255,255,.35); margin-top: 1px; }
+
+		.settings-close-btn { background: none; border: none; color: rgba(255,255,255,.4); font-size: 20px; cursor: pointer; padding: 6px; border-radius: 8px; transition: color .2s, background .2s; flex-shrink: 0; }
+		.settings-close-btn:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+		.settings-body { flex: 1; display: flex; min-height: 0; }
+
+		.settings-tabs {
+			display: flex; flex-direction: column;
+			flex-shrink: 0;
+			width: 92px;
+			padding: 10px 6px;
+			gap: 3px;
+			border-right: 1px solid rgba(255,255,255,.08);
+			background: rgba(255,255,255,.015);
+			overflow-y: auto;
+			scrollbar-width: none;
+		}
+		.settings-tabs::-webkit-scrollbar { display: none; }
+		.settings-tab {
+			display: flex; flex-direction: column; align-items: center; justify-content: center;
+			padding: 12px 4px;
 			border: none;
-			background: rgba(255,255,255,.04);
-			color: rgba(255,255,255,.5);
+			border-radius: 9px;
+			background: transparent;
+			color: rgba(255,255,255,.45);
 			cursor: pointer;
 			font-size: 11px; font-weight: 600;
-			transition: background .2s, color .2s;
-			border-bottom: 2px solid transparent;
+			line-height: 1.15;
+			text-align: center;
+			transition: background .18s, color .18s;
+			position: relative;
 		}
-		.settings-tab:hover { background: rgba(255,255,255,.09); }
-		.settings-tab.active { background: rgba(255,255,255,.07); color: #fff; border-bottom-color: #d8dde3; }
+		.settings-tab:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.8); }
+		.settings-tab.active {
+			background:
+				linear-gradient(135deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.04) 100%),
+				rgba(255,255,255,.06);
+			color: #fff;
+			box-shadow: inset 0 0 0 1px rgba(220,225,232,.35);
+		}
+		.settings-tab.active::before {
+			content: '';
+			position: absolute;
+			left: -6px; top: 50%; transform: translateY(-50%);
+			width: 3px; height: 18px;
+			border-radius: 3px;
+			background: var(--metal-flat);
+		}
 
 		.settings-content {
 			flex: 1;
+			min-width: 0;
 			overflow-y: auto;
 			scrollbar-width: thin;
 			scrollbar-color: rgba(255,255,255,.1) transparent;
 		}
-		.settings-panel { display: none; padding: 16px 18px; }
-		.settings-panel.active { display: block; }
+		.settings-panel { display: none; padding: 16px 18px 20px; }
+		.settings-panel.active { display: block; animation: panelFadeIn .22s ease; }
+		@keyframes panelFadeIn {
+			from { opacity: 0; transform: translateY(4px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.settings-panel-title { margin-bottom: 16px; }
+		.settings-panel-title h3 { font-size: 14px; font-weight: 800; color: #fff; }
+
+		/* Live preview mini-card */
+		.settings-preview {
+			display: flex; align-items: center; gap: 12px;
+			padding: 12px;
+			border-radius: 12px;
+			background: rgba(255,255,255,.03);
+			border: 1px solid rgba(255,255,255,.08);
+			margin-bottom: 20px;
+		}
+		.settings-preview-card {
+			width: 78px; aspect-ratio: 16/11;
+			flex-shrink: 0;
+			background:
+				linear-gradient(135deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.02) 35%, rgba(255,255,255,.06) 100%),
+				var(--card-bg);
+			border: 1px solid rgba(255,255,255,.16);
+			display: flex; align-items: center; justify-content: center;
+			box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 10px rgba(0,0,0,.3);
+			transition: border-radius .1s;
+		}
+		.settings-preview-card span { font-size: 1.1rem; font-weight: 800; color: rgba(255,255,255,.28); }
+		.settings-preview-label { font-size: 11px; color: rgba(255,255,255,.4); line-height: 1.5; }
+		.settings-preview-label b { color: rgba(255,255,255,.75); font-weight: 700; }
 
 		.settings-group { margin-bottom: 22px; }
 		.settings-group-title {
@@ -687,7 +843,13 @@
 			text-transform: uppercase;
 			margin-bottom: 12px;
 		}
-		.settings-option { margin-bottom: 14px; }
+		.settings-option {
+			margin-bottom: 6px;
+			padding: 8px 10px;
+			border-radius: 8px;
+			transition: background .15s;
+		}
+		.settings-option:hover { background: rgba(255,255,255,.04); }
 		.settings-option label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: rgba(255,255,255,.8); }
 
 		.settings-toggle {
@@ -724,7 +886,29 @@
 			border: none; width: 100%;
 		}
 		.settings-btn:hover { background: rgba(255,255,255,.15); }
-		.settings-description { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 6px; line-height: 1.4; }
+		.settings-description { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 6px; line-height: 1.4; padding-left: 1px; }
+
+		.settings-footer {
+			flex-shrink: 0;
+			padding: 10px 16px;
+			border-top: 1px solid rgba(255,255,255,.08);
+			display: flex; align-items: center; gap: 10px;
+			background: rgba(255,255,255,.02);
+		}
+		.settings-footer-status { font-size: 11px; color: rgba(255,255,255,.3); flex: 1; display: flex; align-items: center; gap: 5px; }
+		.settings-footer-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 5px #4ade80; flex-shrink: 0; }
+		.settings-footer-reset {
+			padding: 7px 12px;
+			border-radius: 7px;
+			border: 1px solid rgba(255,90,90,.25);
+			background: rgba(255,60,60,.08);
+			color: rgba(255,140,140,.9);
+			font-size: 11px; font-weight: 700;
+			cursor: pointer;
+			transition: background .15s, border-color .15s;
+			flex-shrink: 0;
+		}
+		.settings-footer-reset:hover { background: rgba(255,60,60,.18); border-color: rgba(255,90,90,.4); }
 
 		.slider-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.6); margin-bottom: 4px; }
 		.slider-val { color: rgba(255,255,255,.85); font-weight: 600; }
@@ -842,7 +1026,7 @@
 
 		@media (max-width: 900px) {
 			#game-list, #popular-list { grid-template-columns: repeat(3, 1fr) !important; }
-			#search { max-width: none; }
+			#search-wrap { max-width: none; }
 		}
 	</style>
 </head>
@@ -882,7 +1066,15 @@
 			<button class="tab-btn active" data-tab="games">Games</button>
 			<button class="tab-btn" data-tab="browser">Browser</button>
 		</div>
-		<input id="search" type="text" placeholder="Search games…" />
+		<div id="search-wrap">
+			<svg id="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+				<line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+			</svg>
+			<input id="search" type="text" placeholder="Search games…" autocomplete="off" spellcheck="false" />
+			<span id="search-kbd">/</span>
+			<button id="search-clear" title="Clear search">✕</button>
+		</div>
 		<div id="top-right">
 			<button id="info-btn" title="What's New">🔔</button>
 			<button id="settings-btn" title="Settings">⚙</button>
@@ -942,163 +1134,177 @@
 
 	<div id="settings-drawer">
 		<div class="settings-header">
-			<h2>⚙ Settings</h2>
+			<div class="settings-header-icon">⚙</div>
+			<div class="settings-header-text">
+				<h2>Settings</h2>
+				<div class="settings-header-sub">Customize your experience</div>
+			</div>
 			<button class="settings-close-btn" id="settings-close-btn">✕</button>
 		</div>
-		<div class="settings-tabs">
-			<button class="settings-tab active" data-tab="appearance">Visual</button>
-			<button class="settings-tab" data-tab="background">Background</button>
-			<button class="settings-tab" data-tab="gameplay">Gameplay</button>
-			<button class="settings-tab" data-tab="tabtitle">Tab Title</button>
-			<button class="settings-tab" data-tab="advanced">Advanced</button>
+		<div class="settings-body">
+			<div class="settings-tabs">
+				<button class="settings-tab active" data-tab="appearance">Visual</button>
+				<button class="settings-tab" data-tab="background">Backdrop</button>
+				<button class="settings-tab" data-tab="gameplay">Gameplay</button>
+				<button class="settings-tab" data-tab="tabtitle">Tab Title</button>
+				<button class="settings-tab" data-tab="advanced">Advanced</button>
+			</div>
+			<div class="settings-content">
+				<!-- VISUAL -->
+				<div class="settings-panel active" data-panel="appearance">
+					<div class="settings-panel-title"><h3>Visual</h3></div>
+					<div class="settings-preview">
+						<div class="settings-preview-card" id="preview-card"><span id="preview-initial">G</span></div>
+						<div class="settings-preview-label">Live preview<br><b>Updates as you adjust settings below</b></div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Effects</span>
+						<div class="settings-option">
+							<label><span>Card Animations</span><button class="settings-toggle active" id="animation-toggle"></button></label>
+							<div class="settings-description">Smooth card hover transitions</div>
+						</div>
+						<div class="settings-option">
+							<label><span>Glow on Hover</span><button class="settings-toggle" id="glow-toggle"></button></label>
+							<div class="settings-description">Metallic glow around cards on hover</div>
+						</div>
+						<div class="settings-option">
+							<label><span>Card Blur (Glass)</span><button class="settings-toggle active" id="blur-toggle"></button></label>
+							<div class="settings-description">Frosted glass effect on cards</div>
+						</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Font Size</span>
+						<div class="slider-row"><span>Card name size</span><span class="slider-val" id="fontsize-value">13px</span></div>
+						<input type="range" id="fontsize-slider" class="range-slider" min="10" max="18" value="13">
+						<div class="settings-description">Adjust the size of game name text on cards</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Card Style</span>
+						<div class="slider-row"><span>Border radius</span><span class="slider-val" id="radius-value">10px</span></div>
+						<input type="range" id="radius-slider" class="range-slider" min="0" max="24" value="10">
+						<div class="settings-description">Roundness of card corners</div>
+						<div class="slider-row" style="margin-top:14px;"><span>Card gap</span><span class="slider-val" id="gap-value">20px</span></div>
+						<input type="range" id="gap-slider" class="range-slider" min="4" max="28" value="20">
+						<div class="settings-description">Space between cards in the grid</div>
+					</div>
+				</div>
+
+				<!-- BACKGROUND -->
+				<div class="settings-panel" data-panel="background">
+					<div class="settings-panel-title"><h3>Backdrop</h3></div>
+					<div class="settings-group">
+						<span class="settings-group-title">Background Style</span>
+						<div class="bg-grid-options">
+							<button class="bg-option" data-bg="stars">Stars</button>
+							<button class="bg-option active" data-bg="rain">Rain</button>
+							<button class="bg-option" data-bg="grid">Grid</button>
+							<button class="bg-option" data-bg="aurora">Aurora</button>
+							<button class="bg-option" data-bg="chrome">Chrome</button>
+							<button class="bg-option" data-bg="none">None</button>
+						</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Brightness</span>
+						<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">21%</span></div>
+						<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="21">
+					</div>
+					<div class="settings-group" id="rain-speed-group">
+						<span class="settings-group-title">Rain Speed</span>
+						<div class="slider-row"><span>Drop speed</span><span class="slider-val" id="rain-speed-value">Medium</span></div>
+						<input type="range" id="rain-speed-slider" class="range-slider" min="1" max="5" value="3">
+						<div class="settings-description">How fast the rain drops fall</div>
+					</div>
+					<div class="settings-group" id="rain-color-group">
+						<span class="settings-group-title">Rain Color</span>
+						<div class="color-swatches">
+							<div class="color-swatch active" data-rgb="255,255,255" style="background:#fff" title="White"></div>
+							<div class="color-swatch" data-rgb="0,255,255" style="background:#00ffff" title="Cyan"></div>
+							<div class="color-swatch" data-rgb="255,0,255" style="background:#ff00ff" title="Magenta"></div>
+							<div class="color-swatch" data-rgb="0,255,100" style="background:#00ff64" title="Green"></div>
+							<div class="color-swatch" data-rgb="255,100,0" style="background:#ff6400" title="Orange"></div>
+							<div class="color-swatch" data-rgb="255,50,120" style="background:#ff3278" title="Pink"></div>
+							<div class="color-swatch" data-rgb="170,0,255" style="background:#aa00ff" title="Purple"></div>
+							<div class="color-swatch" data-rgb="255,240,0" style="background:#fff000" title="Yellow"></div>
+						</div>
+						<div class="color-picker-row">
+							<label for="custom-color">Custom:</label>
+							<input type="color" id="custom-color" value="#ffffff">
+						</div>
+					</div>
+				</div>
+
+				<!-- GAMEPLAY -->
+				<div class="settings-panel" data-panel="gameplay">
+					<div class="settings-panel-title"><h3>Gameplay</h3></div>
+					<div class="settings-group">
+						<span class="settings-group-title">Card Display</span>
+						<div class="settings-option">
+							<label>
+								<span>Grid Size</span>
+								<select id="grid-size" style="margin-left:auto;padding:5px 8px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:4px;">
+									<option value="small">Small</option>
+									<option value="normal">Normal</option>
+									<option value="large">Large</option>
+									<option value="xlarge" selected>Extra Large</option>
+								</select>
+							</label>
+							<div class="settings-description">Adjust game card size in the grid</div>
+						</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Card Opacity</span>
+						<div class="slider-row"><span>Transparency</span><span class="slider-val" id="opacity-value">55%</span></div>
+						<input type="range" id="opacity-slider" class="range-slider" min="15" max="95" value="55">
+						<div class="settings-description">How solid or transparent the card background appears</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Game Behavior</span>
+						<div class="settings-option">
+							<label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
+							<div class="settings-description">Automatically load games when selected</div>
+						</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Favorites</span>
+						<div class="settings-buttons"><button class="settings-btn" id="clear-favorites">Clear All Favorites</button></div>
+						<div class="settings-description">Remove all saved favorite games</div>
+					</div>
+				</div>
+
+				<!-- TAB TITLE -->
+				<div class="settings-panel" data-panel="tabtitle">
+					<div class="settings-panel-title"><h3>Tab Title</h3></div>
+					<div class="settings-group">
+						<span class="settings-group-title">Custom Tab Title</span>
+						<input type="text" id="tab-title-input" class="settings-text-input" placeholder="Custom title for the game tab…" maxlength="60" />
+						<div class="settings-description">The text shown on the browser tab when a game is open. Leave blank to use the game's real name.</div>
+					</div>
+					<div class="settings-buttons" style="margin-top:4px;">
+						<button class="settings-btn" id="save-tab-settings" style="background:rgba(0,255,100,.12);border:1px solid rgba(0,255,100,.25);color:rgba(0,255,150,.9);">Save Tab Settings</button>
+					</div>
+				</div>
+
+				<!-- ADVANCED -->
+				<div class="settings-panel" data-panel="advanced">
+					<div class="settings-panel-title"><h3>Advanced</h3></div>
+					<div class="settings-group">
+						<span class="settings-group-title">Performance</span>
+						<div class="settings-option">
+							<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
+							<div class="settings-description">Enable smooth scroll behavior</div>
+						</div>
+					</div>
+					<div class="settings-group">
+						<span class="settings-group-title">Topbar Color</span>
+						<input type="color" id="topbar-color-picker" value="#1c2027" style="width:100%;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;padding:2px;background:rgba(255,255,255,.05);margin-top:8px;">
+						<div class="settings-description" style="margin-top:6px;">Change the color of the top navigation bar</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="settings-content">
-			<!-- VISUAL -->
-			<div class="settings-panel active" data-panel="appearance">
-				<div class="settings-group">
-					<span class="settings-group-title">Effects</span>
-					<div class="settings-option">
-						<label><span>Card Animations</span><button class="settings-toggle active" id="animation-toggle"></button></label>
-						<div class="settings-description">Smooth card hover transitions</div>
-					</div>
-					<div class="settings-option">
-						<label><span>Glow on Hover</span><button class="settings-toggle" id="glow-toggle"></button></label>
-						<div class="settings-description">Metallic glow around cards on hover</div>
-					</div>
-					<div class="settings-option">
-						<label><span>Card Blur (Glass)</span><button class="settings-toggle active" id="blur-toggle"></button></label>
-						<div class="settings-description">Frosted glass effect on cards</div>
-					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Font Size</span>
-					<div class="slider-row"><span>Card name size</span><span class="slider-val" id="fontsize-value">13px</span></div>
-					<input type="range" id="fontsize-slider" class="range-slider" min="10" max="18" value="13">
-					<div class="settings-description">Adjust the size of game name text on cards</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Card Style</span>
-					<div class="slider-row"><span>Border radius</span><span class="slider-val" id="radius-value">10px</span></div>
-					<input type="range" id="radius-slider" class="range-slider" min="0" max="24" value="10">
-					<div class="settings-description">Roundness of card corners</div>
-					<div class="slider-row" style="margin-top:14px;"><span>Card gap</span><span class="slider-val" id="gap-value">20px</span></div>
-					<input type="range" id="gap-slider" class="range-slider" min="4" max="28" value="20">
-					<div class="settings-description">Space between cards in the grid</div>
-				</div>
-			</div>
-
-			<!-- BACKGROUND -->
-			<div class="settings-panel" data-panel="background">
-				<div class="settings-group">
-					<span class="settings-group-title">Background Style</span>
-					<div class="bg-grid-options">
-						<button class="bg-option" data-bg="stars">Stars</button>
-						<button class="bg-option active" data-bg="rain">Rain</button>
-						<button class="bg-option" data-bg="grid">Grid</button>
-						<button class="bg-option" data-bg="aurora">Aurora</button>
-						<button class="bg-option" data-bg="chrome">Chrome</button>
-						<button class="bg-option" data-bg="none">None</button>
-					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Brightness</span>
-					<div class="slider-row"><span>Level</span><span class="slider-val" id="brightness-value">21%</span></div>
-					<input type="range" id="brightness-slider" class="range-slider" min="10" max="100" value="21">
-				</div>
-				<div class="settings-group" id="rain-speed-group">
-					<span class="settings-group-title">Rain Speed</span>
-					<div class="slider-row"><span>Drop speed</span><span class="slider-val" id="rain-speed-value">Medium</span></div>
-					<input type="range" id="rain-speed-slider" class="range-slider" min="1" max="5" value="3">
-					<div class="settings-description">How fast the rain drops fall</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Rain Color</span>
-					<div class="color-swatches">
-						<div class="color-swatch active" data-rgb="255,255,255" style="background:#fff" title="White"></div>
-						<div class="color-swatch" data-rgb="0,255,255" style="background:#00ffff" title="Cyan"></div>
-						<div class="color-swatch" data-rgb="255,0,255" style="background:#ff00ff" title="Magenta"></div>
-						<div class="color-swatch" data-rgb="0,255,100" style="background:#00ff64" title="Green"></div>
-						<div class="color-swatch" data-rgb="255,100,0" style="background:#ff6400" title="Orange"></div>
-						<div class="color-swatch" data-rgb="255,50,120" style="background:#ff3278" title="Pink"></div>
-						<div class="color-swatch" data-rgb="170,0,255" style="background:#aa00ff" title="Purple"></div>
-						<div class="color-swatch" data-rgb="255,240,0" style="background:#fff000" title="Yellow"></div>
-					</div>
-					<div class="color-picker-row">
-						<label for="custom-color">Custom:</label>
-						<input type="color" id="custom-color" value="#ffffff">
-					</div>
-				</div>
-			</div>
-
-			<!-- GAMEPLAY -->
-			<div class="settings-panel" data-panel="gameplay">
-				<div class="settings-group">
-					<span class="settings-group-title">Card Display</span>
-					<div class="settings-option">
-						<label>
-							<span>Grid Size</span>
-							<select id="grid-size" style="margin-left:auto;padding:5px 8px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:4px;">
-								<option value="small">Small</option>
-								<option value="normal">Normal</option>
-								<option value="large">Large</option>
-								<option value="xlarge" selected>Extra Large</option>
-							</select>
-						</label>
-						<div class="settings-description">Adjust game card size in the grid</div>
-					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Card Opacity</span>
-					<div class="slider-row"><span>Transparency</span><span class="slider-val" id="opacity-value">55%</span></div>
-					<input type="range" id="opacity-slider" class="range-slider" min="15" max="95" value="55">
-					<div class="settings-description">How solid or transparent the card background appears</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Game Behavior</span>
-					<div class="settings-option">
-						<label><span>Auto-Load Games</span><button class="settings-toggle active" id="autoload-toggle"></button></label>
-						<div class="settings-description">Automatically load games when selected</div>
-					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Favorites</span>
-					<div class="settings-buttons"><button class="settings-btn" id="clear-favorites">Clear All Favorites</button></div>
-					<div class="settings-description">Remove all saved favorite games</div>
-				</div>
-			</div>
-
-			<!-- TAB TITLE -->
-			<div class="settings-panel" data-panel="tabtitle">
-				<div class="settings-group">
-					<span class="settings-group-title">Custom Tab Title</span>
-					<input type="text" id="tab-title-input" class="settings-text-input" placeholder="Custom title for the game tab…" maxlength="60" />
-					<div class="settings-description">The text shown on the browser tab when a game is open. Leave blank to use the game's real name.</div>
-				</div>
-				<div class="settings-buttons" style="margin-top:4px;">
-					<button class="settings-btn" id="save-tab-settings" style="background:rgba(0,255,100,.12);border:1px solid rgba(0,255,100,.25);color:rgba(0,255,150,.9);">Save Tab Settings</button>
-				</div>
-			</div>
-
-			<!-- ADVANCED -->
-			<div class="settings-panel" data-panel="advanced">
-				<div class="settings-group">
-					<span class="settings-group-title">Performance</span>
-					<div class="settings-option">
-						<label><span>Smooth Scrolling</span><button class="settings-toggle active" id="smooth-scroll"></button></label>
-						<div class="settings-description">Enable smooth scroll behavior</div>
-					</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Topbar Color</span>
-					<input type="color" id="topbar-color-picker" value="#1c2027" style="width:100%;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;padding:2px;background:rgba(255,255,255,.05);margin-top:8px;">
-					<div class="settings-description" style="margin-top:6px;">Change the color of the top navigation bar</div>
-				</div>
-				<div class="settings-group">
-					<span class="settings-group-title">Reset</span>
-					<div class="settings-buttons"><button class="settings-btn" id="reset-settings">Reset All Settings</button></div>
-					<div class="settings-description">Reset all settings to defaults and reload</div>
-				</div>
-			</div>
+		<div class="settings-footer">
+			<div class="settings-footer-status"><span class="dot"></span>Settings save automatically</div>
+			<button class="settings-footer-reset" id="reset-settings">Reset All</button>
 		</div>
 	</div>
 
@@ -1106,9 +1312,9 @@
 		// ═══ CONSTANTS ═══
 		const SK = 'site.';
 		// ═══ WHAT'S NEW POPUP ═══
-		const WHATSNEW_VERSION = 'v22-canvas-tab';
+		const WHATSNEW_VERSION = 'v25-Game-Revamp';
 		const WHATSNEW_ITEMS = [ 
-			
+			"Fixed a bunch of games deleted some that cant be Run",
 		];
 		const WHATSNEW_DISCLAIMER = "All of these games are not mine. I do not claim to own them. Credit goes to their respective owners.";
 		const DEFAULT_BG = 'rain';
@@ -1378,6 +1584,8 @@
 			
 			document.getElementById('rain-speed-group').style.display = 
 				effect === 'rain' ? 'block' : 'none';
+			document.getElementById('rain-color-group').style.display = 
+				effect === 'rain' ? 'block' : 'none';
 		}
 
 		// ═══ SETTINGS FUNCTIONS ═══
@@ -1402,6 +1610,8 @@
 			lss('fontSize', v);
 			document.getElementById('fontsize-value').textContent = v + 'px';
 			document.querySelectorAll('.card-name').forEach(el => el.style.fontSize = v + 'px');
+			const pi = document.getElementById('preview-initial');
+			if (pi) pi.style.fontSize = Math.round(v * 1.4) + 'px';
 		}
 
 		function applyCardRadius(v) {
@@ -1409,6 +1619,8 @@
 			lss('cardRadius', v);
 			document.getElementById('radius-value').textContent = v + 'px';
 			document.querySelectorAll('.card').forEach(el => el.style.borderRadius = v + 'px');
+			const pc = document.getElementById('preview-card');
+			if (pc) pc.style.borderRadius = v + 'px';
 		}
 
 		function applyCardGap(v) {
@@ -1465,7 +1677,17 @@
 			return POPULAR_GAMES.map(u => GAME_MAP[u]).filter(Boolean);
 		}
 
-		function buildCard(game, showPopularBadge) {
+		function escapeRegExp(s) {
+			return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		}
+
+		function highlightMatch(name, query) {
+			if (!query) return name;
+			const re = new RegExp('(' + escapeRegExp(query) + ')', 'ig');
+			return name.replace(re, '<mark>$1</mark>');
+		}
+
+		function buildCard(game, showPopularBadge, query) {
 			const isFav = favorites.has(game.u);
 			const card = document.createElement('div');
 			card.className = 'card';
@@ -1474,7 +1696,7 @@
 				${showPopularBadge ? '<div class="card-popular-badge">🔥 Popular</div>' : ''}
 				<div class="card-thumb"><div class="card-initials">${game.n[0]}</div></div>
 				<div class="card-info">
-					<div class="card-name" style="font-size:${S.fontSize}px">${game.n}</div>
+					<div class="card-name" style="font-size:${S.fontSize}px">${highlightMatch(game.n, query)}</div>
 				</div>
 				<button class="card-fav${isFav ? ' on' : ''}">★</button>`;
 			
@@ -1489,7 +1711,10 @@
 		}
 
 		function renderGameList() {
-			const query = document.getElementById('search').value.toLowerCase().trim();
+			const searchInput = document.getElementById('search');
+			const query = searchInput.value.toLowerCase().trim();
+			document.getElementById('search-wrap').classList.toggle('has-text', query.length > 0);
+
 			const popularContainer = document.getElementById('popular-list');
 			const popularSection = document.getElementById('popular-section');
 			popularContainer.innerHTML = '';
@@ -1498,7 +1723,7 @@
 				const popularGames = getPopularGames();
 				popularSection.style.display = popularGames.length ? '' : 'none';
 				document.getElementById('popular-count').textContent = popularGames.length + ' games';
-				popularGames.forEach(game => popularContainer.appendChild(buildCard(game, true)));
+				popularGames.forEach(game => popularContainer.appendChild(buildCard(game, true, '')));
 			} else {
 				popularSection.style.display = 'none';
 			}
@@ -1511,21 +1736,36 @@
 					return favDiff !== 0 ? favDiff : a.n.localeCompare(b.n);
 				});
 
-			filtered.forEach(game => container.appendChild(buildCard(game, false)));
+			if (query && filtered.length === 0) {
+				const noResults = document.createElement('div');
+				noResults.id = 'no-results';
+				noResults.className = 'show';
+				noResults.innerHTML = `
+					<div>No games found for "<strong style="color:rgba(255,255,255,.6)">${game_escapeHtml(searchInput.value.trim())}</strong>"</div>`;
+				container.appendChild(noResults);
+			} else {
+				filtered.forEach(game => container.appendChild(buildCard(game, false, query)));
 
-			const reqCard = document.createElement('div');
-			reqCard.className = 'card request-card';
-			reqCard.style.borderRadius = S.cardRadius + 'px';
-			reqCard.innerHTML = `
-				<div class="card-thumb request-thumb"><div class="request-plus">+</div></div>
-				<div class="card-info">
-					<div class="card-name" style="font-size:${S.fontSize}px">Request a Game</div>
-					<div class="card-hint">Click to submit a request</div>
-				</div>`;
-			reqCard.addEventListener('click', () => window.open('https://forms.gle/gRRe9cCZnZ3jhg7X7', '_blank'));
-			container.appendChild(reqCard);
+				const reqCard = document.createElement('div');
+				reqCard.className = 'card request-card';
+				reqCard.style.borderRadius = S.cardRadius + 'px';
+				reqCard.innerHTML = `
+					<div class="card-thumb request-thumb"><div class="request-plus">+</div></div>
+					<div class="card-info">
+						<div class="card-name" style="font-size:${S.fontSize}px">Request a Game</div>
+						<div class="card-hint">Click to submit a request</div>
+					</div>`;
+				reqCard.addEventListener('click', () => window.open('https://forms.gle/gRRe9cCZnZ3jhg7X7', '_blank'));
+				container.appendChild(reqCard);
+			}
 
 			document.getElementById('game-count').textContent = filtered.length + ' games';
+		}
+
+		function game_escapeHtml(s) {
+			const d = document.createElement('div');
+			d.textContent = s;
+			return d.innerHTML;
 		}
 
 		function openGameModal(game) {
@@ -1751,7 +1991,32 @@
 					document.getElementById('game-modal').classList.remove('on');
 			});
 
-			document.getElementById('search').addEventListener('input', renderGameList);
+			const searchInput = document.getElementById('search');
+			const searchWrap = document.getElementById('search-wrap');
+			const searchClear = document.getElementById('search-clear');
+
+			searchInput.addEventListener('input', renderGameList);
+			searchInput.addEventListener('focus', () => searchWrap.classList.add('is-focused'));
+			searchInput.addEventListener('blur', () => searchWrap.classList.remove('is-focused'));
+			searchInput.addEventListener('keydown', e => {
+				if (e.key === 'Escape') {
+					searchInput.value = '';
+					renderGameList();
+					searchInput.blur();
+				}
+			});
+			searchClear.addEventListener('click', () => {
+				searchInput.value = '';
+				renderGameList();
+				searchInput.focus();
+			});
+			document.addEventListener('keydown', e => {
+				if (e.key === '/' && document.activeElement !== searchInput &&
+					!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
+					e.preventDefault();
+					searchInput.focus();
+				}
+			});
 
 			// Show what's new on first load
 			if (localStorage.getItem('site.whatsnew') !== WHATSNEW_VERSION) {
